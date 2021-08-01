@@ -1,27 +1,27 @@
 package holoLib;
 
 public class Member {
-    private String name; 
+    private String memeberName; 
     private LibraryCard libraryCard;
     private static int totalMember = 0;
     private boolean isMember; // check is it member, need?
 
     public Member(){
-        this.name = "";
+        this.memeberName = "";
     }
 
-    public Member(String name, LibraryCard libraryCard){
-        this.name = name;
+    public Member(String memeberName, LibraryCard libraryCard){
+        this.memeberName = memeberName;
         totalMember++;
      
     }
 
-    public void setName(String name){
-        this.name = name;
+    public void setMemeberName(String memeberName){
+        this.memeberName = memeberName;
     }
 
-    public String getName(){
-        return name;
+    public String getMemeberName(){
+        return memeberName;
     }
 
     public static int getTotalMember(){
@@ -29,7 +29,7 @@ public class Member {
     }
 
     private void registerMembership(){
-        
+
     }
 
 }

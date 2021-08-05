@@ -5,6 +5,7 @@ public class Member {
     private LibraryCard libraryCard;
     private static int totalMember = 0;
     private boolean isMember; // check is it member, need?
+    // ^no need, assume all of our customers are members by HK
 
     public Member(){
         this.memeberName = "";

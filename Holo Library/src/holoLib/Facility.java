@@ -1,24 +1,25 @@
 package holoLib;
 
 public abstract class Facility {
-    private String facilityName = "";
-    private String facilityID = "";
-    private Schedule facilitySchedule;
-    private boolean isReserved = false;
-    private static int totalFacilityQTY = 0;
+    /********** Properties **********/
+    private String facilityName = null;
+    private String facilityID = null;
+    private Schedule facilitySchedule = null;
+    private static int totalFacilities = 0;
 
+    /********** Constructors **********/
     protected Facility() {
-        totalFacilityQTY++;
+        totalFacilities++;
     }
 
-    protected Facility(String facilityName, String facilityID, Schedule facilitySchedule, boolean isReserved) {
+    protected Facility(String facilityName, String facilityID, Schedule facilitySchedule) {
         this.facilityName = facilityName;
         this.facilityID = facilityID;
         this.facilitySchedule = facilitySchedule;
-        this.isReserved = isReserved;
-        totalFacilityQTY++;
+        totalFacilities++;
     }
 
+    /********** Accessors & Mutators **********/
     public String getFacilityName() {
         return facilityName;
     }
@@ -31,12 +32,8 @@ public abstract class Facility {
         return facilitySchedule;
     }
 
-    public boolean isReserved() {
-        return isReserved;
-    }
-
     public static int getTotalFacilityQTY() {
-        return totalFacilityQTY;
+        return totalFacilities;
     }
 
     public void setFacilityName(String facilityName) {
@@ -51,16 +48,12 @@ public abstract class Facility {
         this.facilitySchedule = facilitySchedule;
     }
 
-    public void setReserved(boolean isReserved) {
-        this.isReserved = isReserved;
-    }
+    /********** Methods **********/
+    // Pending construction
 
-    public static void setTotalFacilityQTY(int totalFacilityQTY) {
-        Facility.totalFacilityQTY = totalFacilityQTY;
-    }
-
+    /********** toString() method **********/
     public String toString() {
         return "Facility Name: " + facilityName + "\nFacility ID: " + facilityID + "\nSchedule Info: "
-                + facilitySchedule.toString() + "\nReserved Status: " + isReserved;
+                + facilitySchedule.toString();
     }
 }

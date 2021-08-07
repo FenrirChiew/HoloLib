@@ -3,7 +3,7 @@ package holoLib;
 import java.util.Date;
 import java.time.LocalDate;
 
-public class Acccount {
+public class Account {
     private String username;
     private String password;
     private String name;
@@ -13,12 +13,12 @@ public class Acccount {
     private String phoneNo;
 
     // Constructor without arguments 
-    public Acccount() {
+    public Account() {
         this("", "", "", "", null, "", "");
     }
 
     // Constructor with arguments 
-    public Acccount(String username, String password, String name,String gender, Date dateOfBirth, String icNo, String phoneNo ){
+    public Account(String username, String password, String name,String gender, Date dateOfBirth, String icNo, String phoneNo ){
         this.username = username;
         this.password = password;
         this.name = name;

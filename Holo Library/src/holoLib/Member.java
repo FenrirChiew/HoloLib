@@ -2,7 +2,7 @@ package holoLib;
 
 import java.util.Date;
 
-public class Member {
+public class Member extends Account{
     private String memeberName;
     private Date DOB; 
     private String  IC;

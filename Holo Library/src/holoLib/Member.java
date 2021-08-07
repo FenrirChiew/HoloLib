@@ -3,38 +3,37 @@ package holoLib;
 import java.util.Date;
 
 public class Member extends Account{
-    private String memeberName;
-    private Date DOB; 
-    private String  IC;
     private LibraryCard libraryCard;
     private static int totalMember = 0;
     
-
+    // Constructor without arguments 
     public Member(){
-        this.memeberName = "";
+        super("", "", "", "", null, "", "");
     }
 
-    public Member(String memeberName, LibraryCard libraryCard){
-        this.memeberName = memeberName;
+    // Constructor with arguments
+    public Member(String username, String password, String name,String gender, Date dateOfBirth, String icNo, String phoneNo, LibraryCard libraryCard){
+        super(username, password, name, gender, dateOfBirth, icNo, phoneNo);
         this.libraryCard = libraryCard;
         totalMember++;
      
     }
 
-    public void setMemeberName(String memeberName){
-        this.memeberName = memeberName;
-    }
-
-    public String getMemeberName(){
-        return memeberName;
-    }
-
+    //getter 
     public static int getTotalMember(){
         return totalMember;
     }
 
-    private void registerMembership(){
+    // ~~~~~~~~~~~~~ method ~~~~~~~~~~~~~~~
 
+    // toString method 
+    public String toString(){
+        return super.toString() + libraryCard.toString() ;
+    }
+
+    // Register Membership method 
+    private void registerMembership(){
+        
     }
 
 }

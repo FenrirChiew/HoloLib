@@ -18,7 +18,7 @@ public class Account {
     }
 
     // Constructor with arguments 
-    public Account(String username, String password, String name,String gender, Date dateOfBirth, String icNo, String phoneNo ){
+    public Account(String username, String password, String name,String gender, Date dateOfBirth, String icNo, String phoneNo){
         this.username = username;
         this.password = password;
         this.name = name;
@@ -91,7 +91,7 @@ public class Account {
     // toString method 
     public String toString(){
         return "Username: " + username + "\nPassword: " + password + "\nName: " + name + "\nGender: " + gender + 
-                "Date Of Birth: " + dateOfBirth + "\nIC No: " +icNo + "\nPhone No: " + phoneNo  ;
+                "Date Of Birth: " + dateOfBirth + "\nIC No: " +icNo + "\nPhone No: " + phoneNo  + "\n";
     }
 
 }

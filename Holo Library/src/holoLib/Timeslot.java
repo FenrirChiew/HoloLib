@@ -32,6 +32,10 @@ public class Timeslot {
         return slotID;
     }
 
+    public void setSlotID(String slotID) {
+        this.slotID = slotID;
+    }
+
     public int[] getSlotCoordinate() {
         return slotCoordinate;
     }
@@ -50,10 +54,6 @@ public class Timeslot {
 
     public boolean isReserved() {
         return isReserved;
-    }
-
-    public void setSlotID(String slotID) {
-        this.slotID = slotID;
     }
 
     public void setReserved(boolean isReserved) {

@@ -27,20 +27,20 @@ public class Schedule {
         return scheduleID;
     }
 
-    public String getScheduleName() {
-        return scheduleName;
-    }
-
-    public static int getTotalSchedule() {
-        return totalSchedule;
-    }
-
     public void setScheduleID(String scheduleID) {
         this.scheduleID = scheduleID;
     }
 
+    public String getScheduleName() {
+        return scheduleName;
+    }
+
     public void setScheduleName(String scheduleName) {
         this.scheduleName = scheduleName;
+    }
+
+    public static int getTotalSchedule() {
+        return totalSchedule;
     }
 
     /********** Methods **********/
@@ -53,20 +53,20 @@ public class Schedule {
         }
     }
 
-    public int checkTotalAvaiableTimeslots() {
-        int avaiableTimeSlots = 0;
+    public int checkTotalAvailableTimeslots() {
+        int availableTimeSlots = 0;
 
         for (int i = 0; i < timeslots.length; i++) {
             for (int j = 0; j < timeslots[i].length; j++) {
-                avaiableTimeSlots += timeslots[i].length;
+                availableTimeSlots += timeslots[i].length;
 
                 if (timeslots[i][j].isReserved() == true) {
-                    avaiableTimeSlots--;
+                    availableTimeSlots--;
                 }
             }
         }
 
-        return avaiableTimeSlots;
+        return availableTimeSlots;
     }
 
     public void displaySchedule() {
@@ -76,6 +76,6 @@ public class Schedule {
     /********** toString() method **********/
     public String toString() {
         return "Schedule ID: " + scheduleID + "\nSchedule Name: " + "\nTotal Available Timeslots: "
-                + checkTotalAvaiableTimeslots();
+                + checkTotalAvailableTimeslots();
     }
 }

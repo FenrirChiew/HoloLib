@@ -8,15 +8,12 @@ public class Acccount {
     private String password;
     private String name;
     private String gender;
-    private Date dateOfBirth; 
+    private Date dateOfBirth;
     private String icNo;
     private String phoneNo;
 
-public Acccount(){
-this("", "", "", "", )
-}
-
-
-
+    public Acccount() {
+        this("", "", "", "", null, "", "");
+    }
 
 }

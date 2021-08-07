@@ -24,28 +24,28 @@ public abstract class Facility {
         return facilityName;
     }
 
-    public String getFacilityID() {
-        return facilityID;
-    }
-
-    public Schedule getFacilitySchedule() {
-        return facilitySchedule;
-    }
-
-    public static int getTotalFacilityQTY() {
-        return totalFacilities;
-    }
-
     public void setFacilityName(String facilityName) {
         this.facilityName = facilityName;
+    }
+
+    public String getFacilityID() {
+        return facilityID;
     }
 
     public void setFacilityID(String facilityID) {
         this.facilityID = facilityID;
     }
 
+    public Schedule getFacilitySchedule() {
+        return facilitySchedule;
+    }
+
     public void setFacilitySchedule(Schedule facilitySchedule) {
         this.facilitySchedule = facilitySchedule;
+    }
+
+    public static int getTotalFacilityQTY() {
+        return totalFacilities;
     }
 
     /********** Methods **********/

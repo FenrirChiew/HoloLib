@@ -5,7 +5,7 @@ import java.sql.Date;
 public class Member {
     private String memeberName;
     private Date DOB; 
-    private String  Ic;
+    private String  IC;
     private LibraryCard libraryCard;
     private static int totalMember = 0;
     

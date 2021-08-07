@@ -1,11 +1,14 @@
 package holoLib;
 
+import java.sql.Date;
+
 public class Member {
-    private String memeberName; 
+    private String memeberName;
+    private Date DOB; 
+    private String  Ic;
     private LibraryCard libraryCard;
     private static int totalMember = 0;
-    private boolean isMember; // check is it member, need?
-    // ^no need, assume all of our customers are members by HK
+    
 
     public Member(){
         this.memeberName = "";
@@ -13,6 +16,7 @@ public class Member {
 
     public Member(String memeberName, LibraryCard libraryCard){
         this.memeberName = memeberName;
+        this.libraryCard = libraryCard;
         totalMember++;
      
     }

@@ -12,10 +12,12 @@ public class Acccount {
     private String icNo;
     private String phoneNo;
 
+    // Constructor without arguments 
     public Acccount() {
         this("", "", "", "", null, "", "");
     }
 
+    // Constructor with arguments 
     public Acccount(String username, String password, String name,String gender, Date dateOfBirth, String icNo, String phoneNo ){
         this.username = username;
         this.password = password;
@@ -26,6 +28,7 @@ public class Acccount {
         this.phoneNo = phoneNo; 
     }
 
+    // Getter 
     public String getUsername() {
         return username;
     }
@@ -54,6 +57,7 @@ public class Acccount {
         return phoneNo;
     }
 
+    //Setter 
     public void setUsername(String username) {
         this.username = username;
     }
@@ -82,6 +86,12 @@ public class Acccount {
         this.phoneNo = phoneNo;
     }
 
-    
+    // ~~~~~~~~~~~~~ method ~~~~~~~~~~~~~~~
+
+    // toString method 
+    public String toString(){
+        return "Username: " + username + "\nPassword: " + password + "\nName: " + name + "\nGender: " + gender + 
+                "Date Of Birth: " + dateOfBirth + "\nIC No: " +icNo + "\nPhone No: " + phoneNo  ;
+    }
 
 }

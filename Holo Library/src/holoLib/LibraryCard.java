@@ -30,7 +30,7 @@ public class LibraryCard {
     }
 
     public String toString() {
-        return "Member ID: " + memberID + "\n Expired Date: " + memberExpDate + "\n";
+        return "Member ID: " + memberID + "\nExpired Date: " + memberExpDate + "\n";
     }
     
 }

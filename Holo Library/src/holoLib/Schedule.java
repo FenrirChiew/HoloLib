@@ -78,7 +78,19 @@ public class Schedule {
 
         System.out.printf("||           ");
         for (int j = 0; j < timeslots[0].length; j++) {
-            System.out.printf("| %02d~%02d ", timeslots[0][j].getStartTime(), timeslots[0][j].getEndTime());
+            System.out.printf("| %02d:00 ", timeslots[0][j].getStartTime(), timeslots[0][j].getEndTime());
+        }
+        System.out.printf("||\n");
+
+        System.out.printf("||           ");
+        for (int j = 0; j < timeslots[0].length; j++) {
+            System.out.printf("|   ~   ");
+        }
+        System.out.printf("||\n");
+
+        System.out.printf("||           ");
+        for (int j = 0; j < timeslots[0].length; j++) {
+            System.out.printf("| %02d:00 ", timeslots[0][j].getEndTime());
         }
         System.out.printf("||\n");
 
@@ -107,7 +119,7 @@ public class Schedule {
             }
             System.out.printf("||\n");
         }
-        
+
         System.out.printf("++===========");
         for (int j = 0; j < timeslots[0].length; j++) {
             System.out.printf("+=======");

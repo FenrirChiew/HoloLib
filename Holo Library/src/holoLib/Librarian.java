@@ -74,12 +74,12 @@ public class Librarian extends Account{
     }
 
     // Method to reload the money of the membership 
-    public LibraryCard ReloadMembership(){
+/*    public LibraryCard ReloadMembership(){
 
         Scanner sc = new Scanner(System.in);
 
         LibraryCard libraryCard = new LibraryCard();
-
+        Member[] member = new Member[4];
 
         System.out.print("Do you want to reload the money to the library card (Y= Yes N= No): ");
         char confirm = sc.nextLine().charAt(0);
@@ -87,7 +87,17 @@ public class Librarian extends Account{
         System.out.print("Please key in your member ID: ");
         String memberID = sc.nextLine();
 
-        
-    }
+        for(int i = 0; i < member.length; i++){
+
+            if(member[i].libraryCard.getMemberID() == memberID){
+                System.out.println("Mmeber Id: " + libraryCard[i].getMemberID());
+                System.out.println("Mmeber name: " + libraryCard[i]);
+                System.out.println("Mmeber Id: " + libraryCard[i].getMemberID());
+                System.out.println("Mmeber Id: " + libraryCard[i].getMemberID());
+            }
+        }
+
+      
+    }*/
 
 }

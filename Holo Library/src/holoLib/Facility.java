@@ -4,7 +4,7 @@ public abstract class Facility {
     /********** Properties **********/
     private String facilityName = null;
     private String facilityID = null;
-    private Schedule facilitySchedule = null;
+    private String facilityType = null;
     private static int totalFacilities = 0;
 
     /********** Constructors **********/
@@ -12,10 +12,10 @@ public abstract class Facility {
         totalFacilities++;
     }
 
-    protected Facility(String facilityName, String facilityID, Schedule facilitySchedule) {
+    protected Facility(String facilityName, String facilityID, String facilityType) {
         this.facilityName = facilityName;
         this.facilityID = facilityID;
-        this.facilitySchedule = facilitySchedule;
+        this.facilityType = facilityType;
         totalFacilities++;
     }
 
@@ -36,12 +36,12 @@ public abstract class Facility {
         this.facilityID = facilityID;
     }
 
-    public Schedule getFacilitySchedule() {
-        return facilitySchedule;
+    public String getFacilityType() {
+        return facilityType;
     }
 
-    public void setFacilitySchedule(Schedule facilitySchedule) {
-        this.facilitySchedule = facilitySchedule;
+    public void setFacilityType(String facilityType) {
+        this.facilityType = facilityType;
     }
 
     public static int getTotalFacilityQTY() {
@@ -49,11 +49,7 @@ public abstract class Facility {
     }
 
     /********** Methods **********/
-    // Pending construction
-
-    /********** toString() method **********/
     public String toString() {
-        return "Facility Name: " + facilityName + "\nFacility ID: " + facilityID + "\nSchedule Info: "
-                + facilitySchedule.toString();
+        return "Facility Name: " + facilityName + "\nFacility ID: " + facilityID + "\nFacility Type: " + facilityType;
     }
 }

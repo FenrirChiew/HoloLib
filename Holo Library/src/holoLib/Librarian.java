@@ -33,19 +33,24 @@ public class Librarian extends Account{
         if(confirm == 'Y'){
             System.out.print("Name: ");
             String name = sc.nextLine();
+            member.setName(name);
 
             System.out.print("IC No: ");
             String icNo = sc.nextLine();
+            member.setIcNo(icNo);
 
             System.out.print("Gender: ");
             String gender= sc.nextLine();
+            member.setGender(gender);
 
             System.out.print("Date Of Birth: ");
             String dateOfBirth = sc.nextLine();
             Date dob = ConvertToDate(dateOfBirth); 
+            member.setDateOfBirth(dob);
 
             System.out.print("Phone No: ");
             String phoneNo= sc.nextLine();
+            member.setPhoneNo(phoneNo);
 
             System.out.print("Do you confirm want to register to be a member (Y= Yes N= No): ");
             char doubleConfirm = sc.nextLine().charAt(0);
@@ -61,8 +66,7 @@ public class Librarian extends Account{
         else{
             System.out.println("You are not ready to register a membership.");
         }
-
-        // got some prob
+        // default how to return? 
         return member;
     }
 
@@ -90,10 +94,10 @@ public class Librarian extends Account{
         for(int i = 0; i < member.length; i++){
 
             if(member[i].libraryCard.getMemberID() == memberID){
-                System.out.println("Mmeber Id: " + libraryCard[i].getMemberID());
-                System.out.println("Mmeber name: " + libraryCard[i]);
-                System.out.println("Mmeber Id: " + libraryCard[i].getMemberID());
-                System.out.println("Mmeber Id: " + libraryCard[i].getMemberID());
+                System.out.println("Member Id: " + libraryCard[i].getMemberID());
+                System.out.println("Member name: " + libraryCard[i]);
+                System.out.println("Member Id: " + libraryCard[i].getMemberID());
+                System.out.println("Member Id: " + libraryCard[i].getMemberID());
             }
         }
 

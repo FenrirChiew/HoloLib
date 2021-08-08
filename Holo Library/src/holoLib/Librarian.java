@@ -4,8 +4,22 @@ import java.util.Scanner;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
-public class Librarian {
+public class Librarian extends Account{
+    private String position;
+    private static int totalLibrarian; 
 
+    //Constructor without arguments
+    public Librarian(){
+        super("", "", "", "", null, "", "");
+        this.position = "";
+    }
+
+    //Constructor with arguments 
+    public Librarian(String username, String password, String name,String gender, Date dateOfBirth, String icNo, String phoneNo, String position){
+        super(username, password, name, gender, dateOfBirth, icNo, phoneNo);
+        this.position = position;
+        totalLibrarian++;
+    }
 
     // Register Membership method 
     public Member registerMembership(){

@@ -4,29 +4,29 @@ import java.util.Date;
 
 public class Book extends ReadingMaterial {
     /*Data Field*/
-    private String type;
+    private String bookType;
 
     /*Constructor*/
     public Book(){}
 
-    public Book(String code, String title, String language, String author, String publisher, Date publicationDate, double price, String status, String type) {
-        super(code, title, language, author, publisher, publicationDate, price, status);
-        this.type = type;
+    public Book(String readingMaterialCode, String readingMaterialTitle, String readingMaterialLanguage, String readingMaterialAuthor, String readingMaterialPublisher, Date readingMaterialPublicationDate, double readingMaterialPrice, String readingMaterialStatus, String bookType) {
+        super(readingMaterialCode, readingMaterialTitle, readingMaterialLanguage, readingMaterialAuthor, readingMaterialPublisher, readingMaterialPublicationDate, readingMaterialPrice, readingMaterialStatus);
+        this.bookType = bookType;
     }
 
     /*Getter & Setter*/
-    public String getType() {
-        return type;
+    public String getBookType() {
+        return bookType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setBookType(String bookType) {
+        this.bookType = bookType;
     }
 
     /*Method*/
     @Override
     public String toString() {
         return super.toString() +
-                "Book Type: " + type;
+                "Book Type: " + bookType;
     }
 }

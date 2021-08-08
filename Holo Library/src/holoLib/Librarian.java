@@ -31,26 +31,23 @@ public class Librarian extends Account{
         char confirm = sc.nextLine().charAt(0);
 
         if(confirm == 'Y'){
+            
+
             System.out.print("Name: ");
             String name = sc.nextLine();
-            member.setName(name);
-
+           
             System.out.print("IC No: ");
             String icNo = sc.nextLine();
-            member.setIcNo(icNo);
-
+            
             System.out.print("Gender: ");
             String gender= sc.nextLine();
-            member.setGender(gender);
-
+           
             System.out.print("Date Of Birth: ");
             String dateOfBirth = sc.nextLine();
             Date dob = ConvertToDate(dateOfBirth); 
-            member.setDateOfBirth(dob);
 
             System.out.print("Phone No: ");
             String phoneNo= sc.nextLine();
-            member.setPhoneNo(phoneNo);
 
             System.out.print("Do you confirm want to register to be a member (Y= Yes N= No): ");
             char doubleConfirm = sc.nextLine().charAt(0);
@@ -58,6 +55,12 @@ public class Librarian extends Account{
             // here need to store above variable to the member there, still figured out 
             if(doubleConfirm == 'Y'){
                 System.out.println("You had success to add a member!!");
+                member.setName(name);
+                member.setIcNo(icNo);
+                member.setGender(gender);
+                member.setDateOfBirth(dob);
+                member.setPhoneNo(phoneNo);
+
             }
             else{
                 System.out.println("You had not add a member!!");
@@ -103,5 +106,8 @@ public class Librarian extends Account{
 
       
     }*/
+
+    //Method to renew the membership 
+
 
 }

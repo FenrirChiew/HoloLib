@@ -1,9 +1,10 @@
 package holoLib;
 
 public class LibraryCard {
-    private String memberID; 
+    private String memberID;  
     private String memberExpDate; 
-    private double cardBalnace; 
+    private double cardBalance; 
+    private static String nextMemberID;  
 
      // Constructor without arguments 
     public LibraryCard(){
@@ -11,14 +12,15 @@ public class LibraryCard {
     }
 
     // Constructor with arguments 
-    public LibraryCard(String memberID, String memberExpDate, double caedBalance){
+    public LibraryCard(String memberID, String memberExpDate, double cardBalance){
         this.memberID = memberID;
         this.memberExpDate = memberExpDate;
-        this.cardBalnace = caedBalance;
+        this.cardBalance = cardBalance;
+        // this.memberID = String.format("M00%02d")
     }
 
     //Setter
-    public void setId(String memberID){
+    public void setMemberID(String memberID){
         this.memberID = memberID;
     }
 
@@ -26,9 +28,9 @@ public class LibraryCard {
         this.memberExpDate = memberExpDate;
     }
 
-    public void setCardBalnace(double cardBalnace) {
-        this.cardBalnace = cardBalnace;
-    }
+    public void setcardBalance(double cardBalance) {
+        this.cardBalance = cardBalance; 
+    } 
 
     //Getter
     public String getMemberID(){
@@ -39,8 +41,8 @@ public class LibraryCard {
         return memberExpDate;
     }
 
-    public double getCardBalnace() {
-        return cardBalnace;
+    public double getcardBalance() {
+        return cardBalance;
     }
 
     // ~~~~~~~~~~~~~ method ~~~~~~~~~~~~~~~
@@ -48,6 +50,11 @@ public class LibraryCard {
     // toString method 
     public String toString() {
         return "Member ID: " + memberID + "\nExpired Date: " + memberExpDate + "\n";
+    }
+
+    //next memberId method
+    public static String nextMemberID(){
+        return nextMemberID; 
     }
     
 }

@@ -1,5 +1,11 @@
 package holoLib;
 
-public class StudyArea {
-    
+public class StudyArea extends Facility {
+    /********** Properties **********/
+
+    /********** Constructors **********/
+
+    /********** Accessors & Mutators **********/
+
+    /********** Methods **********/
 }

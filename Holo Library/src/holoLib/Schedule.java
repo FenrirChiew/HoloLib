@@ -70,7 +70,49 @@ public class Schedule {
     }
 
     public void displaySchedule() {
+        System.out.printf("++===========");
+        for (int j = 0; j < timeslots[0].length; j++) {
+            System.out.printf("+=======");
+        }
+        System.out.printf("++\n");
 
+        System.out.printf("||           ");
+        for (int j = 0; j < timeslots[0].length; j++) {
+            System.out.printf("| %02d~%02d ", timeslots[0][j].getStartTime(), timeslots[0][j].getEndTime());
+        }
+        System.out.printf("||\n");
+
+        for (int i = 0; i < timeslots.length; i++) {
+            System.out.printf("++-----------");
+            for (int j = 0; j < timeslots[0].length; j++) {
+                System.out.printf("+-------");
+            }
+            System.out.printf("++\n");
+
+            System.out.printf("||           ");
+            for (int j = 0; j < timeslots[i].length; j++) {
+                System.out.printf("| %5s ", timeslots[i][j].getSlotID());
+            }
+            System.out.printf("||\n");
+
+            System.out.printf("|| %-9s ", Weekdays.values()[i]);
+            for (int j = 0; j < timeslots[i].length; j++) {
+                System.out.printf("|       ");
+            }
+            System.out.printf("||\n");
+
+            System.out.printf("||           ");
+            for (int j = 0; j < timeslots[i].length; j++) {
+                System.out.printf("|   %c   ", timeslots[i][j].isReserved() == true ? '\u2718' : '\u2714');
+            }
+            System.out.printf("||\n");
+        }
+        
+        System.out.printf("++===========");
+        for (int j = 0; j < timeslots[0].length; j++) {
+            System.out.printf("+=======");
+        }
+        System.out.printf("++\n");
     }
 
     /********** toString() method **********/

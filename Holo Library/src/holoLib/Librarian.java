@@ -21,10 +21,11 @@ public class Librarian extends Account{
         totalLibrarian++;
     }
 
-    // Register Membership method 
-    public Member registerMembership(){
+    // Register Membership method  (havent finish)
+    public Member registerMembership() throws Exception{
 
         Scanner sc = new Scanner(System.in);
+        Member member = new Member();
 
         System.out.print("Do you want to register a membership (Y= yes N= No)? ");
         char confirm = sc.nextLine().charAt(0);
@@ -41,20 +42,28 @@ public class Librarian extends Account{
 
             System.out.print("Date Of Birth: ");
             String dateOfBirth = sc.nextLine();
-            Date dob = ConvertToDate(dateOfBirth);  // still figured out how to convert
+            Date dob = ConvertToDate(dateOfBirth); 
 
             System.out.print("Phone No: ");
             String phoneNo= sc.nextLine();
 
             System.out.print("Do you confirm want to register to be a member (Y= Yes N= No): ");
             char doubleConfirm = sc.nextLine().charAt(0);
+            
+            // here need to store above variable to the member there, still figured out 
             if(doubleConfirm == 'Y'){
                 System.out.println("You had success to add a member!!");
-                
+            }
+            else{
+                System.out.println("You had not add a member!!");
             }
         }
+        else{
+            System.out.println("You are not ready to register a membership.");
+        }
 
-
+        // got some prob
+        return member;
     }
 
     // Convert String to Date
@@ -63,4 +72,22 @@ public class Librarian extends Account{
 
         return dob;
     }
+
+    // Method to reload the money of the membership 
+    public LibraryCard ReloadMembership(){
+
+        Scanner sc = new Scanner(System.in);
+
+        LibraryCard libraryCard = new LibraryCard();
+
+
+        System.out.print("Do you want to reload the money to the library card (Y= Yes N= No): ");
+        char confirm = sc.nextLine().charAt(0);
+
+        System.out.print("Please key in your member ID: ");
+        String memberID = sc.nextLine();
+
+        
+    }
+
 }

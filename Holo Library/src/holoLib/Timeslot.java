@@ -61,8 +61,14 @@ public class Timeslot {
     }
 
     /********** Methods **********/
+    public void displayTimeSlot() {
+        System.out.printf("+-------+\n");
+        System.out.printf("| %5s |\n", slotID);
+        System.out.printf("|       |\n");
+        System.out.printf("|   %c   |\n", isReserved == true ? '\u2718' : '\u2714');
+        System.out.printf("+-------+\n");
+    }
 
-    /********** toString() method **********/
     public String toString() {
         return "Slot ID: " + slotID + "\nWeekday: " + weekdays + "\nStart Time: " + startTime + "\nEnd Time: " + endTime
                 + "\nReserved Status: " + isReserved;

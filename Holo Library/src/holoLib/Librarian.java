@@ -97,6 +97,7 @@ public class Librarian extends Account{
         System.out.print("Do you want to reload the money to the library card (Y= Yes N= No): ");
         char confirm = sc.nextLine().charAt(0);
 
+        if(confirm == 'Y'){
         System.out.print("Please key in your member ID: ");
         String memberID = sc.nextLine();
 
@@ -111,20 +112,40 @@ public class Librarian extends Account{
 
         System.out.print("How much do you want to reload: RM ");
         double reloadMoney = sc.nextDouble();
+        
+        System.out.printf("Do you confirm want to reload RM %.2f into %s 's account (Y= yes N= No)? ",reloadMoney, name);
+        char doubleConfirm = sc.nextLine().charAt(0);
+
+        if(doubleConfirm == 'Y'){
 
         double balance = libraryCard.getcardBalance();
 
-        double newBalance += balance; 
+        double newBalance = newBalance + balance;
         
-        System.out.printf("Do you confirm want to reload RM %.2f into %s 's account (Y= yes N= No)? ",reloadMoney, name);
-      
+        libraryCard.setcardBalance(newBalance);
+
+        }
+        else{
+            System.out.println("You have not reload the money successful!!");
+        }
+    }
+    else{
+        System.out.println("You have not ready to reload the money.");
+    }
+      return libraryCard;
     }
 
     //Method to renew the membership 
     public LibraryCard RenewMembership(){
+
         Scanner sc = new Scanner(System.in);
 
-        
+        System.out.print("Do you want to renew the membership (Y= Yes N= No): ");
+        char confirm = sc.nextLine().charAt(0);
+
+        if(confirm == 'Y'){
+            System.out.print("");
+        }
     }
 
 }

@@ -31,7 +31,6 @@ public class Librarian extends Account{
         char confirm = sc.nextLine().charAt(0);
 
         if(confirm == 'Y'){
-            
 
             System.out.print("Name: ");
             String name = sc.nextLine();
@@ -40,19 +39,25 @@ public class Librarian extends Account{
             String icNo = sc.nextLine();
             
             System.out.print("Gender: ");
-            String gender= sc.nextLine();
+            String gender = sc.nextLine();
            
             System.out.print("Date Of Birth: ");
             String dateOfBirth = sc.nextLine();
             Date dob = ConvertToDate(dateOfBirth); 
 
             System.out.print("Phone No: ");
-            String phoneNo= sc.nextLine();
+            String phoneNo = sc.nextLine();
+
+            System.out.print("Username: ");
+            String username = sc.nextLine();
+
+            System.out.print("Password: ");
+            String password = sc.nextLine();
 
             System.out.print("Do you confirm want to register to be a member (Y= Yes N= No): ");
             char doubleConfirm = sc.nextLine().charAt(0);
             
-            // here need to store above variable to the member there, still figured out 
+            // store the data inside to the member 
             if(doubleConfirm == 'Y'){
                 System.out.println("You had success to add a member!!");
                 member.setName(name);
@@ -60,7 +65,8 @@ public class Librarian extends Account{
                 member.setGender(gender);
                 member.setDateOfBirth(dob);
                 member.setPhoneNo(phoneNo);
-
+                member.setUsername(username);
+                member.setPassword(password);
             }
             else{
                 System.out.println("You had not add a member!!");
@@ -69,7 +75,7 @@ public class Librarian extends Account{
         else{
             System.out.println("You are not ready to register a membership.");
         }
-        // default how to return? 
+        //default will return null data in the member, while confirm then after set can return the value  
         return member;
     }
 
@@ -81,7 +87,7 @@ public class Librarian extends Account{
     }
 
     // Method to reload the money of the membership 
-/*    public LibraryCard ReloadMembership(){
+    public LibraryCard ReloadMembership(){
 
         Scanner sc = new Scanner(System.in);
 
@@ -96,18 +102,29 @@ public class Librarian extends Account{
 
         for(int i = 0; i < member.length; i++){
 
-            if(member[i].libraryCard.getMemberID() == memberID){
-                System.out.println("Member Id: " + libraryCard[i].getMemberID());
-                System.out.println("Member name: " + libraryCard[i]);
-                System.out.println("Member Id: " + libraryCard[i].getMemberID());
-                System.out.println("Member Id: " + libraryCard[i].getMemberID());
+            if(libraryCard.getMemberID() == memberID){
+                System.out.println("Member Id: " + libraryCard.getMemberID());
+                System.out.println("Member name: " + member[i].getName());
+                String name = member[i].getName(); //store into a variable (not sure)
             }
         }
 
+        System.out.print("How much do you want to reload: RM ");
+        double reloadMoney = sc.nextDouble();
+
+        double balance = libraryCard.getcardBalance();
+
+        double newBalance += balance; 
+        
+        System.out.printf("Do you confirm want to reload RM %.2f into %s 's account (Y= yes N= No)? ",reloadMoney, name);
       
-    }*/
+    }
 
     //Method to renew the membership 
+    public LibraryCard RenewMembership(){
+        Scanner sc = new Scanner(System.in);
 
+        
+    }
 
 }

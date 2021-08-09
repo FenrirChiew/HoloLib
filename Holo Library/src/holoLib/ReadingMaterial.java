@@ -4,115 +4,120 @@ import java.util.Date;
 
 public abstract class ReadingMaterial {
     /*Data Field*/
-    private String code;
-    private String title;
-    private String language;
-    private String author;
-    private String publisher;
-    private Date publicationDate;
-    private double price;
-    private String status;
+    private String readingMaterialCode;
+    private String readingMaterialTitle;
+    private String readingMaterialLanguage;
+    private String readingMaterialAuthor;
+    private String readingMaterialPublisher;
+    private Date readingMaterialPublicationDate;
+    private double readingMaterialPrice;
+    private String readingMaterialStatus;
+    private static int totalNumOfReadingMaterial = 0;
 
-    private static int MAX_BORROW_DATE;
+    private static int MAX_BORROW_DATE; // no getter & setter
 
     /*Constructor*/
-    protected ReadingMaterial(){}
+    protected ReadingMaterial(){
+        totalNumOfReadingMaterial++;
+    }
 
-    protected ReadingMaterial(String code, String title, String language, String author, String publisher, Date publicationDate, double price, String status) {
-        this.code = code;
-        this.title = title;
-        this.language = language;
-        this.author = author;
-        this.publisher = publisher;
-        this.publicationDate = publicationDate;
-        this.price = price;
-        this.status = status;
+    protected ReadingMaterial(String readingMaterialCode, String readingMaterialTitle, String readingMaterialLanguage, String readingMaterialAuthor, String readingMaterialPublisher, Date readingMaterialPublicationDate, double readingMaterialPrice, String readingMaterialStatus) {
+        this.readingMaterialCode = readingMaterialCode;
+        this.readingMaterialTitle = readingMaterialTitle;
+        this.readingMaterialLanguage = readingMaterialLanguage;
+        this.readingMaterialAuthor = readingMaterialAuthor;
+        this.readingMaterialPublisher = readingMaterialPublisher;
+        this.readingMaterialPublicationDate = readingMaterialPublicationDate;
+        this.readingMaterialPrice = readingMaterialPrice;
+        this.readingMaterialStatus = readingMaterialStatus;
+
+        totalNumOfReadingMaterial++;
     }
 
     /*Getter & Setter*/
-    public String getCode() {
-        return code;
+    public String getReadingMaterialCode() {
+        return readingMaterialCode;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public String getReadingMaterialTitle() {
+        return readingMaterialTitle;
     }
 
-    public String getTitle() {
-        return title;
+    public String getReadingMaterialLanguage() {
+        return readingMaterialLanguage;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public String getReadingMaterialAuthor() {
+        return readingMaterialAuthor;
     }
 
-    public String getLanguage() {
-        return language;
+    public String getReadingMaterialPublisher() {
+        return readingMaterialPublisher;
     }
 
-    public void setLanguage(String language) {
-        this.language = language;
+    public Date getReadingMaterialPublicationDate() {
+        return readingMaterialPublicationDate;
     }
 
-    public String getAuthor() {
-        return author;
+    public double getReadingMaterialPrice() {
+        return readingMaterialPrice;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public String getReadingMaterialStatus() {
+        return readingMaterialStatus;
     }
 
-    public String getPublisher() {
-        return publisher;
+    public static int getTotalNumOfReadingMaterial(){
+        return totalNumOfReadingMaterial;
     }
 
-    public void setPublisher(String publisher) {
-        this.publisher = publisher;
+    public void setReadingMaterialCode(String readingMaterialCode) {
+        this.readingMaterialCode = readingMaterialCode;
     }
 
-    public Date getPublicationDate() {
-        return publicationDate;
+    public void setReadingMaterialTitle(String readingMaterialTitle) {
+        this.readingMaterialTitle = readingMaterialTitle;
     }
 
-    public void setPublicationDate(Date publicationDate) {
-        this.publicationDate = publicationDate;
+    public void setReadingMaterialLanguage(String readingMaterialLanguage) {
+        this.readingMaterialLanguage = readingMaterialLanguage;
     }
 
-    public double getPrice() {
-        return price;
+    public void setReadingMaterialAuthor(String readingMaterialAuthor) {
+        this.readingMaterialAuthor = readingMaterialAuthor;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setReadingMaterialPublisher(String readingMaterialPublisher) {
+        this.readingMaterialPublisher = readingMaterialPublisher;
     }
 
-    public String getStatus() {
-        return status;
+    public void setReadingMaterialPublicationDate(Date readingMaterialPublicationDate) {
+        this.readingMaterialPublicationDate = readingMaterialPublicationDate;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setReadingMaterialPrice(double readingMaterialPrice) {
+        this.readingMaterialPrice = readingMaterialPrice;
     }
 
-    public static int getMaxBorrowDate() {
-        return MAX_BORROW_DATE;
+    public void setReadingMaterialStatus(String readingMaterialStatus) {
+        this.readingMaterialStatus = readingMaterialStatus;
     }
 
-    public static void setMaxBorrowDate(int maxBorrowDate) {
-        MAX_BORROW_DATE = maxBorrowDate;
+    public static void setTotalNumOfReadingMaterial(int totalNumOfReadingMaterial) {
+        ReadingMaterial.totalNumOfReadingMaterial = totalNumOfReadingMaterial;
     }
 
     /*Method*/
     public String toString() {
-        return "ReadingMaterial" +
-                "===============" +
-                "Code: " + code + "\n" +
-                "Title: " + title +  "\n" +
-                "Language: " + language +  "\n" +
-                "Author: " + author +  "\n" +
-                "Publisher: " + publisher +  "\n" +
-                "PublicationDate: " + publicationDate + "\n" +
-                "Price: " + price + "\n" +
-                "Status: " + status + "\n";
+        return "Reading Material" +
+                "================" +
+                "Code: " + readingMaterialCode + "\n" +
+                "Title: " + readingMaterialTitle +  "\n" +
+                "Language: " + readingMaterialLanguage +  "\n" +
+                "Author: " + readingMaterialAuthor +  "\n" +
+                "Publisher: " + readingMaterialPublisher +  "\n" +
+                "PublicationDate: " + readingMaterialPublicationDate + "\n" +
+                "Price: " + readingMaterialPrice + "\n" +
+                "Status: " + readingMaterialStatus + "\n";
     }
 }

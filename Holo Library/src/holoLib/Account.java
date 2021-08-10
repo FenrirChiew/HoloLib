@@ -4,13 +4,13 @@ import java.util.Date;
 import java.time.LocalDate;
 
 public class Account {
-    private String username;
-    private String password;
-    private String name;
-    private String gender;
-    private Date dateOfBirth;
-    private String icNo;
-    private String phoneNo;
+    protected String username;
+    protected String password;
+    protected String name;
+    protected String gender;
+    protected Date dateOfBirth;
+    protected String icNo;
+    protected String phoneNo;
 
     // Constructor without arguments 
     public Account() {

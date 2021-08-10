@@ -26,6 +26,10 @@ public class Member extends Account{
         return totalMember;
     }
 
+    public LibraryCard getLibraryCard() {
+        return libraryCard;
+    }
+
     // ~~~~~~~~~~~~~ method ~~~~~~~~~~~~~~~
 
     // toString method 

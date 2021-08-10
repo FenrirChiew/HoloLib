@@ -87,11 +87,15 @@ public class Librarian extends Account{
     }
 
     // Method to reload the money of the membership 
-    public LibraryCard ReloadMembership(){
+    public void ReloadMembership(LibraryCard libraryCard){
+        // search id is another method (return index id)--> search memberIDby Id
+        // member.getlibraryCard 
+        // input how much money --> main 
+        // reload --> libraryCard.setbalance (set balance)
 
         Scanner sc = new Scanner(System.in);
 
-        LibraryCard libraryCard = new LibraryCard();
+        libraryCard = new LibraryCard();
         Member[] member = new Member[4];
 
         System.out.print("Do you want to reload the money to the library card (Y= Yes N= No): ");
@@ -103,7 +107,7 @@ public class Librarian extends Account{
 
         for(int i = 0; i < member.length; i++){
 
-            if(libraryCard.getMemberID() == memberID){
+            if(member[i]. == memberID){
                 System.out.println("Member Id: " + libraryCard.getMemberID());
                 System.out.println("Member name: " + member[i].getName());
                 String name = member[i].getName(); //store into a variable (not sure)

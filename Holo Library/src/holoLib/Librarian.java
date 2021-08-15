@@ -102,16 +102,7 @@ public class Librarian extends Account{
         char confirm = sc.nextLine().charAt(0);
 
         if(confirm == 'Y'){
-        System.out.print("Please key in your member ID: ");
-        String memberID = sc.nextLine();
-
-        for(int i = 0; i < member.length; i++){
-
-            if(member[i]. == memberID){
-                System.out.println("Member Id: " + libraryCard.getMemberID());
-                System.out.println("Member name: " + member[i].getName());
-                String name = member[i].getName(); //store into a variable (not sure)
-            }
+            SearchMemberID();
         }
 
         System.out.print("How much do you want to reload: RM ");
@@ -136,7 +127,26 @@ public class Librarian extends Account{
     else{
         System.out.println("You have not ready to reload the money.");
     }
-      return libraryCard;
+    }
+
+    public void SearchMemberID(){
+
+        Scanner sc = new Scanner(System.in);
+        Member[] member = new Member[3];
+
+        System.out.print("Please key in your member ID: ");
+        String memberID = sc.nextLine();
+
+        for(int i = 0; i < member.length; i++){
+
+            if(member[i].getLibraryCard().getMemberID() == memberID){
+                System.out.println("Member Id: " + member[i].getLibraryCard().getMemberID());
+                System.out.println("Member name: " + member[i].getName());
+            }
+            else{
+                System.out.println("You had key in wrong member ID!");
+            }
+            }
     }
 
     //Method to renew the membership 

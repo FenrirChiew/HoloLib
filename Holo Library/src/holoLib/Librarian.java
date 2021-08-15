@@ -1,6 +1,7 @@
 package holoLib;
 
 import java.util.Scanner;
+import java.util.jar.Attributes.Name;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
@@ -103,12 +104,11 @@ public class Librarian extends Account{
 
         if(confirm == 'Y'){
             SearchMemberID();
-        }
 
         System.out.print("How much do you want to reload: RM ");
         double reloadMoney = sc.nextDouble();
         
-        System.out.printf("Do you confirm want to reload RM %.2f into %s 's account (Y= yes N= No)? ",reloadMoney, name);
+        System.out.printf("Do you confirm want to reload RM %.2f into %s 's account (Y= yes N= No)? ",reloadMoney, );  // cant pass the name to here
         char doubleConfirm = sc.nextLine().charAt(0);
 
         if(doubleConfirm == 'Y'){
@@ -129,10 +129,11 @@ public class Librarian extends Account{
     }
     }
 
-    public void SearchMemberID(){
+    public String SearchMemberID(){
 
         Scanner sc = new Scanner(System.in);
         Member[] member = new Member[3];
+        String name;
 
         System.out.print("Please key in your member ID: ");
         String memberID = sc.nextLine();
@@ -142,24 +143,50 @@ public class Librarian extends Account{
             if(member[i].getLibraryCard().getMemberID() == memberID){
                 System.out.println("Member Id: " + member[i].getLibraryCard().getMemberID());
                 System.out.println("Member name: " + member[i].getName());
+                name = member[i].getName();
             }
             else{
                 System.out.println("You had key in wrong member ID!");
             }
             }
+            return name; //dk why cant return this 
     }
 
     //Method to renew the membership 
     public LibraryCard RenewMembership(){
 
         Scanner sc = new Scanner(System.in);
+        LibraryCard libraryCard = new LibraryCard();
 
         System.out.print("Do you want to renew the membership (Y= Yes N= No): ");
         char confirm = sc.nextLine().charAt(0);
 
         if(confirm == 'Y'){
-            System.out.print("");
+            SearchMemberID();
+            RenewMembership();
+            char choices = sc.nextLine().charAt(0);
+            switch(choices){
+                case 1: 
+              //  libraryCard.setExpDate(); // how to add 1 year into the date? 
+            }
         }
+        else{
+            System.out.println("You are not ready to renew membership!");
+        }
+
+        return libraryCard;
+    }
+
+    public void RenewMembershipMenu(){
+        System.out.println(" __________________________________________");
+        System.out.println("|         Menu For Renew Membership        |");
+        System.out.println("|------------------------------------------|");
+        System.out.println("| 1. Renew For 1 year (RM 20.00)           |");
+        System.out.println("| 2. Renew For 2 year (RM 30.00)           |");
+        System.out.println("| 3. Renew For 3 year and above (RM 35.00) |");
+        System.out.println(" __________________________________________");
+
+        System.out.println("\nChoices: ");
     }
 
 }

@@ -2,9 +2,6 @@ package holoLib;
 
 import java.util.Scanner;
 import java.util.jar.Attributes.Name;
-
-import javax.lang.model.util.ElementScanner14;
-
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -183,7 +180,7 @@ public class Librarian extends Account{
         }
 
         return libraryCard;
-}
+    }
 
     public void RenewMembershipMenu(){
         System.out.println(" __________________________________________");

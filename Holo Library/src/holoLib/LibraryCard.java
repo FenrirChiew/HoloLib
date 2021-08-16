@@ -4,7 +4,7 @@ public class LibraryCard {
     private String memberID;  
     private String memberExpDate; 
     private double cardBalance; 
-    private static String nextMemberID;  
+    // private static String nextMemberID;  
 
      // Constructor without arguments 
     public LibraryCard(){
@@ -13,7 +13,8 @@ public class LibraryCard {
 
     // Constructor with arguments 
     public LibraryCard(String memberID, String memberExpDate, double cardBalance){
-        this.memberID = memberID;
+        //this.memberID = memberID;
+        this.memberID = String.format("M00%02d", memberID + 1);
         this.memberExpDate = memberExpDate;
         this.cardBalance = cardBalance;
         // this.memberID = String.format("M00%02d")
@@ -53,8 +54,8 @@ public class LibraryCard {
     }
 
     //next memberId method
-    public static String nextMemberID(){
+    /* public static String nextMemberID(){
         return nextMemberID; 
-    }
+    } */
     
 }

@@ -1,14 +1,11 @@
 package holoLib;
 
-import java.util.Date;
-import java.time.LocalDate;
-
 public class Account {
     private String username;
     private String password;
     private String name;
     private String gender;
-    private Date dateOfBirth;
+    private String dateOfBirth;
     private String icNo;
     private String phoneNo;
 
@@ -18,7 +15,7 @@ public class Account {
     }
 
     // Constructor with arguments 
-    public Account(String username, String password, String name,String gender, Date dateOfBirth, String icNo, String phoneNo){
+    public Account(String username, String password, String name,String gender, String dateOfBirth, String icNo, String phoneNo){
         this.username = username;
         this.password = password;
         this.name = name;
@@ -45,7 +42,7 @@ public class Account {
         return gender;
     }
 
-    public Date getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
@@ -74,7 +71,7 @@ public class Account {
         this.gender = gender;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

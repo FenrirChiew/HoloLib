@@ -1,8 +1,6 @@
 package holoLib;
 
 import java.util.Scanner;
-import java.util.Date;
-import java.text.SimpleDateFormat;
 
 public class Member extends Account{
     private LibraryCard libraryCard;
@@ -14,7 +12,7 @@ public class Member extends Account{
     }
 
     // Constructor with arguments
-    public Member(String username, String password, String name,String gender, Date dateOfBirth, String icNo, String phoneNo, LibraryCard libraryCard){
+    public Member(String username, String password, String name,String gender, String dateOfBirth, String icNo, String phoneNo, LibraryCard libraryCard){
         super(username, password, name, gender, dateOfBirth, icNo, phoneNo);
         this.libraryCard = libraryCard;
         totalMember++;

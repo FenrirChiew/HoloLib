@@ -13,7 +13,7 @@ public class holoLib {
 
         sc.close();
     }
-
+    
     public static void cls() {
         System.out.print("\033[H\033[2J");
         // \033 - escape character (ECS)

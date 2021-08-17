@@ -1,61 +1,108 @@
 package holoLib;
 
 public class LibraryCard {
-    private String memberID;  
-    private String memberExpDate; 
-    private double cardBalance; 
-    // private static String nextMemberID;  
+    /********** Properties **********/
+    private String cardNO; // Library Card Number
+    private String pinNo; // Pin Number
+    private String memberExpDate; // Membership Expire Date
+    private double cardBalance; // Library Card Balance
+    private ReservedTimeslot[] reservedTimeSlots; // Reserved Time Slots
+    private BookBorrowed[] booksBorrowed; // Books Borrowed
+    private Timeslot[] reservedHistory; // Reserved History
+    private ReadingMaterial[] borrowedHistory; // Borrowed History
 
-     // Constructor without arguments 
-    public LibraryCard(){
-        this("", "", 0.0);
+    /********** Constructors **********/
+    public LibraryCard() {
+        this("", "", "", 0.0, null, null, null, null);
     }
 
-    // Constructor with arguments 
-    public LibraryCard(String memberID, String memberExpDate, double cardBalance){
-        //this.memberID = memberID;
-        this.memberID = String.format("M00%02d", memberID + 1);
+    public LibraryCard(String cardNO, String pinNo, String memberExpDate, double cardBalance,
+            ReservedTimeslot[] reservedTimeSlots, BookBorrowed[] booksBorrowed, Timeslot[] reservedHistory,
+            ReadingMaterial[] borrowedHistory) {
+        this.cardNO = cardNO;
+        this.pinNo = pinNo;
         this.memberExpDate = memberExpDate;
         this.cardBalance = cardBalance;
-        // this.memberID = String.format("M00%02d")
+        this.reservedTimeSlots = reservedTimeSlots;
+        this.booksBorrowed = booksBorrowed;
+        this.reservedHistory = reservedHistory;
+        this.borrowedHistory = borrowedHistory;
     }
 
-    //Setter
-    public void setMemberID(String memberID){
-        this.memberID = memberID;
+    /********** Accessors & Mutators **********/
+    public String getCardNO() {
+        return cardNO;
     }
 
-    public void setExpDate(String memberExpDate){
-        this.memberExpDate = memberExpDate;
+    public void setCardNO(String cardNO) {
+        this.cardNO = cardNO;
     }
 
-    public void setcardBalance(double cardBalance) {
-        this.cardBalance = cardBalance; 
-    } 
-
-    //Getter
-    public String getMemberID(){
-        return memberID;
+    public String getPinNo() {
+        return pinNo;
     }
 
-    public String getMemberExpDate(){
+    public void setPinNo(String pinNo) {
+        this.pinNo = pinNo;
+    }
+
+    public String getMemberExpDate() {
         return memberExpDate;
+    }
+
+    public void setExpDate(String memberExpDate) {
+        this.memberExpDate = memberExpDate;
     }
 
     public double getcardBalance() {
         return cardBalance;
     }
 
-    // ~~~~~~~~~~~~~ method ~~~~~~~~~~~~~~~
-
-    // toString method 
-    public String toString() {
-        return "Member ID: " + memberID + "\nExpired Date: " + memberExpDate + "\n";
+    public void setcardBalance(double cardBalance) {
+        this.cardBalance = cardBalance;
     }
 
-    //next memberId method
-    /* public static String nextMemberID(){
-        return nextMemberID; 
-    } */
-    
+    public ReservedTimeslot[] getReservedTimeSlots() {
+        return reservedTimeSlots;
+    }
+
+    public void setReservedTimeSlots(ReservedTimeslot[] reservedTimeSlots) {
+        this.reservedTimeSlots = reservedTimeSlots;
+    }
+
+    public BookBorrowed[] getBooksBorrowed() {
+        return booksBorrowed;
+    }
+
+    public void setBooksBorrowed(BookBorrowed[] booksBorrowed) {
+        this.booksBorrowed = booksBorrowed;
+    }
+
+    public Timeslot[] getReservedHistory() {
+        return reservedHistory;
+    }
+
+    public void setReservedHistory(Timeslot[] reservedHistory) {
+        this.reservedHistory = reservedHistory;
+    }
+
+    public ReadingMaterial[] getBorrowedHistory() {
+        return borrowedHistory;
+    }
+
+    public void setBorrowedHistory(ReadingMaterial[] borrowedHistory) {
+        this.borrowedHistory = borrowedHistory;
+    }
+
+    /********** Methods **********/
+    // next memberId method
+    /*
+     * public static String nextMemberID(){ return nextMemberID; }
+     */
+
+    // toString() method
+    public String toString() {
+        return "\nLibrary Card Number: " + cardNO + "\nExpired Date: " + memberExpDate + "\nLibrary Card Balance: "
+                + cardBalance;
+    }
 }

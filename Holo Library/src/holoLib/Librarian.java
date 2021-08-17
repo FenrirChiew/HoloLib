@@ -1,8 +1,6 @@
 package holoLib;
 
 import java.util.Scanner;
-import java.util.jar.Attributes.Name;
-import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -157,7 +155,7 @@ public class Librarian extends Account{
     }
 
     //Method to renew the membership 
-    public LibraryCard RenewMembership(){
+    public LibraryCard RenewMembership()throws Exception{
 
         Scanner sc = new Scanner(System.in);
         LibraryCard libraryCard = new LibraryCard();
@@ -171,7 +169,7 @@ public class Librarian extends Account{
             System.out.println("Expire Date: " + libraryCard.getMemberExpDate());
             RenewMembershipMenu();
             char choices = sc.nextLine().charAt(0);
-            newExpireDate = NewExpireDate(choices, libraryCard);  // why can't call this method ?
+            newExpireDate = NewExpireDate(choices, libraryCard);  
             libraryCard.setExpDate(newExpireDate); 
             }
         

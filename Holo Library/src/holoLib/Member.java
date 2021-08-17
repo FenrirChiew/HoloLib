@@ -2,42 +2,52 @@ package holoLib;
 
 import java.util.Scanner;
 
-public class Member extends Account{
-    private LibraryCard libraryCard;
-    private static int totalMember = 0;
-    
-    // Constructor without arguments 
-    public Member(){
-        super("", "", "", "", null, "", "");
+public class Member extends People {
+    /********** Properties **********/
+    private String memberID; // Member ID
+    private LibraryCard libraryCard; // Member Library Card
+    private static int totalMember = 0; // Total Number of Member
+
+    /********** Constructors **********/
+    public Member() {
+        this("", "", "", "", "", "", null);
     }
 
-    // Constructor with arguments
-    public Member(String username, String password, String name,String gender, String dateOfBirth, String icNo, String phoneNo, LibraryCard libraryCard){
-        super(username, password, name, gender, dateOfBirth, icNo, phoneNo);
+    public Member(String name, String gender, String dateOfBirth, String icNo, String phoneNo, String memberID,
+            LibraryCard libraryCard) {
+        super(name, gender, dateOfBirth, icNo, phoneNo);
+        this.memberID = memberID;
         this.libraryCard = libraryCard;
         totalMember++;
-     
     }
 
-    //getter 
-    public static int getTotalMember(){
-        return totalMember;
+    /********** Accessors & Mutators **********/
+    public String getMemberID() {
+        return memberID;
+    }
+
+    public void setMemberID(String memberID) {
+        this.memberID = memberID;
     }
 
     public LibraryCard getLibraryCard() {
         return libraryCard;
     }
 
-    // ~~~~~~~~~~~~~ method ~~~~~~~~~~~~~~~
-
-    // toString method 
-    public String toString(){
-        return super.toString() + libraryCard.toString() ;
+    public void setLibraryCard(LibraryCard libraryCard) {
+        this.libraryCard = libraryCard;
     }
 
-    
+    public static int getTotalMember() {
+        return totalMember;
+    }
 
+    /********** Methods **********/
     // Calculate the age (required or not)
-    
 
+    // toString() method
+    @Override
+    public String toString() {
+        return super.toString() + "\nMember ID: " + memberID + libraryCard.toString();
+    }
 }

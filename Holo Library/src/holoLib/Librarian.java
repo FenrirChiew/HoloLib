@@ -3,6 +3,7 @@ package holoLib;
 import java.util.Scanner;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class Librarian extends Account{
     private String position;
@@ -22,7 +23,7 @@ public class Librarian extends Account{
     }
 
     // Register Membership method  (havent finish)
-    public Member registerMembership() throws Exception{
+    public Member registerMembership()throws Exception{
 
         Scanner sc = new Scanner(System.in);
         Member member = new Member();
@@ -215,6 +216,8 @@ public class Librarian extends Account{
         date = sdf.format(c.getTime());
         return date;    
     }
+
+    //login method 
 }
 
 

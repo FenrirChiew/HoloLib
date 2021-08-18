@@ -4,8 +4,8 @@ public class LibraryCard {
     /********** Properties **********/
     private String cardNO; // Library Card Number
     private String pinNo; // Pin Number
-    private String memberExpDate; // Membership Expire Date
-    private double cardBalance; // Library Card Balance
+    private String memberExpDate; // Membership Expire Date (initialize today date)
+    private double cardBalance; // Library Card Balance    (initialize 0.0)
     private ReservedTimeslot[] reservedTimeSlots; // Reserved Time Slots
     private BookBorrowed[] booksBorrowed; // Books Borrowed
     private Timeslot[] reservedHistory; // Reserved History

@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Member extends People {
     /********** Properties **********/
-    private String memberID; // Member ID
+    private String memberID; // Member ID 
     private LibraryCard libraryCard; // Member Library Card
     private static int totalMember = 0; // Total Number of Member
 
@@ -50,4 +50,5 @@ public class Member extends People {
     public String toString() {
         return super.toString() + "\nMember ID: " + memberID + libraryCard.toString();
     }
+
 }

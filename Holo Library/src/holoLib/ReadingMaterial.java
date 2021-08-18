@@ -1,5 +1,6 @@
 package holoLib;
 
+import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 public class ReadingMaterial {
@@ -9,23 +10,22 @@ public class ReadingMaterial {
     private String readingMaterialLanguage;
     private String readingMaterialAuthor;
     private String readingMaterialPublisher;
-    private String readingMaterialPublicationDate;
+    private GregorianCalendar readingMaterialPublicationDate;
     private double readingMaterialPrice;
     private String readingMaterialStatus;
-    private String readingMaterialType;
     private static int totalNumOfReadingMaterial = 0;
 
-    private static int MAX_BORROW_DATE; // no getter & setter
+    private static int MAX_BORROW_DAYS; // no getter & setter
 
     /*Constructor*/
     // no arguments
     protected ReadingMaterial(){
-        this("", "", "", "", "", "", 0.0, "", "");
+        this("", "", "", "", "", "", 0.0, "");
         totalNumOfReadingMaterial++;
     }
 
     // with arguments
-    protected ReadingMaterial(String readingMaterialCode, String readingMaterialTitle, String readingMaterialLanguage, String readingMaterialAuthor, String readingMaterialPublisher, String readingMaterialPublicationDate, double readingMaterialPrice, String readingMaterialStatus, String readingMaterialType) {
+    protected ReadingMaterial(String readingMaterialCode, String readingMaterialTitle, String readingMaterialLanguage, String readingMaterialAuthor, String readingMaterialPublisher, GregorianCalendar readingMaterialPublicationDate, double readingMaterialPrice, String readingMaterialStatus) {
         this.readingMaterialCode = readingMaterialCode;
         this.readingMaterialTitle = readingMaterialTitle;
         this.readingMaterialLanguage = readingMaterialLanguage;
@@ -34,7 +34,6 @@ public class ReadingMaterial {
         this.readingMaterialPublicationDate = readingMaterialPublicationDate;
         this.readingMaterialPrice = readingMaterialPrice;
         this.readingMaterialStatus = readingMaterialStatus;
-        this.readingMaterialType = readingMaterialType;
 
         totalNumOfReadingMaterial++;
     }
@@ -80,11 +79,11 @@ public class ReadingMaterial {
         this.readingMaterialPublisher = readingMaterialPublisher;
     }
 
-    public String getReadingMaterialPublicationDate() {
+    public GregorianCalendar getReadingMaterialPublicationDate() {
         return readingMaterialPublicationDate;
     }
 
-    public void setReadingMaterialPublicationDate(String readingMaterialPublicationDate) {
+    public void setReadingMaterialPublicationDate(GregorianCalendar readingMaterialPublicationDate) {
         this.readingMaterialPublicationDate = readingMaterialPublicationDate;
     }
 
@@ -104,20 +103,12 @@ public class ReadingMaterial {
         this.readingMaterialStatus = readingMaterialStatus;
     }
 
-    public String getReadingMaterialType() {
-        return readingMaterialType;
-    }
-
-    public void setReadingMaterialType(String readingMaterialType) {
-        this.readingMaterialType = readingMaterialType;
-    }
-
     public static int getTotalNumOfReadingMaterial() {
         return totalNumOfReadingMaterial;
     }
 
     public static int getMaxBorrowDate() {
-        return MAX_BORROW_DATE;
+        return MAX_BORROW_DAYS;
     }
 
     /*Method*/
@@ -148,14 +139,10 @@ public class ReadingMaterial {
         String publisher = scanner.next();
 
         System.out.print("Enter reading material publisher date (DD/MM/YYYY): ");
-        String publisherDate = scanner.next();
+        //* String publisherDate = scanner.next();
 
         System.out.print("Enter reading material publisher: ");
         double price = scanner.nextDouble();
-
-        //* let user choose?
-        System.out.print("Enter : ");
-        String types = scanner.next();
 
         // Ask user to confirm add this reading material
         System.out.print("Confirm add this reading material ? (Y/N): ");
@@ -164,7 +151,7 @@ public class ReadingMaterial {
         // If confirm is 'Y'
         if(confirm == 'Y'){
             // store in obj
-            readingMaterial = new ReadingMaterial(code, title, language, author, publisher, publisherDate, price, "None", types);
+            //* readingMaterial = new ReadingMaterial(code, title, language, author, publisher, publisherDate, price, "None");
             System.out.println("This add reading material action has been success.");
         }
         // If confirm is 'N'
@@ -174,27 +161,29 @@ public class ReadingMaterial {
         return readingMaterial;
     }
 
-    public ReadingMaterial modify(){}
+    //public ReadingMaterial modify(){}
 
-    public ReadingMaterial search(){
+    //public ReadingMaterial search(){}
 
-    }
-
-    public void display(){
+    //*
+    public void display(ReadingMaterial[] readingMaterial){
 
         System.out.println("=--------------------=");
         System.out.println("|  Reading Material  |");
         System.out.println("=--------------------=\n");
-        System.out.println("+--");
-        System.out.println("| Code | Title | Language | Author | Publisher | Publisher Date | Price | Status | Type |");
+        System.out.println(".+-------|------------------------------|----------|--------------------|-------------------------|----------------|----------|----------||");
+        System.out.println("|| Code  |           Title              | Language |        Author      |        Publisher        | Publisher Date |   Price  |  Status  ||");
 
         for (int i = 0; i < totalNumOfReadingMaterial; i++) {
-
-            System.out.println("| %s | %", readingMaterialCode,);
-
+            ReadingMaterial tempReadM = readingMaterial[i];
+            System.out.format("||%6s |%30s |%10s |%20s |%25s |%15s |%7.2f |%9s ||"
+                    , tempReadM.readingMaterialCode, tempReadM.readingMaterialTitle, tempReadM.readingMaterialLanguage
+                    , tempReadM.readingMaterialAuthor, tempReadM.readingMaterialPublisher, tempReadM.readingMaterialPublicationDate
+                    , tempReadM.readingMaterialPrice, tempReadM.readingMaterialStatus);
         }
-        System.out.println("+--");
+        System.out.println(".+--");
     }
+
     @Override
     public String toString() {
         return "Reading Material" +

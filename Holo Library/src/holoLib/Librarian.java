@@ -89,7 +89,7 @@ public class Librarian extends People {
 
     // System.out.print("Password: ");
     // String password = sc.nextLine();
-
+    
     // System.out.print("Do you confirm want to register to be a member (Y= Yes N=
     // No): ");
     // char doubleConfirm = sc.nextLine().charAt(0);
@@ -104,6 +104,7 @@ public class Librarian extends People {
     // member.setPhoneNo(phoneNo);
     // member.setUsername(username);
     // member.setPassword(password);
+
     // } else {
     // System.out.println("You had not add a member!!");
     // }

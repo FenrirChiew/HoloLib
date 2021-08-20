@@ -2,18 +2,22 @@ package holoLib;
 
 public class Seat {
     /********** Properties **********/
-    private String seatNO = null;
-    private Schedule seatSchedule = null;
-    private static int totalSeats = 0;
-    
+    private String seatNO;
+    private Member currentUser;
+    private boolean isReserved;
+    private static int totalSeats;
+
     /********** Constructors **********/
-    public Seat(){
+    public Seat() {
+        this("", new Member());
+        isReserved = false;
         totalSeats++;
     }
 
-    public Seat(String seatNO, Schedule seatSchedule){
+    public Seat(String seatNO, Member currentUser) {
         this.seatNO = seatNO;
-        this.seatSchedule = seatSchedule;
+        this.currentUser = currentUser;
+        isReserved = false;
         totalSeats++;
     }
 
@@ -26,8 +30,20 @@ public class Seat {
         this.seatNO = seatNO;
     }
 
-    public Schedule getSeatSchedule() {
-        return seatSchedule;
+    public Member getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(Member currentUser) {
+        this.currentUser = currentUser;
+    }
+
+    public boolean isReserved() {
+        return isReserved;
+    }
+
+    public void setReserved(boolean isReserved) {
+        this.isReserved = isReserved;
     }
 
     public static int getTotalSeats() {
@@ -35,7 +51,9 @@ public class Seat {
     }
 
     /********** Methods **********/
+    // toString() method
+    @Override
     public String toString() {
-        return super.toString();
+        return "Seat NO: " + seatNO + "\nCurrent User: " + currentUser + "\nReserved Status: " + isReserved;
     }
 }

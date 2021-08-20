@@ -1,19 +1,21 @@
 package holoLib;
 
+import java.util.GregorianCalendar;
+
 public abstract class People {
     /********** Properties **********/
     protected String name; // Name
     protected String gender; // Gender
-    protected String dateOfBirth; // Date of Birth
+    protected GregorianCalendar dateOfBirth; // Date of Birth
     protected String icNO; // IC Number
     protected String phoneNO; // Phone Number
 
     /********** Constructors **********/
     protected People() {
-        this("", "", "", "", "");
+        this("", "", null, "", "");
     }
 
-    protected People(String name, String gender, String dateOfBirth, String icNO, String phoneNO) {
+    protected People(String name, String gender, GregorianCalendar dateOfBirth, String icNO, String phoneNO) {
         this.name = name;
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;
@@ -38,11 +40,11 @@ public abstract class People {
         this.gender = gender;
     }
 
-    protected String getDateOfBirth() {
+    protected GregorianCalendar getDateOfBirth() {
         return dateOfBirth;
     }
 
-    protected void setDateOfBirth(String dateOfBirth) {
+    protected void setDateOfBirth(GregorianCalendar dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

@@ -1,6 +1,6 @@
 package holoLib;
 
-// import java.util.Scanner;
+ import java.util.Scanner;
 // import java.text.SimpleDateFormat;
 // import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -253,6 +253,98 @@ public class Librarian extends People {
     // date = sdf.format(c.getTime());
     // return date;
     // }
+
+    public void BorrowedReadingMaterial(ReadingMaterial readingMaterial){
+
+        Scanner sc =new Scanner(System.in);
+        Member member = new Member();
+        
+
+        System.out.println("Do you want to undergo borrow reading material process (Y =yes N =No)? ");
+        char comfirm = sc.nextLine().charAt(0);
+
+        if(comfirm == 'Y'){
+            member = SearchLibraryCardNo();
+            do{
+                System.out.println("You had key in invalid Library Card Number! Please key in again!!");
+                member = SearchLibraryCardNo();
+            }while(member == null);
+            
+            readingMaterial = SearchReadingMaterialCode();
+            do{
+                System.out.println("You had key in invalid Reading Material Number! Please key in again!!");
+                readingMaterial = SearchReadingMaterialCode();
+            }while(readingMaterial == null);
+
+            System.out.println("Do you want to confirm to continue the borrow process (Y =yes N =no)? ");
+            char doubleConfirm = sc.nextLine().charAt(0);
+
+            if(doubleConfirm == 'Y'){
+            System.out.println("Please key in the pin number of the library card: ");
+            String pinNo = sc.nextLine();
+                if(member.getLibraryCard().getPinNo() == pinNo){
+                    CalculateBorrowedPayment(readingMaterial, member);
+                    PrintBorrowedReadingMaterialDetails(member, readingMaterial);
+                }
+                else{
+                    System.out.println("You had key in wrong pin number");
+                }
+            }
+        }
+     }
+    
+    public static Member SearchLibraryCardNo(){
+        Member[] member = new Member[4];
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Library Card No: ");
+        String cardNo = sc.nextLine();
+        
+        for(int i = 0; i < member.length; i++){
+            if(member[i].getLibraryCard().getCardNO() == cardNo){
+                return member[i];
+            }
+        }
+        return null;
+        
+    }
+
+    public static ReadingMaterial SearchReadingMaterialCode(){
+
+        ReadingMaterial[] readingMaterial = new ReadingMaterial[4];
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Reading Material Code: ");
+        String readingMaterialCode = sc.nextLine();
+
+        for(int i = 0; i < readingMaterial.length; i++){
+            if(readingMaterial[i].getReadingMaterialCode() == readingMaterialCode){
+                return readingMaterial[i];
+            }
+        }
+        return null;   // if not equall return null readingMaterial 
+    }
+
+    public static void CalculateBorrowedPayment(ReadingMaterial readingMaterial, Member member){
+
+        Scanner sc = new Scanner(System.in);
+
+       double cardBalance =  member.getLibraryCard().getcardBalance() - readingMaterial.getReadingMaterialPrice();
+
+        member.getLibraryCard().setcardBalance(cardBalance);
+    }
+
+    public static void PrintBorrowedReadingMaterialDetails(Member member, ReadingMaterial readingMaterial){
+
+        System.out.println("Member ID          : " + member.getMemberID());
+        System.out.println("Member Name        : " + member.getName());
+        System.out.println("Library Card Number: " + member.getLibraryCard().getCardNO());
+        System.out.println("---------------------------------------------------");
+        System.out.println("\nReading Material Code    : " + readingMaterial.getReadingMaterialCode());
+        System.out.println("Reading Material Titile  : " + readingMaterial.getReadingMaterialTitle());
+        System.out.println("Reading Material Language: " + readingMaterial.getReadingMaterialLanguage());
+        System.out.println("Reading Material Author  : " + readingMaterial.getReadingMaterialAuthor());
+    }
 
     // toString() method
     @Override

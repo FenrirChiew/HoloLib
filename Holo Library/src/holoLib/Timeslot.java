@@ -2,12 +2,12 @@ package holoLib;
 
 public class Timeslot {
     /********** Properties **********/
-    private String slotID = null;
-    private int[] slotCoordinate = new int[] { 0, 0 };
-    private Weekdays weekdays = null;
-    private int startTime = 0;
-    private int endTime = 0;
-    private boolean isReserved = false;
+    private String slotID;
+    private int[] slotCoordinate;
+    private Weekdays weekdays;
+    private int startTime;
+    private int endTime;
+    private boolean isReserved;
     private static final int INITIAL_OPERATION_HOUR = 8;
     private static final int TIMESLOT_DURATION = 1;
     private static int totalSlots = 0;
@@ -15,6 +15,11 @@ public class Timeslot {
     /********** Constructors **********/
     public Timeslot() {
         slotID = String.format("S00%02d", totalSlots + 1);
+        slotCoordinate = new int[] { 0, 0 };
+        weekdays = null;
+        startTime = 0;
+        endTime = 0;
+        isReserved = false;
         totalSlots++;
     }
 
@@ -24,6 +29,7 @@ public class Timeslot {
         weekdays = Weekdays.values()[slotCoordinate[0]];
         startTime = slotCoordinate[1] + INITIAL_OPERATION_HOUR;
         endTime = startTime + TIMESLOT_DURATION;
+        isReserved = false;
         totalSlots++;
     }
 
@@ -61,7 +67,7 @@ public class Timeslot {
     }
 
     /********** Methods **********/
-    public void displayTimeSlot() {
+    public void displayTimeslots() {
         System.out.printf("+-------+\n");
         System.out.printf("| %5s |\n", slotID);
         System.out.printf("|       |\n");
@@ -69,6 +75,7 @@ public class Timeslot {
         System.out.printf("+-------+\n");
     }
 
+    @Override
     public String toString() {
         return "Slot ID: " + slotID + "\nWeekday: " + weekdays + "\nStart Time: " + startTime + "\nEnd Time: " + endTime
                 + "\nReserved Status: " + isReserved;

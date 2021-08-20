@@ -2,22 +2,21 @@ package holoLib;
 
 public class Schedule {
     /********** Properties **********/
-    private String scheduleID = null;
-    private String scheduleName = null;
-    private Timeslot[][] timeslots = null;
-    private static int totalSchedule = 0;
+    private String scheduleID;
+    private Timeslot[][] timeslots;
     private static final int TOTAL_OPERATION_DAYS_PER_WEEK = 7;
     private static final int TOTAL_TIMESLOTS_PER_DAY = 12;
+    private static int totalSchedule = 0;
 
     /********** Constructors **********/
     public Schedule() {
+        scheduleID = null;
         createTimeslots();
         totalSchedule++;
     }
 
-    public Schedule(String scheduleID, String scheduleName) {
+    public Schedule(String scheduleID) {
         this.scheduleID = scheduleID;
-        this.scheduleName = scheduleName;
         createTimeslots();
         totalSchedule++;
     }
@@ -29,14 +28,6 @@ public class Schedule {
 
     public void setScheduleID(String scheduleID) {
         this.scheduleID = scheduleID;
-    }
-
-    public String getScheduleName() {
-        return scheduleName;
-    }
-
-    public void setScheduleName(String scheduleName) {
-        this.scheduleName = scheduleName;
     }
 
     public static int getTotalSchedule() {
@@ -69,7 +60,7 @@ public class Schedule {
         return availableTimeSlots;
     }
 
-    public void displaySchedule() {
+    public void displayScheduleTempleted() {
         System.out.printf("++===========");
         for (int j = 0; j < timeslots[0].length; j++) {
             System.out.printf("+=======");
@@ -127,9 +118,30 @@ public class Schedule {
         System.out.printf("++\n");
     }
 
+    public Timeslot searchTimeslotbySlotID(String slotID) {
+        for (int i = 0; i < timeslots.length; i++) {
+            for (int j = 0; j < timeslots[i].length; j++) {
+                if (timeslots[i][j].getSlotID().matches(slotID)) {
+                    return timeslots[i][j];
+                }
+            }
+        }
+
+        return null;
+    }
+
+    public boolean reserveTimeslot(String slotID) {
+        if (searchTimeslotbySlotID(slotID) == null) {
+            return false;
+        } else {
+            searchTimeslotbySlotID(slotID).setReserved(true);
+            return true;
+        }
+    }
+
     /********** toString() method **********/
+    @Override
     public String toString() {
-        return "Schedule ID: " + scheduleID + "\nSchedule Name: " + "\nTotal Available Timeslots: "
-                + checkTotalAvailableTimeslots();
+        return "Schedule ID: " + scheduleID + "\nTotal Available Timeslots: " + checkTotalAvailableTimeslots();
     }
 }

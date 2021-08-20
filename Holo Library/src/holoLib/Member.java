@@ -1,6 +1,7 @@
 package holoLib;
 
-import java.util.Scanner;
+//import java.util.Scanner;
+import java.util.GregorianCalendar;
 
 public class Member extends People {
     /********** Properties **********/
@@ -10,10 +11,10 @@ public class Member extends People {
 
     /********** Constructors **********/
     public Member() {
-        this("", "", "", "", "", "", null);
+        this("", "", null, "", "", "", null);
     }
 
-    public Member(String name, String gender, String dateOfBirth, String icNo, String phoneNo, String memberID,
+    public Member(String name, String gender, GregorianCalendar dateOfBirth, String icNo, String phoneNo, String memberID,
             LibraryCard libraryCard) {
         super(name, gender, dateOfBirth, icNo, phoneNo);
         this.memberID = memberID;

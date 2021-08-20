@@ -1,10 +1,12 @@
 package holoLib;
 
+import java.util.GregorianCalendar;
+
 public class LibraryCard {
     /********** Properties **********/
     private String cardNO; // Library Card Number
     private String pinNo; // Pin Number
-    private String memberExpDate; // Membership Expire Date (initialize today date)
+    private GregorianCalendar memberExpDate; // Membership Expire Date (initialize today date)
     private double cardBalance; // Library Card Balance    (initialize 0.0)
     private ReservedTimeslot[] reservedTimeSlots; // Reserved Time Slots
     private BookBorrowed[] booksBorrowed; // Books Borrowed
@@ -13,10 +15,10 @@ public class LibraryCard {
 
     /********** Constructors **********/
     public LibraryCard() {
-        this("", "", "", 0.0, null, null, null, null);
+        this("", "", null, 0.0, null, null, null, null);
     }
 
-    public LibraryCard(String cardNO, String pinNo, String memberExpDate, double cardBalance,
+    public LibraryCard(String cardNO, String pinNo, GregorianCalendar memberExpDate, double cardBalance,
             ReservedTimeslot[] reservedTimeSlots, BookBorrowed[] booksBorrowed, Timeslot[] reservedHistory,
             ReadingMaterial[] borrowedHistory) {
         this.cardNO = cardNO;
@@ -46,11 +48,11 @@ public class LibraryCard {
         this.pinNo = pinNo;
     }
 
-    public String getMemberExpDate() {
+    public GregorianCalendar getMemberExpDate() {
         return memberExpDate;
     }
 
-    public void setExpDate(String memberExpDate) {
+    public void setExpDate(GregorianCalendar memberExpDate) {
         this.memberExpDate = memberExpDate;
     }
 

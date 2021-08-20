@@ -1,19 +1,21 @@
 package holoLib;
 
+import java.util.GregorianCalendar;
+
 public abstract class People {
     /********** Properties **********/
-    private String name; // Name
-    private String gender; // Gender
-    private String dateOfBirth; // Date of Birth
-    private String icNO; // IC Number
-    private String phoneNO; // Phone Number
+    protected String name; // Name
+    protected String gender; // Gender
+    protected GregorianCalendar dateOfBirth; // Date of Birth
+    protected String icNO; // IC Number
+    protected String phoneNO; // Phone Number
 
     /********** Constructors **********/
-    public People() {
-        this("", "", "", "", "");
+    protected People() {
+        this("", "", null, "", "");
     }
 
-    public People(String name, String gender, String dateOfBirth, String icNO, String phoneNO) {
+    protected People(String name, String gender, GregorianCalendar dateOfBirth, String icNO, String phoneNO) {
         this.name = name;
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;
@@ -22,43 +24,43 @@ public abstract class People {
     }
 
     /********** Accessors & Mutators **********/
-    public String getName() {
+    protected String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    protected void setName(String name) {
         this.name = name;
     }
 
-    public String getGender() {
+    protected String getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    protected void setGender(String gender) {
         this.gender = gender;
     }
 
-    public String getDateOfBirth() {
+    protected GregorianCalendar getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    protected void setDateOfBirth(GregorianCalendar dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getIcNO() {
+    protected String getIcNO() {
         return icNO;
     }
 
-    public void setIcNO(String icNO) {
+    protected void setIcNO(String icNO) {
         this.icNO = icNO;
     }
 
-    public String getPhoneNO() {
+    protected String getPhoneNO() {
         return phoneNO;
     }
 
-    public void setPhoneNo(String phoneNO) {
+    protected void setPhoneNo(String phoneNO) {
         this.phoneNO = phoneNO;
     }
 

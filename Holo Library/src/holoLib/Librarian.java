@@ -3,7 +3,7 @@ package holoLib;
 // import java.util.Scanner;
 // import java.text.SimpleDateFormat;
 // import java.util.Calendar;
-// import java.util.GregorianCalendar;
+import java.util.GregorianCalendar;
 
 public class Librarian extends People {
     /********** Properties **********/
@@ -14,11 +14,11 @@ public class Librarian extends People {
 
     /********** Constructors **********/
     public Librarian() {
-        this("", "", "", "", "", "", "", "");
+        this("", "", null, "", "", "", "", "");
         totalLibrarian++;
     }
 
-    public Librarian(String name, String gender, String dateOfBirth, String icNo, String phoneNo, String librarianID,
+    public Librarian(String name, String gender, GregorianCalendar dateOfBirth, String icNo, String phoneNo, String librarianID,
             String password, String position) {
         super(name, gender, dateOfBirth, icNo, phoneNo);
         this.librarianID = librarianID;
@@ -224,8 +224,8 @@ public class Librarian extends People {
     // System.out.println(" __________________________________________");
     // System.out.println("| Menu For Renew Membership |");
     // System.out.println("|------------------------------------------|");
-    // System.out.println("| 1. Renew For 1 year (RM 20.00) |");
-    // System.out.println("| 2. Renew For 2 year (RM 30.00) |");
+    // System.out.println("| 1. Renew For 1 year (RM 20.00)           |");
+    // System.out.println("| 2. Renew For 2 year (RM 30.00)           |");
     // System.out.println("| 3. Renew For 3 year and above (RM 35.00) |");
     // System.out.println(" __________________________________________");
 

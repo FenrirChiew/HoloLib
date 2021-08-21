@@ -1,6 +1,5 @@
 package holoLib;
 
-import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 public class ReadingMaterial {
@@ -10,22 +9,23 @@ public class ReadingMaterial {
     private String readingMaterialLanguage;
     private String readingMaterialAuthor;
     private String readingMaterialPublisher;
-    private GregorianCalendar readingMaterialPublicationDate;
+    private String readingMaterialPublicationDate;
     private double readingMaterialPrice;
     private String readingMaterialStatus;
-    private static int totalNumOfReadingMaterial = 0;
+    private String readingMaterialType;
+    private static int totalNumOfReadingMaterial = -1; //the temp also count...so -1 // readingMaterial.size() can get
 
-    private static int MAX_BORROW_DAYS; // no getter & setter
+    private static int MAX_BORROW_DATE; // no getter & setter
 
     /*Constructor*/
     // no arguments
     protected ReadingMaterial(){
-        this("", "", "", "", "", "", 0.0, "");
-        totalNumOfReadingMaterial++;
+        this("", "", "", "", "", "", 0.0, "", "");
+        //totalNumOfReadingMaterial++;
     }
 
     // with arguments
-    protected ReadingMaterial(String readingMaterialCode, String readingMaterialTitle, String readingMaterialLanguage, String readingMaterialAuthor, String readingMaterialPublisher, GregorianCalendar readingMaterialPublicationDate, double readingMaterialPrice, String readingMaterialStatus) {
+    protected ReadingMaterial(String readingMaterialCode, String readingMaterialTitle, String readingMaterialLanguage, String readingMaterialAuthor, String readingMaterialPublisher, String readingMaterialPublicationDate, double readingMaterialPrice, String readingMaterialStatus, String readingMaterialType) {
         this.readingMaterialCode = readingMaterialCode;
         this.readingMaterialTitle = readingMaterialTitle;
         this.readingMaterialLanguage = readingMaterialLanguage;
@@ -34,6 +34,7 @@ public class ReadingMaterial {
         this.readingMaterialPublicationDate = readingMaterialPublicationDate;
         this.readingMaterialPrice = readingMaterialPrice;
         this.readingMaterialStatus = readingMaterialStatus;
+        this.readingMaterialType = readingMaterialType;
 
         totalNumOfReadingMaterial++;
     }
@@ -79,11 +80,11 @@ public class ReadingMaterial {
         this.readingMaterialPublisher = readingMaterialPublisher;
     }
 
-    public GregorianCalendar getReadingMaterialPublicationDate() {
+    public String getReadingMaterialPublicationDate() {
         return readingMaterialPublicationDate;
     }
 
-    public void setReadingMaterialPublicationDate(GregorianCalendar readingMaterialPublicationDate) {
+    public void setReadingMaterialPublicationDate(String readingMaterialPublicationDate) {
         this.readingMaterialPublicationDate = readingMaterialPublicationDate;
     }
 
@@ -103,26 +104,34 @@ public class ReadingMaterial {
         this.readingMaterialStatus = readingMaterialStatus;
     }
 
+    public String getReadingMaterialType() {
+        return readingMaterialType;
+    }
+
+    public void setReadingMaterialType(String readingMaterialType) {
+        this.readingMaterialType = readingMaterialType;
+    }
+
     public static int getTotalNumOfReadingMaterial() {
         return totalNumOfReadingMaterial;
     }
 
     public static int getMaxBorrowDate() {
-        return MAX_BORROW_DAYS;
+        return MAX_BORROW_DATE;
     }
 
     /*Method*/
-    public ReadingMaterial add(){
-        ReadingMaterial readingMaterial = new ReadingMaterial();
+    public ReadingMaterial addNew(){
+        ReadingMaterial tempReadM = new ReadingMaterial();
         Scanner scanner = new Scanner(System.in);
 
-        String code = null;
-
-        if(totalNumOfReadingMaterial + 1 < 999){
-            code = String.format("RA%03d", totalNumOfReadingMaterial + 1);
+        String code;
+        int num = totalNumOfReadingMaterial;
+        if(num + 1 < 999){
+            code = String.format("RA%03d", num + 1);
         }
         else{
-            code = String.format("RB%03d", totalNumOfReadingMaterial + 1 -999);
+            code = String.format("RB%03d", num + 1 -999);
         }
 
         // prompt user enter reading material details
@@ -139,10 +148,17 @@ public class ReadingMaterial {
         String publisher = scanner.next();
 
         System.out.print("Enter reading material publisher date (DD/MM/YYYY): ");
-        //* String publisherDate = scanner.next();
+        String publisherDate = scanner.next();
 
-        System.out.print("Enter reading material publisher: ");
+        System.out.print("Enter reading material price: ");
         double price = scanner.nextDouble();
+
+        //* let user choose?
+        System.out.println("1) Book (Novel, manga, ...)");
+        System.out.println("2) Magazine");
+        System.out.println("3) Newspaper");
+        System.out.print("Enter types choice: ");
+        String types = scanner.next();
 
         // Ask user to confirm add this reading material
         System.out.print("Confirm add this reading material ? (Y/N): ");
@@ -151,43 +167,44 @@ public class ReadingMaterial {
         // If confirm is 'Y'
         if(confirm == 'Y'){
             // store in obj
-            //* readingMaterial = new ReadingMaterial(code, title, language, author, publisher, publisherDate, price, "None");
+            //tempReadM = new ReadingMaterial(code, title, language, author, publisher, publisherDate, price, "None", types);
             System.out.println("This add reading material action has been success.");
         }
         // If confirm is 'N'
         else{
             System.out.println("This add reading material action has been repeal.");
         }
-        return readingMaterial;
+        //return tempReadM;
+        return new ReadingMaterial(code, title, language, author, publisher, publisherDate, price, "None", types);
+        //return code, title, language, author, publisher, publisherDate, price, "None", types;
     }
 
     //public ReadingMaterial modify(){}
 
     //public ReadingMaterial search(){}
 
-    //*
-    public void display(ReadingMaterial[] readingMaterial){
-
+    public void display(ReadingMaterial[] tempReadM) {
         System.out.println("=--------------------=");
         System.out.println("|  Reading Material  |");
-        System.out.println("=--------------------=\n");
-        System.out.println(".+-------|------------------------------|----------|--------------------|-------------------------|----------------|----------|----------||");
-        System.out.println("|| Code  |           Title              | Language |        Author      |        Publisher        | Publisher Date |   Price  |  Status  ||");
+        System.out.println("=--------------------=");
+        System.out.println(".+-------|------------------------------|----------|--------------------|-------------------------|----------------|----------|----------|-----------||");
+        System.out.println("||  Code |            Title             | Language |        Author      |        Publisher        | Publisher Date |   Price  |  Status  |   Type    ||");
+        System.out.println(".+-------|------------------------------|----------|--------------------|-------------------------|----------------|----------|----------|-----------||");
 
         for (int i = 0; i < totalNumOfReadingMaterial; i++) {
-            ReadingMaterial tempReadM = readingMaterial[i];
-            System.out.format("||%6s |%30s |%10s |%20s |%25s |%15s |%7.2f |%9s ||"
-                    , tempReadM.readingMaterialCode, tempReadM.readingMaterialTitle, tempReadM.readingMaterialLanguage
-                    , tempReadM.readingMaterialAuthor, tempReadM.readingMaterialPublisher, tempReadM.readingMaterialPublicationDate
-                    , tempReadM.readingMaterialPrice, tempReadM.readingMaterialStatus);
+            String.format("||%6s |%30s |%10s |%20s |%25s |%15s |%7.2f |%9s |%10s ||"
+                    , tempReadM[i].readingMaterialCode, tempReadM[i].readingMaterialTitle, tempReadM[i].readingMaterialLanguage
+                    , tempReadM[i].readingMaterialAuthor, tempReadM[i].readingMaterialPublisher, tempReadM[i].readingMaterialPublicationDate
+                    , tempReadM[i].readingMaterialPrice, tempReadM[i].readingMaterialStatus, tempReadM[i].getReadingMaterialType());
+            System.out.println("Hi~");
         }
-        System.out.println(".+--");
+        System.out.println(".+-------|------------------------------|----------|--------------------|-------------------------|----------------|----------|----------||");
     }
 
     @Override
     public String toString() {
-        return "Reading Material" +
-                "================" +
+        return "\nReading Material\n" +
+                "================\n" +
                 "Code: " + readingMaterialCode + "\n" +
                 "Title: " + readingMaterialTitle +  "\n" +
                 "Language: " + readingMaterialLanguage +  "\n" +

@@ -192,11 +192,10 @@ public class ReadingMaterial {
         System.out.println(".+-------|------------------------------|----------|--------------------|-------------------------|----------------|----------|----------|-----------||");
 
         for (int i = 0; i < totalNumOfReadingMaterial; i++) {
-            String.format("||%6s |%30s |%10s |%20s |%25s |%15s |%7.2f |%9s |%10s ||"
+            System.out.printf("||%6s |%30s |%10s |%20s |%25s |%15s |%7.2f |%9s |%10s ||"
                     , tempReadM[i].readingMaterialCode, tempReadM[i].readingMaterialTitle, tempReadM[i].readingMaterialLanguage
                     , tempReadM[i].readingMaterialAuthor, tempReadM[i].readingMaterialPublisher, tempReadM[i].readingMaterialPublicationDate
                     , tempReadM[i].readingMaterialPrice, tempReadM[i].readingMaterialStatus, tempReadM[i].getReadingMaterialType());
-            System.out.println("Hi~");
         }
         System.out.println(".+-------|------------------------------|----------|--------------------|-------------------------|----------------|----------|----------||");
     }

@@ -254,16 +254,18 @@ public class Librarian extends People {
     // return date;
     // }
 
-    public void BorrowedReadingMaterial(ReadingMaterial readingMaterial){
+    public void BorrowedReadingMaterial(){
 
-        Scanner sc =new Scanner(System.in);
+        ReadingMaterial readingMaterial = new ReadingMaterial();
+        Scanner sc = new Scanner(System.in);
         Member member = new Member();
         
 
-        System.out.println("Do you want to undergo borrow reading material process (Y =yes N =No)? ");
-        char comfirm = sc.nextLine().charAt(0);
+        System.out.println("Do you want to undergo borrow reading material process (Y = yes N = No)? ");
+        char confirm = sc.nextLine().charAt(0);
 
-        if(comfirm == 'Y'){
+        if(confirm == 'Y'){
+            // get member details
             member = SearchLibraryCardNo();
             do{
                 System.out.println("You had key in invalid Library Card Number! Please key in again!!");
@@ -292,7 +294,8 @@ public class Librarian extends People {
             }
         }
      }
-    
+
+    // parameter Member[]
     public static Member SearchLibraryCardNo(){
         Member[] member = new Member[4];
         Scanner sc = new Scanner(System.in);
@@ -309,6 +312,7 @@ public class Librarian extends People {
         
     }
 
+    // parameter Reading Material[]
     public static ReadingMaterial SearchReadingMaterialCode(){
 
         ReadingMaterial[] readingMaterial = new ReadingMaterial[4];
@@ -322,7 +326,7 @@ public class Librarian extends People {
                 return readingMaterial[i];
             }
         }
-        return null;   // if not equall return null readingMaterial 
+        return null;   // if not equall return null readingMaterial
     }
 
     public static void CalculateBorrowedPayment(ReadingMaterial readingMaterial, Member member){

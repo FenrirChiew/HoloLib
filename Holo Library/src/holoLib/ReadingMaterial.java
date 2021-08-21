@@ -19,13 +19,13 @@ public class ReadingMaterial {
 
     /*Constructor*/
     // no arguments
-    protected ReadingMaterial(){
+    public ReadingMaterial(){
         this("", "", "", "", "", "", 0.0, "", "");
         //totalNumOfReadingMaterial++;
     }
 
     // with arguments
-    protected ReadingMaterial(String readingMaterialCode, String readingMaterialTitle, String readingMaterialLanguage, String readingMaterialAuthor, String readingMaterialPublisher, String readingMaterialPublicationDate, double readingMaterialPrice, String readingMaterialStatus, String readingMaterialType) {
+    public ReadingMaterial(String readingMaterialCode, String readingMaterialTitle, String readingMaterialLanguage, String readingMaterialAuthor, String readingMaterialPublisher, String readingMaterialPublicationDate, double readingMaterialPrice, String readingMaterialStatus, String readingMaterialType) {
         this.readingMaterialCode = readingMaterialCode;
         this.readingMaterialTitle = readingMaterialTitle;
         this.readingMaterialLanguage = readingMaterialLanguage;
@@ -121,7 +121,7 @@ public class ReadingMaterial {
     }
 
     /*Method*/
-    public ReadingMaterial addNew(){
+/*    public ReadingMaterial addNew(){
         ReadingMaterial tempReadM = new ReadingMaterial();
         Scanner scanner = new Scanner(System.in);
 
@@ -198,7 +198,7 @@ public class ReadingMaterial {
                     , tempReadM[i].readingMaterialPrice, tempReadM[i].readingMaterialStatus, tempReadM[i].getReadingMaterialType());
         }
         System.out.println(".+-------|------------------------------|----------|--------------------|-------------------------|----------------|----------|----------||");
-    }
+    }*/
 
     @Override
     public String toString() {

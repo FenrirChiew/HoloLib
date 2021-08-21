@@ -254,11 +254,11 @@ public class Librarian extends People {
     // return date;
     // }
 
-    public void BorrowedReadingMaterial(){
+    public void BorrowedReadingMaterial(Member[] member, ReadingMaterial[] readingMaterial){
 
-        ReadingMaterial readingMaterial = new ReadingMaterial();
+        ReadingMaterial readingMaterials = new ReadingMaterial();
         Scanner sc = new Scanner(System.in);
-        Member member = new Member();
+        Member members = new Member();
         
 
         System.out.println("Do you want to undergo borrow reading material process (Y = yes N = No)? ");
@@ -266,17 +266,17 @@ public class Librarian extends People {
 
         if(confirm == 'Y'){
             // get member details
-            member = SearchLibraryCardNo();
+            members = SearchLibraryCardNo(member);
             do{
                 System.out.println("You had key in invalid Library Card Number! Please key in again!!");
-                member = SearchLibraryCardNo();
-            }while(member == null);
+                members = SearchLibraryCardNo(member);
+            }while(members == null);
             
-            readingMaterial = SearchReadingMaterialCode();
+            readingMaterials = SearchReadingMaterialCode(readingMaterial);
             do{
                 System.out.println("You had key in invalid Reading Material Number! Please key in again!!");
-                readingMaterial = SearchReadingMaterialCode();
-            }while(readingMaterial == null);
+                readingMaterials = SearchReadingMaterialCode(readingMaterial);
+            }while(readingMaterials == null);
 
             System.out.println("Do you want to confirm to continue the borrow process (Y =yes N =no)? ");
             char doubleConfirm = sc.nextLine().charAt(0);
@@ -284,9 +284,9 @@ public class Librarian extends People {
             if(doubleConfirm == 'Y'){
             System.out.println("Please key in the pin number of the library card: ");
             String pinNo = sc.nextLine();
-                if(member.getLibraryCard().getPinNo() == pinNo){
-                    CalculateBorrowedPayment(readingMaterial, member);
-                    PrintBorrowedReadingMaterialDetails(member, readingMaterial);
+                if(members.getLibraryCard().getPinNo() == pinNo){
+                    CalculateBorrowedPayment(readingMaterials, members);
+                    PrintBorrowedReadingMaterialDetails(members, readingMaterials);
                 }
                 else{
                     System.out.println("You had key in wrong pin number");
@@ -296,8 +296,7 @@ public class Librarian extends People {
      }
 
     // parameter Member[]
-    public static Member SearchLibraryCardNo(){
-        Member[] member = new Member[4];
+    public static Member SearchLibraryCardNo(Member[] member){
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Library Card No: ");
@@ -313,9 +312,7 @@ public class Librarian extends People {
     }
 
     // parameter Reading Material[]
-    public static ReadingMaterial SearchReadingMaterialCode(){
-
-        ReadingMaterial[] readingMaterial = new ReadingMaterial[4];
+    public static ReadingMaterial SearchReadingMaterialCode(ReadingMaterial[] readingMaterial){
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Reading Material Code: ");

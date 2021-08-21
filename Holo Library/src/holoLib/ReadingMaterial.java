@@ -121,7 +121,7 @@ public class ReadingMaterial {
     }
 
     /*Method*/
-/*    public ReadingMaterial addNew(){
+    public ReadingMaterial addNew(){
         ReadingMaterial tempReadM = new ReadingMaterial();
         Scanner scanner = new Scanner(System.in);
 
@@ -179,9 +179,7 @@ public class ReadingMaterial {
         //return code, title, language, author, publisher, publisherDate, price, "None", types;
     }
 
-    //public ReadingMaterial modify(){}
-
-    //public ReadingMaterial search(){}
+    //public ReadingMaterial search(){} //status, can borrow or not
 
     public void display(ReadingMaterial[] tempReadM) {
         System.out.println("=--------------------=");
@@ -198,7 +196,7 @@ public class ReadingMaterial {
                     , tempReadM[i].readingMaterialPrice, tempReadM[i].readingMaterialStatus, tempReadM[i].getReadingMaterialType());
         }
         System.out.println(".+-------|------------------------------|----------|--------------------|-------------------------|----------------|----------|----------||");
-    }*/
+    }
 
     @Override
     public String toString() {

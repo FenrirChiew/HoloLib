@@ -222,7 +222,7 @@ public class Librarian extends People {
 
     // public void RenewMembershipMenu() {
     // System.out.println(" __________________________________________");
-    // System.out.println("| Menu For Renew Membership |");
+    // System.out.println("| Menu For Renew Membership                |");
     // System.out.println("|------------------------------------------|");
     // System.out.println("| 1. Renew For 1 year (RM 20.00)           |");
     // System.out.println("| 2. Renew For 2 year (RM 30.00)           |");

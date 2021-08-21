@@ -8,6 +8,10 @@ public class LibrarySystem {
     private ReadingMaterial[] readingMaterialList; // Reading Material List
 
     /********** Constructors **********/
+    public LibrarySystem() {
+
+    }
+
     public LibrarySystem(People[] librarianList, People[] memberList, Facility[] facilityList,
             ReadingMaterial[] readingMaterialList) {
         this.librarianList = librarianList;

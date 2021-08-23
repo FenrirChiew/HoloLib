@@ -1,6 +1,7 @@
 package holoLib;
 
 import java.util.GregorianCalendar;
+import java.util.Scanner;
 
 public class LibraryCard {
     /********** Properties **********/
@@ -94,6 +95,21 @@ public class LibraryCard {
 
     public void setBorrowedHistory(ReadingMaterial[] borrowedHistory) {
         this.borrowedHistory = borrowedHistory;
+    }
+
+    //when return book can review how many books did the person borrowed and want to return which book 
+    public void displayBookBorrowed(Member[] member, ReadingMaterial[] readingMaterial){
+
+        Scanner sc = new Scanner(System.in);
+        ReadingMaterial tempReadingMaterial = new ReadingMaterial();
+        Member tempMember = new Member();
+        Librarian tempLibrarian = new Librarian();
+
+        //how can i add totalborrowed ? 
+
+        tempMember = tempLibrarian.SearchLibraryCardNo(member);
+
+        
     }
 
     /********** Methods **********/

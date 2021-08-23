@@ -34,6 +34,11 @@ public class holoLib {
             }
         } while (continueInput);
 
+<<<<<<< HEAD
+=======
+        LibrarySystem.Logo();
+        sc.nextLine();
+>>>>>>> 354440535c45958fa98a17fb060a1f49bdf81585
         cls();
         sc.nextLine();
 
@@ -49,6 +54,8 @@ public class holoLib {
                 sc.nextLine();
                 cls();
         }
+
+
 
         sc.close();
     }

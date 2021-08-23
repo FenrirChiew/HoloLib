@@ -57,7 +57,7 @@ public class LibrarySystem {
     // Display Main Menu
     public void displayMainMenu() {
         System.out.println("Main Menu");
-        System.out.println("")
+        System.out.println("");
         System.out.println("Enter your selection > ");
     }
 
@@ -129,7 +129,7 @@ public class LibrarySystem {
     }
 
     // HoloLib logo
-    public static void Logo()
+    public void Logo()
     {
         System.out.println("\n\n\n");
         System.out.println("    HHH    HHH      OOOOOO      LLL            OOOOOO  ");

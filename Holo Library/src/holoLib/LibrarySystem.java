@@ -8,6 +8,11 @@ public class LibrarySystem {
     private ReadingMaterial[] readingMaterialList; // Reading Material List
 
     /********** Constructors **********/
+    public LibrarySystem() {
+        this(null, null, null, null);
+    }
+
+    // testing purpose
     public LibrarySystem(Facility[] facilityList) {
         this.facilityList = facilityList;
     }
@@ -129,8 +134,7 @@ public class LibrarySystem {
     }
 
     // HoloLib logo
-    public void Logo()
-    {
+    public void Logo() {
         System.out.println("\n\n\n");
         System.out.println("    HHH    HHH      OOOOOO      LLL            OOOOOO  ");
         System.out.println("    HHH    HHH     OOO  OOO     LLL           OOO  OOO ");

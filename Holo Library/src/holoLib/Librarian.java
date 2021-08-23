@@ -254,39 +254,79 @@ public class Librarian extends People {
     // return date;
     // }
 
-    public void BorrowedReadingMaterial(Member[] member, ReadingMaterial[] readingMaterial){
+    public void BorrowReadingMaterial(Member[] member, ReadingMaterial[] readingMaterial){
 
-        ReadingMaterial readingMaterials = new ReadingMaterial();
-        Scanner sc = new Scanner(System.in);
-        Member members = new Member();
         
-
+        Scanner sc = new Scanner(System.in);
+        ReadingMaterial tempReadingMaterial = new ReadingMaterial();
+        Member tempMember = new Member();
+        
         System.out.println("Do you want to undergo borrow reading material process (Y = yes N = No)? ");
         char confirm = sc.nextLine().charAt(0);
 
         if(confirm == 'Y'){
             // get member details
-            members = SearchLibraryCardNo(member);
+            tempMember = SearchLibraryCardNo(member);
             do{
                 System.out.println("You had key in invalid Library Card Number! Please key in again!!");
-                members = SearchLibraryCardNo(member);
-            }while(members == null);
+                tempMember = SearchLibraryCardNo(member);
+            }while(tempMember == null);
             
-            readingMaterials = SearchReadingMaterialCode(readingMaterial);
+            tempReadingMaterial = SearchReadingMaterialCode(readingMaterial);
             do{
                 System.out.println("You had key in invalid Reading Material Number! Please key in again!!");
-                readingMaterials = SearchReadingMaterialCode(readingMaterial);
-            }while(readingMaterials == null);
+                tempReadingMaterial = SearchReadingMaterialCode(readingMaterial);
+            }while(tempReadingMaterial == null);
 
-            System.out.println("Do you want to confirm to continue the borrow process (Y =yes N =no)? ");
+            System.out.println("Do you want to confirm to continue the borrow process (Y = Yes N = No)? ");
             char doubleConfirm = sc.nextLine().charAt(0);
 
             if(doubleConfirm == 'Y'){
             System.out.println("Please key in the pin number of the library card: ");
             String pinNo = sc.nextLine();
-                if(members.getLibraryCard().getPinNo() == pinNo){
-                    CalculateBorrowedPayment(readingMaterials, members);
-                    PrintBorrowedReadingMaterialDetails(members, readingMaterials);
+                if(tempMember.getLibraryCard().getPinNo() == pinNo){
+                    CalculateBorrowedPayment(tempReadingMaterial, tempMember);
+                    PrintBorrowedReadingMaterialDetails(tempMember, tempReadingMaterial);
+                    String readingMaterialStatus = "Borrowed";
+                    tempReadingMaterial.setReadingMaterialStatus(readingMaterialStatus);
+                }
+                else{
+                    System.out.println("You had key in wrong pin number");
+                }
+            }
+        }
+     }
+
+     public void ReturnReadingMaterial(Member[] member, ReadingMaterial[] readingMaterial){
+
+        Scanner sc = new Scanner(System.in);
+        ReadingMaterial tempReadingMaterial = new ReadingMaterial();
+        Member tempMember = new Member();
+        
+        System.out.println("Do you want to undergo return reading material process (Y = yes N = No)? ");
+        char confirm = sc.nextLine().charAt(0);
+
+        if(confirm == 'Y'){
+            // get member details
+            tempMember = SearchLibraryCardNo(member);
+            do{
+                System.out.println("You had key in invalid Library Card Number! Please key in again!!");
+                tempMember = SearchLibraryCardNo(member);
+            }while(tempMember == null);
+            
+            System.out.println("");
+
+            System.out.println("Do you want to confirm to continue the return process (Y = Yes N = No)? ");
+            char doubleConfirm = sc.nextLine().charAt(0);
+
+            if(doubleConfirm == 'Y'){
+            System.out.println("Please key in the pin number of the library card: ");
+            String pinNo = sc.nextLine();
+                if(tempMember.getLibraryCard().getPinNo() == pinNo){
+                    CalculateBorrowedPayment(tempReadingMaterial, tempMember);
+                    PrintBorrowedReadingMaterialDetails(tempMember, tempReadingMaterial);
+                    String readingMaterialStatus = "Borrowed";
+                    tempReadingMaterial.setReadingMaterialStatus(readingMaterialStatus);
                 }
                 else{
                     System.out.println("You had key in wrong pin number");

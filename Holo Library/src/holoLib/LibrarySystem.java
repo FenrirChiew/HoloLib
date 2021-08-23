@@ -57,6 +57,7 @@ public class LibrarySystem {
     // Display Main Menu
     public void displayMainMenu() {
         System.out.println("Main Menu");
+        System.out.println("")
         System.out.println("Enter your selection > ");
     }
 
@@ -105,5 +106,24 @@ public class LibrarySystem {
 
         // Return False when both conditions above is not achieved
         return false;
+    }
+
+    // HoloLib logo
+    public static void Logo()
+    {
+        System.out.println("\n\n\n");
+        System.out.println("    HHH    HHH      OOOOOO      LLL            OOOOOO  ");
+        System.out.println("    HHH    HHH     OOO  OOO     LLL           OOO  OOO ");
+        System.out.println("    HHHHHHHHHH    OOO    OOO    LLL          OOO    OOO");
+        System.out.println("    HHH    HHH     OOO  OOO     LLL           OOO  OOO ");
+        System.out.println("    HHH    HHH      OOOOOO      LLLLLLLLLL     OOOOOO  ");
+        System.out.println("\n");
+        System.out.println("          LLL           IIIIIIIIII    BBBBBBBB");
+        System.out.println("          LLL              IIII       BBB    BBB");
+        System.out.println("          LLL              IIII       BBBBBBBB");
+        System.out.println("          LLL              IIII       BBB    BBB");
+        System.out.println("          LLLLLLLLLL    IIIIIIIIII    BBBBBBBB");
+        System.out.println("\n\n                                              Logo V1.0");
+        System.out.println("              Press Enter to continue...");
     }
 }

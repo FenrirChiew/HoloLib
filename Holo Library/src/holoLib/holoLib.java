@@ -6,10 +6,11 @@ public class holoLib {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("Hello World!");
-        System.out.print("Press Enter to continue...");
+        LibrarySystem.Logo();
         sc.nextLine();
         cls();
+
+
 
         sc.close();
     }

@@ -8,8 +8,8 @@ public class LibrarySystem {
     private ReadingMaterial[] readingMaterialList; // Reading Material List
 
     /********** Constructors **********/
-    public LibrarySystem() {
-
+    public LibrarySystem(Facility[] facilityList) {
+        this.facilityList = facilityList;
     }
 
     public LibrarySystem(People[] librarianList, People[] memberList, Facility[] facilityList,
@@ -74,8 +74,28 @@ public class LibrarySystem {
 
     // Display Reserve Menu
     public void displayReserveMenu() {
-        System.out.println("Reserve Menu");
-        System.out.println("Enter your selection > ");
+        System.out.println("++=========================++");
+        System.out.println("||      Reserve Menu       ||");
+        System.out.println("++===++====================++");
+        System.out.println("|| 1 ||  Display Facility  ||");
+        System.out.println("|| 2 ||  Search Facility   ||");
+        System.out.println("|| 3 ||  Reserve Facility  ||");
+        System.out.println("++===++====================++");
+        System.out.print("\nEnter your selection > ");
+    }
+
+    public void displayFacility() {
+        System.out.println("++====++=====================++=============++===============++");
+        System.out.println("|| NO ||    Facility Name    || Facility ID || Facility Type ||");
+        System.out.println("++====++=====================++=============++===============++");
+
+        for (int i = 0; i < facilityList.length; i++) {
+            System.out.printf("|| %02d || %-19s || %-11s || %-13s ||\n", i + 1, facilityList[i].facilityName,
+                    facilityList[i].facilityID, facilityList[i].facilityType);
+            System.out.println("++====++=====================++=============++===============++");
+        }
+
+        System.out.println("\nTotal Facilities Found: " + facilityList.length);
     }
 
     // Display Payment Menu

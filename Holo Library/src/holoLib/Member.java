@@ -5,30 +5,27 @@ import java.util.GregorianCalendar;
 
 public class Member extends People {
     /********** Properties **********/
-    private String memberID; // Member ID 
+    private String memberID; // Member ID
     private LibraryCard libraryCard; // Member Library Card
     private static int totalMember = 0; // Total Number of Member
+    private static int nextMemberID = 0001;
 
     /********** Constructors **********/
     public Member() {
-        this("", "", null, "", "", "", null);
+        this("", "", null, "", "", null);
     }
 
-    public Member(String name, String gender, GregorianCalendar dateOfBirth, String icNo, String phoneNo, String memberID,
-            LibraryCard libraryCard) {
+    public Member(String name, String gender, GregorianCalendar dateOfBirth, String icNo, String phoneNo, LibraryCard libraryCard) {
         super(name, gender, dateOfBirth, icNo, phoneNo);
-        this.memberID = memberID;
+        this.memberID = String.format("M%04d", nextMemberID);
         this.libraryCard = libraryCard;
         totalMember++;
+        nextMemberID++;
     }
 
     /********** Accessors & Mutators **********/
     public String getMemberID() {
         return memberID;
-    }
-
-    public void setMemberID(String memberID) {
-        this.memberID = memberID;
     }
 
     public LibraryCard getLibraryCard() {
@@ -43,9 +40,11 @@ public class Member extends People {
         return totalMember;
     }
 
-    /********** Methods **********/
-    // Calculate the age (required or not)
+    public static int getNextMemberID() {
+        return nextMemberID;
+    }
 
+    /********** Methods **********/
     // toString() method
     @Override
     public String toString() {

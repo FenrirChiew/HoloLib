@@ -8,21 +8,21 @@ public class LibraryCard {
     private String cardNO; // Library Card Number
     private String pinNo; // Pin Number
     private GregorianCalendar memberExpDate; // Membership Expire Date (initialize today date)
-    private double cardBalance; // Library Card Balance    (initialize 0.0)
+    private double cardBalance = 0.0; // Library Card Balance    
     private ReservedTimeslot[] reservedTimeSlots; // Reserved Time Slots
     private BookBorrowed[] booksBorrowed; // Books Borrowed
     private Timeslot[] reservedHistory; // Reserved History
     private ReadingMaterial[] borrowedHistory; // Borrowed History
+    private static int nextCardNO = 0001;
 
     /********** Constructors **********/
     public LibraryCard() {
-        this("", "", null, 0.0, null, null, null, null);
+        this( "", null, 0.0,  null);
     }
 
-    public LibraryCard(String cardNO, String pinNo, GregorianCalendar memberExpDate, double cardBalance,
-            ReservedTimeslot[] reservedTimeSlots, BookBorrowed[] booksBorrowed, Timeslot[] reservedHistory,
-            ReadingMaterial[] borrowedHistory) {
-        this.cardNO = cardNO;
+    public LibraryCard(String pinNo, GregorianCalendar memberExpDate, double cardBalance,
+                       ReadingMaterial[] borrowedHistory) {
+        this.cardNO = String.format("C%04d", nextCardNO);
         this.pinNo = pinNo;
         this.memberExpDate = memberExpDate;
         this.cardBalance = cardBalance;
@@ -30,15 +30,12 @@ public class LibraryCard {
         this.booksBorrowed = booksBorrowed;
         this.reservedHistory = reservedHistory;
         this.borrowedHistory = borrowedHistory;
+        nextCardNO++;
     }
 
     /********** Accessors & Mutators **********/
     public String getCardNO() {
         return cardNO;
-    }
-
-    public void setCardNO(String cardNO) {
-        this.cardNO = cardNO;
     }
 
     public String getPinNo() {
@@ -95,6 +92,10 @@ public class LibraryCard {
 
     public void setBorrowedHistory(ReadingMaterial[] borrowedHistory) {
         this.borrowedHistory = borrowedHistory;
+    }
+
+    public static int getNextCardNO() {
+        return nextCardNO;
     }
 
     //when return book can review how many books did the person borrowed and want to return which book 

@@ -56,74 +56,92 @@ public class Librarian extends People {
         return totalLibrarian;
     }
 
-    /********** Methods **********/
-    // // Register Membership method (havent finish)
-    // public Member registerMembership() throws Exception {
+     /********** Methods **********/
+     // Register Membership method
+    //  public Member registerMembership(){
 
-    // Scanner sc = new Scanner(System.in);
-    // Member member = new Member();
-
-    // System.out.print("Do you want to register a membership (Y= yes N= No)? ");
-    // char confirm = sc.nextLine().charAt(0);
-
-    // if (confirm == 'Y') {
-
-    // System.out.print("Name: ");
-    // String name = sc.nextLine();
-
-    // System.out.print("IC No: ");
-    // String icNo = sc.nextLine();
-
-    // System.out.print("Gender: ");
-    // String gender = sc.nextLine();
-
-    // System.out.print("Date Of Birth: ");
-    // String dateOfBirth = sc.nextLine();
-    // // Date dob = ConvertToDate(dateOfBirth);
-
-    // System.out.print("Phone No: ");
-    // String phoneNo = sc.nextLine();
-
-    // System.out.print("Username: ");
-    // String username = sc.nextLine();
-
-    // System.out.print("Password: ");
-    // String password = sc.nextLine();
-    
-    // System.out.print("Do you confirm want to register to be a member (Y= Yes N=
-    // No): ");
-    // char doubleConfirm = sc.nextLine().charAt(0);
-
-    // // store the data inside to the member
-    // if (doubleConfirm == 'Y') {
-    // System.out.println("You had success to add a member!!");
-    // member.setName(name);
-    // member.setIcNo(icNo);
-    // member.setGender(gender);
-    // member.setDateOfBirth(dateOfBirth);
-    // member.setPhoneNo(phoneNo);
-    // member.setUsername(username);
-    // member.setPassword(password);
-
-    // } else {
-    // System.out.println("You had not add a member!!");
-    // }
-    // } else {
-    // System.out.println("You are not ready to register a membership.");
-    // }
-    // // default will return null data in the member, while confirm then after set
-    // can
-    // // return the value
-    // return member;
-    // }
-
-    // // Convert String to Date
-    // /*
-    // * public static Date ConvertToDate(String dateOfBirth)throws Exception{ Date
-    // * dob = new SimpleDateFormat("dd/MM/yyyy").parse(dateOfBirth);
-    // *
-    // * return dob; }
-    // */
+    //     Scanner sc = new Scanner(System.in);
+   
+    //     System.out.print("Do you want to register a membership (Y= yes N= No)? ");
+    //     char confirm = sc.nextLine().charAt(0);
+   
+    //     if (confirm == 'Y') {
+   
+    //     System.out.print("Name: ");
+    //     String name = sc.nextLine();
+   
+    //     System.out.print("IC No: ");
+    //     String icNo = sc.nextLine();
+   
+    //     System.out.print("Gender: ");
+    //     String gender = sc.nextLine();
+   
+    //     System.out.print("Enter your date of birth (dd/mm/yyyy): ");
+    //     String dob = sc.nextLine();
+    //     GregorianCalendar dateOfBirth = ConvertDate(dob);
+   
+    //     //System.out.println(cal.get(Calendar.DAY_OF_MONTH) + "/" + cal.get(Calendar.MONTH) + "/" + cal.get(Calendar.YEAR));
+   
+    //     System.out.print("Phone No: ");
+    //     String phoneNo = sc.nextLine();
+   
+    //     System.out.println("Pin number of the Library Card: ");
+    //     String pinNo = sc.nextLine();
+   
+    //     System.out.print("Do you confirm want to register to be a member (Y = yes N = no)? ");
+    //     char doubleConfirm = sc.nextLine().charAt(0);
+   
+    //     // store the data inside to the member
+    //     if (doubleConfirm == 'Y') {
+   
+    //         LibraryCard libraryCard = new LibraryCard(pinNo,null);
+   
+    //         Member member = new Member(name, gender, dateOfBirth, icNo, phoneNo, libraryCard);
+    //         System.out.println("You had success to add a member!!");
+   
+    //         System.out.println("Do you want to cash in for the card balance (Y = yes N = no)? ");
+    //         char ChoiceCashIn = sc.nextLine().charAt(0);
+    //         if(ChoiceCashIn == 'Y'){
+    //             System.out.println("How much do you want to cash in: RM ");
+    //             double cashIn = sc.nextDouble();
+    //         }
+   
+    //     } else {
+    //     System.out.println("You had not add a member!!");
+    //     }
+    //     } else {
+    //     System.out.println("You are not ready to register a membership.");
+    //     }
+   
+    //     // return the value
+    //     return member;
+    //     }
+   
+    //     // Convert String to Date
+    //     public static GregorianCalendar ConvertDate(String dob) {
+   
+    //         GregorianCalendar dateOfBirth = new GregorianCalendar();
+    //         String[] arrSplit = dob.split("/", 3);
+   
+    //         int day = Integer.parseInt(arrSplit[0]);
+    //         int month = Integer.parseInt(arrSplit[1]);
+    //         int year = Integer.parseInt(arrSplit[2]);
+   
+    //         dateOfBirth.set(GregorianCalendar.YEAR, year);
+    //         dateOfBirth.set(GregorianCalendar.MONTH, month);
+    //         dateOfBirth.set(GregorianCalendar.DAY_OF_MONTH, day);
+   
+    //         return dateOfBirth;
+    //     }
+   
+    //    public void PrintRegisterDetail(Member member){
+    //        System.out.println("          Member Detail");
+    //        System.out.println("===================================");
+    //        System.out.println(" Member ID: " + member.getMemberID());
+    //        System.out.println(" Member Name: " + member.getName());
+    //        System.out.println(" Member IC: " + member.getMemberID());
+   
+    //    }
 
     // // Method to reload the money of the membership
     // public void ReloadMembership(LibraryCard libraryCard) {

@@ -61,20 +61,37 @@ public class LibrarySystem {
     /********** Methods **********/
     // Display Main Menu
     public void displayMainMenu() {
-        System.out.println("Main Menu");
-        System.out.println("");
-        System.out.println("Enter your selection > ");
+        System.out.println("++=================================++");
+        System.out.println("||            Main Menu            ||");
+        System.out.println("++===++============================++");
+        System.out.println("|| 1 || Membership Management      ||");
+        System.out.println("|| 2 || Book Borrowing & Returning ||");
+        System.out.println("|| 3 || Reservation Management     ||");
+        System.out.println("++===++============================++");
+        System.out.println("\n\tEnter your selection > ");
     }
 
     // Display Membership Menu
     public void displayMembershipMenu() {
-        System.out.println("Membership Menu");
+        System.out.println("++=========================++");
+        System.out.println("||     Membership Menu     ||");
+        System.out.println("++=========================++");
+        System.out.println("|| 1 ||                    ||");
+        System.out.println("|| 2 ||                    ||");
+        System.out.println("|| 3 ||                    ||");
+        System.out.println("++===++====================++");
         System.out.println("Enter your selection > ");
     }
 
     // Display Borrow Menu
     public void displayBorrowMenu() {
-        System.out.println("Borrow Menu");
+        System.out.println("++=========================++");
+        System.out.println("||       Borrow Menu       ||");
+        System.out.println("++=========================++");
+        System.out.println("|| 1 ||                    ||");
+        System.out.println("|| 2 ||                    ||");
+        System.out.println("|| 3 ||                    ||");
+        System.out.println("++===++====================++");
         System.out.println("Enter your selection > ");
     }
 
@@ -87,7 +104,7 @@ public class LibrarySystem {
         System.out.println("|| 2 ||  Search Facility   ||");
         System.out.println("|| 3 ||  Reserve Facility  ||");
         System.out.println("++===++====================++");
-        System.out.print("\nEnter your selection > ");
+        System.out.print("\n\tEnter your selection > ");
     }
 
     public void displayFacility() {
@@ -106,13 +123,26 @@ public class LibrarySystem {
 
     // Display Payment Menu
     public void displayPaymentMenu() {
-        System.out.println("Payment Menu");
+        System.out.println("++=========================++");
+        System.out.println("||      Payment Menu       ||");
+        System.out.println("++===++====================++");
+        System.out.println("|| 1 ||                    ||");
+        System.out.println("|| 2 ||                    ||");
+        System.out.println("|| 3 ||                    ||");
+        System.out.println("++===++====================++");
         System.out.println("Enter your selection > ");
     }
 
     // Display Administrative Menu
     public void displayAdministrativeMenu() {
         System.out.println("Administrative Menu");
+        System.out.println("++=========================++");
+        System.out.println("||   Administrative Menu   ||");
+        System.out.println("++===++====================++");
+        System.out.println("|| 1 ||                    ||");
+        System.out.println("|| 2 ||                    ||");
+        System.out.println("|| 3 ||                    ||");
+        System.out.println("++===++====================++");
         System.out.println("Enter your selection > ");
     }
 
@@ -135,19 +165,35 @@ public class LibrarySystem {
 
     // HoloLib logo
     public void Logo() {
-        System.out.println("\n\n\n");
-        System.out.println("    HHH    HHH      OOOOOO      LLL            OOOOOO  ");
-        System.out.println("    HHH    HHH     OOO  OOO     LLL           OOO  OOO ");
-        System.out.println("    HHHHHHHHHH    OOO    OOO    LLL          OOO    OOO");
-        System.out.println("    HHH    HHH     OOO  OOO     LLL           OOO  OOO ");
-        System.out.println("    HHH    HHH      OOOOOO      LLLLLLLLLL     OOOOOO  ");
+        System.out.println("⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠤⠖⠚⢉⣩⣭⡭⠛⠓⠲⠦⣄⡀⠀⠀⠀⠀⠀⠀⠀");
+        System.out.println("⠀⠀⠀⠀⠀⠀⢀⡴⠋⠁⠀⠀⠊⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠳⢦⡀⠀⠀⠀⠀");
+        System.out.println("⠀⠀⠀⠀⢀⡴⠃⢀⡴⢳⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⣆⠀⠀⠀");
+        System.out.println("⠀⠀⠀⠀⡾⠁⣠⠋⠀⠈⢧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢧⠀⠀");
+        System.out.println("⠀⠀⠀⣸⠁⢰⠃⠀⠀⠀⠈⢣⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣇⠀");
+        System.out.println("⠀⠀⠀⡇⠀⡾⡀⠀⠀⠀⠀⣀⣹⣆⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⠀");
+        System.out.println("⠀⠀⢸⠃⢀⣇⡈⠀⠀⠀⠀⠀⠀⢀⡑⢄⡀⢀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇");
+        System.out.println("⠀⠀⢸⠀⢻⡟⡻⢶⡆⠀⠀⠀⠀⡼⠟⡳⢿⣦⡑⢄⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇");
+        System.out.println("⠀⠀⣸⠀⢸⠃⡇⢀⠇⠀⠀⠀⠀⠀⡼⠀⠀⠈⣿⡗⠂⠀⠀⠀⠀⠀⠀⠀⢸⠁");
+        System.out.println("⠀⠀⡏⠀⣼⠀⢳⠊⠀⠀⠀⠀⠀⠀⠱⣀⣀⠔⣸⠁⠀⠀⠀⠀⠀⠀⠀⢠⡟⠀");
+        System.out.println("⠀⠀⡇⢀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⢸⠃⠀");
+        System.out.println("⠀⢸⠃⠘⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠁⠀⠀⢀⠀⠀⠀⠀⠀⣾⠀⠀");
+        System.out.println("⠀⣸⠀⠀⠹⡄⠀⠀⠈⠁⠀⠀⠀⠀⠀⠀⠀⡞⠀⠀⠀⠸⠀⠀⠀⠀⠀⡇⠀⠀");
+        System.out.println("⠀⡏⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⠀⢀⣠⢶⡇⠀⠀⢰⡀⠀⠀⠀⠀⠀⡇⠀⠀");
+        System.out.println("⢰⠇⡄⠀⠀⠀⡿⢣⣀⣀⣀⡤⠴⡞⠉⠀⢸⠀⠀⠀⣿⡇⠀⠀⠀⠀⠀⣧⠀⠀");
+        System.out.println("⣸⠀⡇⠀⠀⠀⠀⠀⠀⠉⠀⠀⠀⢹⠀⠀⢸⠀⠀⢀⣿⠇⠀⠀⠀⠁⠀⢸⠀⠀");
+        System.out.println("⣿⠀⡇⠀⠀⠀⠀⠀⢀⡤⠤⠶⠶⠾⠤⠄⢸⠀⡀⠸⣿⣀⠀⠀⠀⠀⠀⠈⣇⠀");
+        System.out.println("⡇⠀⡇⠀⠀⡀⠀⡴⠋⠀⠀⠀⠀⠀⠀⠀⠸⡌⣵⡀⢳⡇⠀⠀⠀⠀⠀⠀⢹⡀");
+        System.out.println("⡇⠀⠇⠀⠀⡇⡸⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠮⢧⣀⣻⢂⠀⠀⠀⠀⠀⠀⢧");
+        System.out.println("⣇⠀⢠⠀⠀⢳⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⡎⣆⠀⠀⠀⠀⠀⠘");
+        System.out.println("⢻⠀⠈⠰⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠰⠘⢮⣧⡀⠀⠀⠀⠀");
+        System.out.println("⠸⡆⠀⠀⠇⣾⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠆⠀⠀⠀⠀⠀⠀⠀⠙⠳⣄⡀⢢⡀");
         System.out.println("\n");
-        System.out.println("          LLL           IIIIIIIIII    BBBBBBBB");
-        System.out.println("          LLL              IIII       BBB    BBB");
-        System.out.println("          LLL              IIII       BBBBBBBB");
-        System.out.println("          LLL              IIII       BBB    BBB");
-        System.out.println("          LLLLLLLLLL    IIIIIIIIII    BBBBBBBB");
-        System.out.println("\n\n                                              Logo V1.0");
+        System.out.println("⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⣿⣿⣿⠀");
+        System.out.println("⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⣿⠀⠀⠀⣿");
+        System.out.println("⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⣿⣿⣿⣿");
+        System.out.println("⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⣿⠀⠀⠀⣿");
+        System.out.println("⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⣿⣿⣿⠀");
+        System.out.println("\n");
         System.out.println("              Press Enter to continue...");
     }
 }

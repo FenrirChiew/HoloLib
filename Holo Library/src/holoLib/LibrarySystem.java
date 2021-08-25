@@ -1,5 +1,7 @@
 package holoLib;
 
+import java.util.Scanner;
+
 public class LibrarySystem {
     /********** Properties **********/
     private People[] librarianList; // Librarian List
@@ -67,19 +69,20 @@ public class LibrarySystem {
         System.out.println("|| 1 || Membership Management      ||");
         System.out.println("|| 2 || Book Borrowing & Returning ||");
         System.out.println("|| 3 || Reservation Management     ||");
+        System.out.println("|| 4 || Administrative Management  ||");
         System.out.println("++===++============================++");
         System.out.println("\n\tEnter your selection > ");
     }
 
     // Display Membership Menu
     public void displayMembershipMenu() {
-        System.out.println("++=========================++");
-        System.out.println("||     Membership Menu     ||");
-        System.out.println("++=========================++");
-        System.out.println("|| 1 ||                    ||");
-        System.out.println("|| 2 ||                    ||");
-        System.out.println("|| 3 ||                    ||");
-        System.out.println("++===++====================++");
+        System.out.println("++===============================++");
+        System.out.println("||        Membership Menu        ||");
+        System.out.println("++===============================++");
+        System.out.println("|| 1 || Membership Registration  ||");
+        System.out.println("|| 2 || Renewal n Reload ?       ||");  // TBD
+        System.out.println("|| 3 || Display detail ?         ||");  // TBD
+        System.out.println("++===++==========================++");
         System.out.println("Enter your selection > ");
     }
 
@@ -88,9 +91,9 @@ public class LibrarySystem {
         System.out.println("++=========================++");
         System.out.println("||       Borrow Menu       ||");
         System.out.println("++=========================++");
-        System.out.println("|| 1 ||                    ||");
-        System.out.println("|| 2 ||                    ||");
-        System.out.println("|| 3 ||                    ||");
+        System.out.println("|| 1 || Borrow book        ||");
+        System.out.println("|| 2 || Return book        ||");
+        System.out.println("|| 3 || Back               ||");
         System.out.println("++===++====================++");
         System.out.println("Enter your selection > ");
     }
@@ -133,17 +136,39 @@ public class LibrarySystem {
         System.out.println("Enter your selection > ");
     }
 
+    // User needs to be verified as administrator before entering this menu
     // Display Administrative Menu
     public void displayAdministrativeMenu() {
         System.out.println("Administrative Menu");
         System.out.println("++=========================++");
         System.out.println("||   Administrative Menu   ||");
         System.out.println("++===++====================++");
-        System.out.println("|| 1 ||                    ||");
-        System.out.println("|| 2 ||                    ||");
-        System.out.println("|| 3 ||                    ||");
+        System.out.println("|| 1 || Add new librarian  ||");
+        System.out.println("|| 2 || Edit librarian ID  ||");
+        System.out.println("|| 3 || Back               ||");
         System.out.println("++===++====================++");
         System.out.println("Enter your selection > ");
+    }
+
+    // Login method
+    public void Login() {
+        Scanner sc = new Scanner(System.in);
+
+        do {
+            System.out.println("ID: ");
+            String id = sc.nextLine();
+            System.out.println("Password: ");
+            String password = sc.nextLine();
+
+            if (validateLogin(id, password)) {
+                sc.close();
+                break;
+            }
+            else {
+                System.out.println("\nWrong ID or password. Please try again.");
+            }
+        } while (true);
+        
     }
 
     // Validate Login using Input Librarian ID and Input Password
@@ -160,6 +185,17 @@ public class LibrarySystem {
         }
 
         // Return False when both conditions above is not achieved
+        return false;
+    }
+
+    // Logout method
+    public boolean Logout() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Are you sure you want to logout? (Y/N)");
+        char confirmation = sc.nextLine().charAt(0);
+        sc.close();
+        if (confirmation == 'Y')
+            return true;
         return false;
     }
 

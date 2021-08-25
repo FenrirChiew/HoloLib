@@ -76,13 +76,13 @@ public class LibrarySystem {
 
     // Display Membership Menu
     public void displayMembershipMenu() {
-        System.out.println("++=========================++");
-        System.out.println("||  Membership Management  ||");
-        System.out.println("++=========================++");
-        System.out.println("|| 1 ||                    ||");
-        System.out.println("|| 2 ||                    ||");
-        System.out.println("|| 3 ||                    ||");
-        System.out.println("++===++====================++");
+        System.out.println("++===============================++");
+        System.out.println("||        Membership Menu        ||");
+        System.out.println("++===============================++");
+        System.out.println("|| 1 || Membership Registration  ||");
+        System.out.println("|| 2 || Renewal n Reload ?       ||");
+        System.out.println("|| 3 || Display detail ?         ||");
+        System.out.println("++===++==========================++");
     }
 
     // Display Borrow Menu
@@ -90,9 +90,9 @@ public class LibrarySystem {
         System.out.println("++=========================++");
         System.out.println("||     Book Borrowing      ||");
         System.out.println("++=========================++");
-        System.out.println("|| 1 ||                    ||");
-        System.out.println("|| 2 ||                    ||");
-        System.out.println("|| 3 ||                    ||");
+        System.out.println("|| 1 || Borrow book        ||");
+        System.out.println("|| 2 || Return book        ||");
+        System.out.println("|| 3 || Back               ||");
         System.out.println("++===++====================++");
     }
 
@@ -230,14 +230,15 @@ public class LibrarySystem {
         System.out.println("++===++====================++");
     }
 
+    // User needs to be verified as administrator before entering this menu
     // Display Administrative Menu
     public void displayAdministrativeMenu() {
         System.out.println("++=========================++");
         System.out.println("||     Administrative      ||");
         System.out.println("++===++====================++");
-        System.out.println("|| 1 ||                    ||");
-        System.out.println("|| 2 ||                    ||");
-        System.out.println("|| 3 ||                    ||");
+        System.out.println("|| 1 || Add new librarian  ||");
+        System.out.println("|| 2 || Edit librarian ID  ||");
+        System.out.println("|| 3 || Back               ||");
         System.out.println("++===++====================++");
     }
 
@@ -300,6 +301,26 @@ public class LibrarySystem {
         return choice; // Return continue choice
     }
 
+    // Login method
+    public void Login() {
+        Scanner sc = new Scanner(System.in);
+
+        do {
+            System.out.println("ID: ");
+            String id = sc.nextLine();
+            System.out.println("Password: ");
+            String password = sc.nextLine();
+
+            if (validateLogin(id, password)) {
+                sc.close();
+                break;
+            } else {
+                System.out.println("\nWrong ID or password. Please try again.");
+            }
+        } while (true);
+
+    }
+
     // Validate Login using Input Librarian ID and Input Password
     public boolean validateLogin(String librarianID, String password) {
         // Loop through Librarian List to search matched Librarian ID and Password
@@ -314,6 +335,17 @@ public class LibrarySystem {
         }
 
         return false; // Return False when both conditions above is not achieved
+    }
+
+    // Logout method
+    public boolean Logout() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Are you sure you want to logout? (Y/N)");
+        char confirmation = sc.nextLine().charAt(0);
+        sc.close();
+        if (confirmation == 'Y')
+            return true;
+        return false;
     }
 
     // HoloLib logo

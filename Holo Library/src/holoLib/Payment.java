@@ -1,7 +1,7 @@
 package holoLib;
 
 public interface Payment {
-    float payBorrow(float payment, float balance);
+    double payPayment(double payment, double balance);
 }
 
 /*

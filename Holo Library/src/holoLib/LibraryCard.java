@@ -17,19 +17,13 @@ public class LibraryCard {
 
     /********** Constructors **********/
     public LibraryCard() {
-        this( "", null, 0.0,  null);
+        this( "", null);
     }
 
-    public LibraryCard(String pinNo, GregorianCalendar memberExpDate, double cardBalance,
-                       ReadingMaterial[] borrowedHistory) {
+    public LibraryCard(String pinNo, GregorianCalendar memberExpDate) {
         this.cardNO = String.format("C%04d", nextCardNO);
         this.pinNo = pinNo;
         this.memberExpDate = memberExpDate;
-        this.cardBalance = cardBalance;
-        this.reservedTimeSlots = reservedTimeSlots;
-        this.booksBorrowed = booksBorrowed;
-        this.reservedHistory = reservedHistory;
-        this.borrowedHistory = borrowedHistory;
         nextCardNO++;
     }
 

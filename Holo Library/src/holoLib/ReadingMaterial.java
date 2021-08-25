@@ -11,31 +11,37 @@ public class ReadingMaterial {
     private String readingMaterialPublisher;
     private String readingMaterialPublicationDate;
     private double readingMaterialPrice;
-    private String readingMaterialStatus;
-    private String readingMaterialType;
-    private static int totalNumOfReadingMaterial = -1; //the temp also count...so -1 // readingMaterial.size() can get
+    private String readingMaterialStatus = "returned";
+    //private String readingMaterialType;
+    private static int nextReadingMaterialCode = 001;
+    private static int totalNumOfReadingMaterial; // readingMaterial.size() can get
 
     private static int MAX_BORROW_DATE; // no getter & setter
 
     /*Constructor*/
     // no arguments
     public ReadingMaterial(){
-        this("", "", "", "", "", "", 0.0, "", "");
-        //totalNumOfReadingMaterial++;
+        this("", "", "", "", "", "", 0.0, "");
     }
 
     // with arguments
-    public ReadingMaterial(String readingMaterialCode, String readingMaterialTitle, String readingMaterialLanguage, String readingMaterialAuthor, String readingMaterialPublisher, String readingMaterialPublicationDate, double readingMaterialPrice, String readingMaterialStatus, String readingMaterialType) {
-        this.readingMaterialCode = readingMaterialCode;
+    public ReadingMaterial(String readingMaterialCode, String readingMaterialTitle, String readingMaterialLanguage, String readingMaterialAuthor, String readingMaterialPublisher, String readingMaterialPublicationDate, double readingMaterialPrice, String readingMaterialType) {
+        if(nextReadingMaterialCode < 999){
+            this.readingMaterialCode = String.format("RA%03d", nextReadingMaterialCode);
+        }
+        else{
+            nextReadingMaterialCode -= 999;
+            this.readingMaterialCode = String.format("RB%03d", nextReadingMaterialCode);
+        }
         this.readingMaterialTitle = readingMaterialTitle;
         this.readingMaterialLanguage = readingMaterialLanguage;
         this.readingMaterialAuthor = readingMaterialAuthor;
         this.readingMaterialPublisher = readingMaterialPublisher;
         this.readingMaterialPublicationDate = readingMaterialPublicationDate;
         this.readingMaterialPrice = readingMaterialPrice;
-        this.readingMaterialStatus = readingMaterialStatus;
-        this.readingMaterialType = readingMaterialType;
+        //this.readingMaterialType = readingMaterialType;
 
+        nextReadingMaterialCode++;
         totalNumOfReadingMaterial++;
     }
 
@@ -104,13 +110,13 @@ public class ReadingMaterial {
         this.readingMaterialStatus = readingMaterialStatus;
     }
 
-    public String getReadingMaterialType() {
+/*    public String getReadingMaterialType() {
         return readingMaterialType;
     }
 
     public void setReadingMaterialType(String readingMaterialType) {
         this.readingMaterialType = readingMaterialType;
-    }
+    }*/
 
     public static int getTotalNumOfReadingMaterial() {
         return totalNumOfReadingMaterial;
@@ -124,22 +130,33 @@ public class ReadingMaterial {
     public ReadingMaterial addNew(){
         ReadingMaterial tempReadM = new ReadingMaterial();
         Scanner scanner = new Scanner(System.in);
+        boolean result = false;
 
         String code;
-        int num = totalNumOfReadingMaterial;
-        if(num + 1 < 999){
-            code = String.format("RA%03d", num + 1);
+        if(nextReadingMaterialCode < 999){
+            code = String.format("RA%03d", nextReadingMaterialCode);
         }
         else{
-            code = String.format("RB%03d", num + 1 -999);
+            nextReadingMaterialCode -= 999;
+            code = String.format("RB%03d", nextReadingMaterialCode);
         }
 
         // prompt user enter reading material details
-        System.out.print("Enter reading material title: ");
-        String title = scanner.next();
+        String title;
+        do {
+            System.out.print("Enter reading material title: ");
+            title = scanner.nextLine();
+            result = title.matches("[A-Za-z]$");
+        }while(!result);
 
-        System.out.print("Enter reading material written language: ");
-        String language = scanner.next();
+        result = false;
+        String language;
+        do{
+            System.out.print("Enter reading material written language: ");
+            language = scanner.next();
+            // let them choose?
+        }while(!result);
+
 
         System.out.print("Enter reading material author: ");
         String author = scanner.next();
@@ -175,12 +192,13 @@ public class ReadingMaterial {
             System.out.println("This add reading material action has been repeal.");
         }
         //return tempReadM;
-        return new ReadingMaterial(code, title, language, author, publisher, publisherDate, price, "None", types);
+        return new ReadingMaterial(code, title, language, author, publisher, publisherDate, price, types);
         //return code, title, language, author, publisher, publisherDate, price, "None", types;
     }
 
     //public ReadingMaterial search(){} //status, can borrow or not
 
+    /*
     public void display(ReadingMaterial[] tempReadM) {
         System.out.println("=--------------------=");
         System.out.println("|  Reading Material  |");
@@ -189,6 +207,7 @@ public class ReadingMaterial {
         System.out.println("||  Code |            Title             | Language |        Author      |        Publisher        | Publisher Date |   Price  |  Status  |   Type    ||");
         System.out.println(".+-------|------------------------------|----------|--------------------|-------------------------|----------------|----------|----------|-----------||");
 
+        //got problem because comment the type
         for (int i = 0; i < totalNumOfReadingMaterial; i++) {
             System.out.printf("||%6s |%30s |%10s |%20s |%25s |%15s |%7.2f |%9s |%10s ||"
                     , tempReadM[i].readingMaterialCode, tempReadM[i].readingMaterialTitle, tempReadM[i].readingMaterialLanguage
@@ -211,4 +230,5 @@ public class ReadingMaterial {
                 "Price: " + readingMaterialPrice + "\n" +
                 "Status: " + readingMaterialStatus + "\n";
     }
+    */
 }

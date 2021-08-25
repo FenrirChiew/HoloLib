@@ -137,9 +137,13 @@ public class Librarian extends People {
     //    public void PrintRegisterDetail(Member member){
     //        System.out.println("          Member Detail");
     //        System.out.println("===================================");
-    //        System.out.println(" Member ID: " + member.getMemberID());
-    //        System.out.println(" Member Name: " + member.getName());
-    //        System.out.println(" Member IC: " + member.getMemberID());
+    //        public void PrintRegisterDetail(Member member){
+    //        System.out.println("          Member Detail");
+    //        System.out.println("===================================");
+
+    //        member.toString();
+
+    // }
    
     //    }
 

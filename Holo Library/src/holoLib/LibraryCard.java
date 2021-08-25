@@ -10,9 +10,9 @@ public class LibraryCard {
     private GregorianCalendar memberExpDate; // Membership Expire Date (initialize today date)
     private double cardBalance = 0.0; // Library Card Balance    
     private ReservedTimeslot[] reservedTimeSlots; // Reserved Time Slots
-    private BookBorrowed[] booksBorrowed; // Books Borrowed
     private Timeslot[] reservedHistory; // Reserved History
     private ReadingMaterial[] borrowedHistory; // Borrowed History
+    private ReadingMaterial[] CurrentReadingMaterial;
     private static int nextCardNO = 0001;
 
     /********** Constructors **********/
@@ -64,14 +64,6 @@ public class LibraryCard {
         this.reservedTimeSlots = reservedTimeSlots;
     }
 
-    public BookBorrowed[] getBooksBorrowed() {
-        return booksBorrowed;
-    }
-
-    public void setBooksBorrowed(BookBorrowed[] booksBorrowed) {
-        this.booksBorrowed = booksBorrowed;
-    }
-
     public Timeslot[] getReservedHistory() {
         return reservedHistory;
     }
@@ -90,6 +82,14 @@ public class LibraryCard {
 
     public static int getNextCardNO() {
         return nextCardNO;
+    }
+
+    public ReadingMaterial[] getCurrentReadingMaterial() {
+        return CurrentReadingMaterial;
+    }
+
+    public void setCardBalance(double cardBalance) {
+    this.cardBalance = cardBalance;
     }
 
     //when return book can review how many books did the person borrowed and want to return which book 

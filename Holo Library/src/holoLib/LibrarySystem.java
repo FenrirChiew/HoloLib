@@ -80,8 +80,9 @@ public class LibrarySystem {
         System.out.println("||        Membership Menu        ||");
         System.out.println("++===============================++");
         System.out.println("|| 1 || Membership Registration  ||");
-        System.out.println("|| 2 || Renewal n Reload ?       ||");
-        System.out.println("|| 3 || Display detail ?         ||");
+        System.out.println("|| 2 || Renewal Membership       ||"); //Renew means the expire date is reach then renew
+        System.out.println("|| 3 || Reload Card Balance      ||"); //Reload means the card do not have enough balance then reload
+        System.out.println("|| 3 || Display detail ?         ||"); // this display all member detail? 
         System.out.println("++===++==========================++");
     }
 

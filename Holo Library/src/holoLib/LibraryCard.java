@@ -93,19 +93,21 @@ public class LibraryCard {
     }
 
     //when return book can review how many books did the person borrowed and want to return which book 
-    public void displayBookBorrowed(Member[] member, ReadingMaterial[] readingMaterial){
+    // public void displayBookBorrowed(Member[] member, ReadingMaterial[] readingMaterial){
 
-        Scanner sc = new Scanner(System.in);
-        ReadingMaterial tempReadingMaterial = new ReadingMaterial();
-        Member tempMember = new Member();
-        Librarian tempLibrarian = new Librarian();
+    //     Scanner sc = new Scanner(System.in);
+    //     ReadingMaterial tempReadingMaterial = new ReadingMaterial();
+    //     Member tempMember = new Member();
+    //     Librarian tempLibrarian = new Librarian();
 
-        //how can i add totalborrowed ? 
+    //     //how can i add totalborrowed ? 
 
-        tempMember = tempLibrarian.SearchLibraryCardNo(member);
+    //     tempMember = tempLibrarian.SearchLibraryCardNo(member);
 
         
-    }
+    // }
+
+
 
     /********** Methods **********/
     // next memberId method

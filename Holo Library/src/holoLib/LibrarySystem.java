@@ -80,7 +80,7 @@ public class LibrarySystem {
         System.out.println("||        Membership Menu        ||");
         System.out.println("++===============================++");
         System.out.println("|| 1 || Membership Registration  ||");
-        System.out.println("|| 2 || Renewal Membership       ||"); //Renew means the expire date is reach then renew
+        System.out.println("|| 2 || Membership Renewal       ||"); //Renew means the expire date is reach then renew
         System.out.println("|| 3 || Reload Card Balance      ||"); //Reload means the card do not have enough balance then reload
         System.out.println("|| 3 || Display detail ?         ||"); // this display all member detail? 
         System.out.println("++===++==========================++");
@@ -91,12 +91,89 @@ public class LibrarySystem {
         System.out.println("++=========================++");
         System.out.println("||     Book Borrowing      ||");
         System.out.println("++=========================++");
-        System.out.println("|| 1 || Borrow book        ||");
-        System.out.println("|| 2 || Return book        ||");
-        System.out.println("|| 3 || Back               ||");
+        System.out.println("|| 1 || Display book        ||");
+        System.out.println("|| 2 || Search book        ||");
+        System.out.println("|| 3 || Borrow book        ||");
+        System.out.println("|| 4 || Return book        ||");
+        System.out.println("|| 0 || Back               ||");
         System.out.println("++===++====================++");
     }
 
+    // Display Book Searching Menu
+    public void displayBookSearchingMenu() {
+        System.out.println("++============================++");
+        System.out.println("||       Book Searching       ||");
+        System.out.println("++============================++");
+        System.out.println("|| Search By:                 ||");
+        System.out.println("|| 1    Book Title            ||");
+        System.out.println("|| 2    Book ID               ||");
+        System.out.println("|| 3    Author                ||");
+        System.out.println("|| 4    Publisher             ||");
+        System.out.println("|| 0    Back                  ||");
+        System.out.println("++===++=======================++");
+    }
+
+    // Display Report Menu
+    public void displayReportMenu() {
+        System.out.println("++===============================++");
+        System.out.println("||            Report             ||");
+        System.out.println("++===++==========================++");
+        System.out.println("|| 1 || Daily Book Borrow Report ||");
+        System.out.println("|| 2 || Daily Book Return Report ||");
+        System.out.println("|| 0 || Back                     ||");
+        System.out.println("++===++==========================++");
+    }
+
+    // User needs to be verified as administrator before entering this menu
+    // Display Administrative Menu
+    public void displayAdministrativeMenu() {
+        System.out.println("++==============================++");
+        System.out.println("||        Administrative        ||");
+        System.out.println("++===++=========================++");
+        System.out.println("|| 1 || Member Management       ||");
+        System.out.println("|| 2 || Librarian Management    ||");
+        System.out.println("|| 3 || Books Inv. Management   ||");
+        System.out.println("|| 0 || Back                    ||");
+        System.out.println("++===++=========================++");
+    }
+
+    // Display Member Management Menu
+    public void displayMemberManagementMenu() {
+        System.out.println("++==============================++");
+        System.out.println("||      Member Management       ||");
+        System.out.println("++===++=========================++");
+        System.out.println("|| 1 || Add Member              ||");
+        System.out.println("|| 2 || Modify Member           ||");
+        System.out.println("|| 3 || Delete Member           ||");
+        System.out.println("|| 0 || Back                    ||");
+        System.out.println("++===++=========================++");
+    }
+
+    // Display Librarian Management Menu
+    public void displayLibrarianManagementMenu() {
+        System.out.println("++==============================++");
+        System.out.println("||     Librarian Management     ||");
+        System.out.println("++===++=========================++");
+        System.out.println("|| 1 || Add Librarian           ||");
+        System.out.println("|| 2 || Modify Librarian        ||");
+        System.out.println("|| 3 || Delete Librarian        ||");
+        System.out.println("|| 0 || Back                    ||");
+        System.out.println("++===++=========================++");
+    }
+
+    // Display Books Inventory Management Menu
+    public void displayBooksInvManagementMenu() {
+        System.out.println("++==============================++");
+        System.out.println("||  Books Inventory Management  ||");
+        System.out.println("++===++=========================++");
+        System.out.println("|| 1 || Add Book Data           ||");
+        System.out.println("|| 2 || Modify Book Data        ||");
+        System.out.println("|| 3 || Delete Book Data        ||");
+        System.out.println("|| 0 || Back                    ||");
+        System.out.println("++===++=========================++");
+    }
+
+    // Removed, put here for decorative and reference purpose
     // Display Reserve Menu
     public void displayReserveMenu() {
         System.out.println("++=========================++");
@@ -220,29 +297,6 @@ public class LibrarySystem {
         return null;
     }
 
-    // Display Payment Menu
-    public void displayPaymentMenu() {
-        System.out.println("++=========================++");
-        System.out.println("||      Payment Menu       ||");
-        System.out.println("++===++====================++");
-        System.out.println("|| 1 ||                    ||");
-        System.out.println("|| 2 ||                    ||");
-        System.out.println("|| 3 ||                    ||");
-        System.out.println("++===++====================++");
-    }
-
-    // User needs to be verified as administrator before entering this menu
-    // Display Administrative Menu
-    public void displayAdministrativeMenu() {
-        System.out.println("++=========================++");
-        System.out.println("||     Administrative      ||");
-        System.out.println("++===++====================++");
-        System.out.println("|| 1 || Add new librarian  ||");
-        System.out.println("|| 2 || Edit librarian ID  ||");
-        System.out.println("|| 3 || Back               ||");
-        System.out.println("++===++====================++");
-    }
-
     // Capture an menu selection after invoke any menu method
     public int captureMenuSelection(int maxMenuSelection) {
         Scanner sc = new Scanner(System.in);
@@ -319,7 +373,6 @@ public class LibrarySystem {
                 System.out.println("\nWrong ID or password. Please try again.");
             }
         } while (true);
-
     }
 
     // Validate Login using Input Librarian ID and Input Password

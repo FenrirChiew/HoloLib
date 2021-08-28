@@ -58,163 +58,153 @@ public class Librarian extends People {
 
      /********** Methods **********/
      // Register Membership method
-    //  public Member registerMembership(){
+     public Member registerMembership(){
 
-    //     Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
    
-    //     System.out.print("Do you want to register a membership (Y= yes N= No)? ");
-    //     char confirm = sc.nextLine().charAt(0);
+        System.out.print("Do you want to register a membership (Y= yes N= No)? ");
+        char confirm = sc.nextLine().charAt(0);
    
-    //     if (confirm == 'Y') {
+        if (confirm == 'Y') {
    
-    //     System.out.print("Name: ");
-    //     String name = sc.nextLine();
+        System.out.print("Name: ");
+        String name = sc.nextLine();
    
-    //     System.out.print("IC No: ");
-    //     String icNo = sc.nextLine();
+        System.out.print("IC No: ");
+        String icNo = sc.nextLine();
    
-    //     System.out.print("Gender: ");
-    //     String gender = sc.nextLine();
+        System.out.print("Gender: ");
+        String gender = sc.nextLine();
    
-    //     System.out.print("Enter your date of birth (dd/mm/yyyy): ");
-    //     String dob = sc.nextLine();
-    //     GregorianCalendar dateOfBirth = ConvertDate(dob);
+        System.out.print("Enter your date of birth (dd/mm/yyyy): ");
+        String dob = sc.nextLine();
+        GregorianCalendar dateOfBirth = ConvertDate(dob);
    
-    //     //System.out.println(cal.get(Calendar.DAY_OF_MONTH) + "/" + cal.get(Calendar.MONTH) + "/" + cal.get(Calendar.YEAR));
+        //System.out.println(cal.get(Calendar.DAY_OF_MONTH) + "/" + cal.get(Calendar.MONTH) + "/" + cal.get(Calendar.YEAR));
    
-    //     System.out.print("Phone No: ");
-    //     String phoneNo = sc.nextLine();
+        System.out.print("Phone No: ");
+        String phoneNo = sc.nextLine();
    
-    //     System.out.println("Pin number of the Library Card: ");
-    //     String pinNo = sc.nextLine();
+        System.out.println("Pin number of the Library Card: ");
+        String pinNo = sc.nextLine();
    
-    //     System.out.print("Do you confirm want to register to be a member (Y = yes N = no)? ");
-    //     char doubleConfirm = sc.nextLine().charAt(0);
+        System.out.print("Do you confirm want to register to be a member (Y = yes N = no)? ");
+        char doubleConfirm = sc.nextLine().charAt(0);
    
-    //     // store the data inside to the member
-    //     if (doubleConfirm == 'Y') {
+        // store the data inside to the member
+        if (doubleConfirm == 'Y') {
    
-    //         LibraryCard libraryCard = new LibraryCard(pinNo,null);
+            LibraryCard libraryCard = new LibraryCard(pinNo,null);
    
-    //         Member member = new Member(name, gender, dateOfBirth, icNo, phoneNo, libraryCard);
-    //         System.out.println("You had success to add a member!!");
-   
-    //         System.out.println("Do you want to cash in for the card balance (Y = yes N = no)? ");
-    //         char ChoiceCashIn = sc.nextLine().charAt(0);
-    //         if(ChoiceCashIn == 'Y'){
-    //             System.out.println("How much do you want to cash in: RM ");
-    //             double cashIn = sc.nextDouble();
-    //         }
-   
-    //     } else {
-    //     System.out.println("You had not add a member!!");
-    //     }
-    //     } else {
-    //     System.out.println("You are not ready to register a membership.");
-    //     }
-   
-    //     // return the value
-    //     return member;
-    //     }
-   
-    //     // Convert String to Date
-    //     public static GregorianCalendar ConvertDate(String dob) {
-   
-    //         GregorianCalendar dateOfBirth = new GregorianCalendar();
-    //         String[] arrSplit = dob.split("/", 3);
-   
-    //         int day = Integer.parseInt(arrSplit[0]);
-    //         int month = Integer.parseInt(arrSplit[1]);
-    //         int year = Integer.parseInt(arrSplit[2]);
-   
-    //         dateOfBirth.set(GregorianCalendar.YEAR, year);
-    //         dateOfBirth.set(GregorianCalendar.MONTH, month);
-    //         dateOfBirth.set(GregorianCalendar.DAY_OF_MONTH, day);
-   
-    //         return dateOfBirth;
-    //     }
-   
-    //    public void PrintRegisterDetail(Member member){
-    //        System.out.println("          Member Detail");
-    //        System.out.println("===================================");
-    //        public void PrintRegisterDetail(Member member){
-    //        System.out.println("          Member Detail");
-    //        System.out.println("===================================");
+            Member member = new Member(name, gender, dateOfBirth, icNo, phoneNo, libraryCard);
+            System.out.println("You had success to add a member!!");
 
-    //        member.toString();
-
-    // }
+            System.out.println("Do you want to cash in for the card balance (Y = yes N = no)? ");
+            char ChoiceCashIn = sc.nextLine().charAt(0);
+            if(ChoiceCashIn == 'Y'){
+                System.out.println("How much do you want to cash in: RM ");
+                double cashIn = sc.nextDouble();
+            }
+            PrintRegisterDetail(member);
    
-    //    }
+        } else {
+        System.out.println("You had not add a member!!");
+        }
+        } else {
+        System.out.println("You are not ready to register a membership.");
+        }
+   
+        // return the value
+        return member; //how to return the member? 
+        }
+   
+        // Convert String to Date
+        public static GregorianCalendar ConvertDate(String dob) {
+   
+            GregorianCalendar dateOfBirth = new GregorianCalendar();
+            String[] arrSplit = dob.split("/", 3);
+   
+            int day = Integer.parseInt(arrSplit[0]);
+            int month = Integer.parseInt(arrSplit[1]);
+            int year = Integer.parseInt(arrSplit[2]);
+   
+            dateOfBirth.set(GregorianCalendar.YEAR, year);
+            dateOfBirth.set(GregorianCalendar.MONTH, month);
+            dateOfBirth.set(GregorianCalendar.DAY_OF_MONTH, day);
+   
+            return dateOfBirth;
+        }
+   
+       public void PrintRegisterDetail(Member member){
+           System.out.println("          Member Detail");
+           System.out.println("===================================");
+          
+           member.toString();
+       }
 
     // // Method to reload the money of the membership
-    // public void ReloadMembership(LibraryCard libraryCard) {
-    // // search id is another method (return index id)--> search memberIDby Id
-    // // member.getlibraryCard
-    // // input how much money --> main
-    // // reload --> libraryCard.setbalance (set balance)
+    public void ReloadMembership(Member[] member) {
+    // search id is another method (return index id)--> search memberIDby Id
+    // member.getlibraryCard
+    // input how much money --> main
+    // reload --> libraryCard.setbalance (set balance)
 
-    // Scanner sc = new Scanner(System.in);
+    Scanner sc = new Scanner(System.in);
+    double newBalance = 0.0;
 
-    // libraryCard = new LibraryCard();
-    // Member[] member = new Member[4];
-    // double newBalance = 0.0;
+    System.out.print("Do you want to reload the money to the library card (Y= Yes N= No): ");
+    char confirm = sc.nextLine().charAt(0);
 
-    // System.out.print("Do you want to reload the money to the library card (Y= Yes
-    // N= No): ");
-    // char confirm = sc.nextLine().charAt(0);
+    if (confirm == 'Y') {
+    String name = SearchMemberID();
 
-    // if (confirm == 'Y') {
-    // String name = SearchMemberID();
+    System.out.print("How much do you want to reload: RM ");
+    double reloadMoney = sc.nextDouble();
 
-    // System.out.print("How much do you want to reload: RM ");
-    // double reloadMoney = sc.nextDouble();
+    System.out.printf("Do you confirm want to reload RM %.2f into %s 's account (Y= yes N= No)? ", reloadMoney,
+    name);
+    char doubleConfirm = sc.nextLine().charAt(0);
 
-    // System.out.printf("Do you confirm want to reload RM %.2f into %s 's account
-    // (Y= yes N= No)? ", reloadMoney,
-    // name);
-    // char doubleConfirm = sc.nextLine().charAt(0);
+    if (doubleConfirm == 'Y') {
 
-    // if (doubleConfirm == 'Y') {
+    double balance = libraryCard.getcardBalance();
 
-    // double balance = libraryCard.getcardBalance();
+    newBalance = newBalance + balance;
 
-    // newBalance = newBalance + balance;
+    libraryCard.setcardBalance(newBalance);
 
-    // libraryCard.setcardBalance(newBalance);
+    } else {
+    System.out.println("You have not reload the money successful!!");
+    }
+    } else {
+    System.out.println("You have not ready to reload the money.");
+    }
+    }
 
-    // } else {
-    // System.out.println("You have not reload the money successful!!");
-    // }
-    // } else {
-    // System.out.println("You have not ready to reload the money.");
-    // }
-    // }
+    public String SearchMemberID() {
 
-    // public String SearchMemberID() {
+    Scanner sc = new Scanner(System.in);
+    Member[] member = new Member[3];
+    String name = "";
 
-    // Scanner sc = new Scanner(System.in);
-    // Member[] member = new Member[3];
-    // String name = "";
+    System.out.print("Please key in your member ID: ");
+    String memberID = sc.nextLine();
 
-    // System.out.print("Please key in your member ID: ");
-    // String memberID = sc.nextLine();
+    for (int i = 0; i < member.length; i++) {
 
-    // for (int i = 0; i < member.length; i++) {
+    if (member[i].getLibraryCard().getMemberID() == memberID) {
+    System.out.println("Member Id : " +
+    member[i].getLibraryCard().getMemberID());
+    System.out.println("Member name: " + member[i].getName());
+    System.out.println("Member IC : " + member[i].getIcNo());
+    name = member[i].getName();
+    } else {
+    System.out.println("You had key in wrong member ID!");
+    }
 
-    // if (member[i].getLibraryCard().getMemberID() == memberID) {
-    // System.out.println("Member Id : " +
-    // member[i].getLibraryCard().getMemberID());
-    // System.out.println("Member name: " + member[i].getName());
-    // System.out.println("Member IC : " + member[i].getIcNo());
-    // name = member[i].getName();
-    // } else {
-    // System.out.println("You had key in wrong member ID!");
-    // }
-
-    // }
-    // return name;
-    // }
+    }
+    return name;
+    }
 
     // // Method to renew the membership
     // public LibraryCard RenewMembership() throws Exception {

@@ -68,7 +68,7 @@ public abstract class People {
     // toString() method
     @Override
     public String toString() {
-        return "\nName: " + name + "\nGender: " + gender + "Date of Birth: " + dateOfBirth + "\nIC NO: " + icNO
+        return "Name: " + name + "\nGender: " + gender + "Date of Birth: " + dateOfBirth + "\nIC NO: " + icNO
                 + "\nPhone Number: " + phoneNO;
     }
 

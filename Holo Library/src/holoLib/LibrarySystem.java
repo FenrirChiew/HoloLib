@@ -68,7 +68,7 @@ public class LibrarySystem {
         System.out.println("++===++=========================++");
         System.out.println("|| 1 ||  Membership Management  ||");
         System.out.println("|| 2 ||  Book Borrowing         ||");
-        System.out.println("|| 3 ||  Facility Reservation   ||");
+        System.out.println("|| 3 ||  Reports                ||");
         System.out.println("|| 4 ||  Administrative         ||");
         System.out.println("|| 0 ||  Exit                   ||");
         System.out.println("++===++=========================++");

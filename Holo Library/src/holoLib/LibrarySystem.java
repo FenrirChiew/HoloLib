@@ -7,7 +7,7 @@ public class LibrarySystem {
     private People[] librarianList; // Librarian List
     private People[] memberList; // Member List
     private Facility[] facilityList; // Facility List
-    private ReadingMaterial[] readingMaterialList; // Reading Material List
+    private Material[] materialList; // Material List
 
     /********** Constructors **********/
     public LibrarySystem() {
@@ -20,11 +20,11 @@ public class LibrarySystem {
     }
 
     public LibrarySystem(People[] librarianList, People[] memberList, Facility[] facilityList,
-            ReadingMaterial[] readingMaterialList) {
+            Material[] materialList) {
         this.librarianList = librarianList;
         this.memberList = memberList;
         this.facilityList = facilityList;
-        this.readingMaterialList = readingMaterialList;
+        this.materialList = materialList;
     }
 
     /********** Accessors & Mutators **********/
@@ -52,12 +52,12 @@ public class LibrarySystem {
         this.facilityList = facilityList;
     }
 
-    public ReadingMaterial[] getReadingMaterialList() {
-        return readingMaterialList;
+    public Material[] materialList() {
+        return materialList;
     }
 
-    public void setReadingMaterialList(ReadingMaterial[] readingMaterialList) {
-        this.readingMaterialList = readingMaterialList;
+    public void setReadingMaterialList(Material[] materialList) {
+        this.materialList = materialList;
     }
 
     /********** Methods **********/
@@ -99,6 +99,38 @@ public class LibrarySystem {
         System.out.println("++===++====================++");
     }
 
+    // * Date how to print @A@
+    public void displayBook() {
+        System.out.println("++======================++");
+        System.out.println("||     Display Book      ||");
+        System.out.println("++====++========================++=========++=========================++==================++=======================++============++");
+        System.out.println("|| NO ||       Book Title       || Book ID ||       Book Author       ||  Book Publisher  || Book Publication Date || Book Price ||");
+        System.out.println("++====++========================++=========++=========================++==================++=======================++============++");
+
+        for (int i = 0; i < materialList.length; i++) {
+            System.out.printf("|| %02d || %-22s || %-7s || %-23s || %-16s || date || %-10.2f ||\n", i + 1, materialList[i].materialTitle,
+                    materialList[i].materialID, materialList[i].materialAuthor, materialList[i].materialPublisher,
+                    materialList[i].materialPublicationDate, materialList[i].materialPrice);
+            System.out.println("++====++========================++=========++=========================++==================++=======================++============++");
+        }
+        System.out.println("\nTotal Book(s) Found: " + materialList.length);
+    }
+
+    public void borrowBook(){
+        // Member ID:
+        // searchMemberByID()
+        // Book ID:
+        // searchBookByID()
+        // Confirmation
+        // Y - borrowBook(), cal()/pay()
+        // any wrong - captureContinueChoice() - used to ask user continue ? (Y/N)
+        // Y - loop again, N - back to menu
+    }
+
+    public void returnBook(){
+
+    }
+
     // Display Book Searching Menu
     public void displayBookSearchingMenu() {
         System.out.println("++============================++");
@@ -111,6 +143,22 @@ public class LibrarySystem {
         System.out.println("|| 4    Publisher             ||");
         System.out.println("|| 0    Back                  ||");
         System.out.println("++===++=======================++");
+    }
+
+    public void searchBookByTitle(String bookTitle) {
+        int totalResult = 0;
+
+        System.out.println("Results match with \"" + bookTitle + "\":");
+
+        for (int i = 0; i < materialList.length; i++) {
+            if (materialList[i].materialTitle.toUpperCase().indexOf(bookTitle.toUpperCase()) != -1) {
+                totalResult++;
+                System.out.printf("\nResult %d\n", totalResult);
+                System.out.println("========");
+                materialList[i].toString();
+            }
+        }
+        System.out.println("\nTotal Book(s) Found: " + totalResult);
     }
 
     // Display Report Menu
@@ -171,6 +219,18 @@ public class LibrarySystem {
         System.out.println("|| 3 || Delete Book Data        ||");
         System.out.println("|| 0 || Back                    ||");
         System.out.println("++===++=========================++");
+    }
+
+    public void addBook(){
+
+    }
+
+    public void modifyBook(){
+
+    }
+
+    public void deleteBook(){
+
     }
 
     // Removed, put here for decorative and reference purpose

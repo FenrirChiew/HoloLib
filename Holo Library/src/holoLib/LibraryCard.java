@@ -1,123 +1,90 @@
 package holoLib;
 
 import java.util.GregorianCalendar;
-import java.util.Scanner;
 
 public class LibraryCard {
-    /********** Properties **********/
-    private String cardNO; // Library Card Number
-    private String pinNo; // Pin Number
-    private GregorianCalendar memberExpDate; // Membership Expire Date (initialize today date)
-    private double cardBalance = 0.0; // Library Card Balance    
-    private ReservedTimeslot[] reservedTimeSlots; // Reserved Time Slots
-    private Timeslot[] reservedHistory; // Reserved History
-    private ReadingMaterial[] borrowedHistory; // Borrowed History
-    private ReadingMaterial[] CurrentReadingMaterial;
-    private static int nextCardNO = 0001;
+	/********** Properties **********/
+	private String cardNO;
+	private String pinNO;
+	private double cardBalance;
+	private GregorianCalendar cardExpDate;
+	private Material[] currentBorrowed;
+	private Material[] borrowedHistory;
+	private static int totalCards = 0;
 
-    /********** Constructors **********/
-    public LibraryCard() {
-        this( "", null);
-    }
+	/********** Constructors **********/
+	public LibraryCard() {
+		this("", null);
+	}
 
-    public LibraryCard(String pinNo, GregorianCalendar memberExpDate) {
-        this.cardNO = String.format("C%04d", nextCardNO);
-        this.pinNo = pinNo;
-        this.memberExpDate = memberExpDate;
-        nextCardNO++;
-    }
+	public LibraryCard(String pinNO, GregorianCalendar cardExpDate) {
+		this.cardNO = String.format("C%04d", totalCards + 1);
+		this.pinNO = pinNO;
+		this.cardExpDate = cardExpDate;
+		totalCards++;
+	}
 
-    /********** Accessors & Mutators **********/
-    public String getCardNO() {
-        return cardNO;
-    }
+	/********** Accessors & Mutators **********/
+	public String getCardNO() {
+		return cardNO;
+	}
 
-    public String getPinNo() {
-        return pinNo;
-    }
+	public void setCardNO(String cardNO) {
+		this.cardNO = cardNO;
+	}
 
-    public void setPinNo(String pinNo) {
-        this.pinNo = pinNo;
-    }
+	public void setPinNO(String pinNO) {
+		this.pinNO = pinNO;
+	}
 
-    public GregorianCalendar getMemberExpDate() {
-        return memberExpDate;
-    }
+	public double getCardBalance() {
+		return cardBalance;
+	}
 
-    public void setExpDate(GregorianCalendar memberExpDate) {
-        this.memberExpDate = memberExpDate;
-    }
+	public void setCardBalance(double cardBalance) {
+		this.cardBalance = cardBalance;
+	}
 
-    public double getcardBalance() {
-        return cardBalance;
-    }
+	public GregorianCalendar getCardExpDate() {
+		return cardExpDate;
+	}
 
-    public void setcardBalance(double cardBalance) {
-        this.cardBalance = cardBalance;
-    }
+	public void setCardExpDate(GregorianCalendar cardExpDate) {
+		this.cardExpDate = cardExpDate;
+	}
 
-    public ReservedTimeslot[] getReservedTimeSlots() {
-        return reservedTimeSlots;
-    }
+	public Material[] getCurrentBorrowed() {
+		return currentBorrowed;
+	}
 
-    public void setReservedTimeSlots(ReservedTimeslot[] reservedTimeSlots) {
-        this.reservedTimeSlots = reservedTimeSlots;
-    }
+	public void setCurrentBorrowed(Material[] currentBorrowed) {
+		this.currentBorrowed = currentBorrowed;
+	}
 
-    public Timeslot[] getReservedHistory() {
-        return reservedHistory;
-    }
+	public Material[] getBorrowedHistory() {
+		return borrowedHistory;
+	}
 
-    public void setReservedHistory(Timeslot[] reservedHistory) {
-        this.reservedHistory = reservedHistory;
-    }
+	public void setBorrowedHistory(Material[] borrowedHistory) {
+		this.borrowedHistory = borrowedHistory;
+	}
 
-    public ReadingMaterial[] getBorrowedHistory() {
-        return borrowedHistory;
-    }
+	public static int getTotalCards() {
+		return totalCards;
+	}
 
-    public void setBorrowedHistory(ReadingMaterial[] borrowedHistory) {
-        this.borrowedHistory = borrowedHistory;
-    }
+	/********** Methods **********/
+	public boolean validatePinNO(String pinNO) {
+		return this.pinNO.matches(pinNO);
+	}
 
-    public static int getNextCardNO() {
-        return nextCardNO;
-    }
+	public void addCurrentBorrowed(Material book) {
+		currentBorrowed[currentBorrowed.length] = book;
+	}
 
-    public ReadingMaterial[] getCurrentReadingMaterial() {
-        return CurrentReadingMaterial;
-    }
-
-    public void setCardBalance(double cardBalance) {
-    this.cardBalance = cardBalance;
-    }
-
-    //when return book can review how many books did the person borrowed and want to return which book 
-    // public void displayBookBorrowed(Member[] member, ReadingMaterial[] readingMaterial){
-
-    //     Scanner sc = new Scanner(System.in);
-    //     ReadingMaterial tempReadingMaterial = new ReadingMaterial();
-    //     Member tempMember = new Member();
-    //     Librarian tempLibrarian = new Librarian();
-
-    //     //how can i add totalborrowed ? 
-
-    //     tempMember = tempLibrarian.SearchLibraryCardNo(member);
-
-        
-    // }
-
-
-
-    /********** Methods **********/
-    // next memberId method
-    /*
-     * public static String nextMemberID(){ return nextMemberID; }
-     */
-
-    // toString() method
-    public String toString() {
-        return "\nLibrary Card Number: " + cardNO + "\nExpired Date: " + memberExpDate + "\nLibrary Card Balance: "
-                + cardBalance;
-    }
+	// toString() method
+	public String toString() {
+		return "Library Card Number: " + cardNO + String.format("\nLibrary Card Balance: %.2f", cardBalance)
+				+ "\nExpired Date: " + cardExpDate;
+	}
 }

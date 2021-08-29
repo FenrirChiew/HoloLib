@@ -1,62 +1,55 @@
 package holoLib;
 
+import java.time.LocalDate;
+import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 public class LibrarySystem {
     /********** Properties **********/
-    private People[] librarianList; // Librarian List
-    private People[] memberList; // Member List
-    private Facility[] facilityList; // Facility List
-    private Material[] materialList; // Material List
+    private Borrower[] librarianList; // Librarian List
+    private Borrower[] memberList; // Member List
+    private Material[] materialList; // Reading Material List
 
     /********** Constructors **********/
     public LibrarySystem() {
-        this(null, null, null, null);
+        this(null, null, null);
     }
 
     // testing purpose
-    public LibrarySystem(Facility[] facilityList) {
-        this.facilityList = facilityList;
-    }
-
-    public LibrarySystem(People[] librarianList, People[] memberList, Facility[] facilityList,
-            Material[] materialList) {
+    public LibrarySystem(Borrower[] librarianList, Borrower[] memberList) {
         this.librarianList = librarianList;
         this.memberList = memberList;
-        this.facilityList = facilityList;
+        materialList = null;
+    }
+
+    public LibrarySystem(Borrower[] librarianList, Borrower[] memberList, Material[] materialList) {
+        this.librarianList = librarianList;
+        this.memberList = memberList;
         this.materialList = materialList;
     }
 
     /********** Accessors & Mutators **********/
-    public People[] getLibrarianList() {
+    public Borrower[] getLibrarianList() {
         return librarianList;
     }
 
-    public void setLibrarianList(People[] librarianList) {
+    public void setLibrarianList(Borrower[] librarianList) {
         this.librarianList = librarianList;
     }
 
-    public People[] getMemberList() {
+    public Borrower[] getMemberList() {
         return memberList;
     }
 
-    public void setMemberList(People[] memberList) {
+    public void setMemberList(Borrower[] memberList) {
         this.memberList = memberList;
     }
 
-    public Facility[] getFacilityList() {
-        return facilityList;
-    }
-
-    public void setFacilityList(Facility[] facilityList) {
-        this.facilityList = facilityList;
-    }
-
-    public Material[] materialList() {
+    public Material[] getMaterialList() {
         return materialList;
     }
 
-    public void setReadingMaterialList(Material[] materialList) {
+    public void setMaterialList(Material[] materialList) {
         this.materialList = materialList;
     }
 
@@ -64,26 +57,39 @@ public class LibrarySystem {
     // Display Main Menu
     public void displayMainMenu() {
         System.out.println("++==============================++");
-        System.out.println("||          Main Menu           ||");
+        System.out.println("||             Home             ||");
         System.out.println("++===++=========================++");
         System.out.println("|| 1 ||  Membership Management  ||");
         System.out.println("|| 2 ||  Book Borrowing         ||");
         System.out.println("|| 3 ||  Reports                ||");
         System.out.println("|| 4 ||  Administrative         ||");
-        System.out.println("|| 0 ||  Exit                   ||");
+        System.out.println("|| 0 ||  Logout                 ||");
         System.out.println("++===++=========================++");
     }
 
     // Display Membership Menu
     public void displayMembershipMenu() {
-        System.out.println("++===============================++");
-        System.out.println("||        Membership Menu        ||");
-        System.out.println("++===============================++");
-        System.out.println("|| 1 || Membership Registration  ||");
-        System.out.println("|| 2 || Membership Renewal       ||"); //Renew means the expire date is reach then renew
-        System.out.println("|| 3 || Reload Card Balance      ||"); //Reload means the card do not have enough balance then reload
-        System.out.println("|| 3 || Display detail ?         ||"); // this display all member detail? 
-        System.out.println("++===++==========================++");
+        System.out.println("++================================++");
+        System.out.println("||     Membership Managnement     ||");
+        System.out.println("++================================++");
+        System.out.println("|| 1 ||  Membership Registration  ||");
+        System.out.println("|| 2 ||  Membership Renewal       ||");
+        System.out.println("|| 3 ||  Reload Card Balance      ||");
+        System.out.println("|| 4 ||  Display Membership       ||");
+        System.out.println("|| 0 ||  Back to Home             ||");
+        System.out.println("++===++===========================++");
+    }
+    // Renew means the expire date is reach then renew
+    // Reload means the card do not have enough balance then reload
+    // this display all member detail?
+
+    public void registerMembership(String name, String icNO, String gender, String dob, String phoneNO, String pinNO) {
+        int[] dmy = toIntDate(dob.split("/"));
+        GregorianCalendar cardEXPDate = new GregorianCalendar(LocalDate.now().getYear() + 1,
+                LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth());
+
+        memberList[memberList.length] = new Member(name, icNO, gender, new GregorianCalendar(dmy[2], dmy[1], dmy[0]),
+                phoneNO, new LibraryCard(pinNO, cardEXPDate));
     }
 
     // Display Borrow Menu
@@ -91,11 +97,11 @@ public class LibrarySystem {
         System.out.println("++=========================++");
         System.out.println("||     Book Borrowing      ||");
         System.out.println("++=========================++");
-        System.out.println("|| 1 || Display book        ||");
-        System.out.println("|| 2 || Search book        ||");
-        System.out.println("|| 3 || Borrow book        ||");
-        System.out.println("|| 4 || Return book        ||");
-        System.out.println("|| 0 || Back               ||");
+        System.out.println("|| 1 ||  Display book      ||");
+        System.out.println("|| 2 ||  Search book       ||");
+        System.out.println("|| 3 ||  Borrow book       ||");
+        System.out.println("|| 4 ||  Return book       ||");
+        System.out.println("|| 0 ||  Back to Home      ||");
         System.out.println("++===++====================++");
     }
 
@@ -103,20 +109,25 @@ public class LibrarySystem {
     public void displayBook() {
         System.out.println("++======================++");
         System.out.println("||     Display Book      ||");
-        System.out.println("++====++========================++=========++=========================++==================++=======================++============++");
-        System.out.println("|| NO ||       Book Title       || Book ID ||       Book Author       ||  Book Publisher  || Book Publication Date || Book Price ||");
-        System.out.println("++====++========================++=========++=========================++==================++=======================++============++");
+        System.out.println(
+                "++====++========================++=========++=========================++==================++=======================++============++");
+        System.out.println(
+                "|| NO ||       Book Title       || Book ID ||       Book Author       ||  Book Publisher  || Book Publication Date || Book Price ||");
+        System.out.println(
+                "++====++========================++=========++=========================++==================++=======================++============++");
 
         for (int i = 0; i < materialList.length; i++) {
-            System.out.printf("|| %02d || %-22s || %-7s || %-23s || %-16s || date || %-10.2f ||\n", i + 1, materialList[i].materialTitle,
-                    materialList[i].materialID, materialList[i].materialAuthor, materialList[i].materialPublisher,
-                    materialList[i].materialPublicationDate, materialList[i].materialPrice);
-            System.out.println("++====++========================++=========++=========================++==================++=======================++============++");
+            System.out.printf("|| %02d || %-22s || %-7s || %-23s || %-16s || date || %-10.2f ||\n", i + 1,
+                    materialList[i].materialTitle, materialList[i].materialID, materialList[i].materialAuthor,
+                    materialList[i].materialPublisher, materialList[i].materialPublicationDate,
+                    materialList[i].materialPrice);
+            System.out.println(
+                    "++====++========================++=========++=========================++==================++=======================++============++");
         }
         System.out.println("\nTotal Book(s) Found: " + materialList.length);
     }
 
-    public void borrowBook(){
+    public void borrowBook() {
         // Member ID:
         // searchMemberByID()
         // Book ID:
@@ -127,22 +138,23 @@ public class LibrarySystem {
         // Y - loop again, N - back to menu
     }
 
-    public void returnBook(){
+    public void returnBook() {
 
     }
 
     // Display Book Searching Menu
     public void displayBookSearchingMenu() {
-        System.out.println("++============================++");
-        System.out.println("||       Book Searching       ||");
-        System.out.println("++============================++");
-        System.out.println("|| Search By:                 ||");
-        System.out.println("|| 1    Book Title            ||");
-        System.out.println("|| 2    Book ID               ||");
-        System.out.println("|| 3    Author                ||");
-        System.out.println("|| 4    Publisher             ||");
-        System.out.println("|| 0    Back                  ||");
-        System.out.println("++===++=======================++");
+        System.out.println("++===============================++");
+        System.out.println("||          Search Book          ||");
+        System.out.println("++===============================++");
+        System.out.println("|| Search By:                    ||");
+        System.out.println("++===++==========================++");
+        System.out.println("|| 1 ||  Book Title              ||");
+        System.out.println("|| 2 ||  Book ID                 ||");
+        System.out.println("|| 3 ||  Author                  ||");
+        System.out.println("|| 4 ||  Publisher               ||");
+        System.out.println("|| 0 ||  Back to Book Borrowing  ||");
+        System.out.println("++===++==========================++");
     }
 
     public void searchBookByTitle(String bookTitle) {
@@ -163,198 +175,74 @@ public class LibrarySystem {
 
     // Display Report Menu
     public void displayReportMenu() {
-        System.out.println("++===============================++");
-        System.out.println("||            Report             ||");
-        System.out.println("++===++==========================++");
-        System.out.println("|| 1 || Daily Book Borrow Report ||");
-        System.out.println("|| 2 || Daily Book Return Report ||");
-        System.out.println("|| 0 || Back                     ||");
-        System.out.println("++===++==========================++");
+        System.out.println("++=================================++");
+        System.out.println("||             Reports             ||");
+        System.out.println("++===++============================++");
+        System.out.println("|| 1 ||  Daily Book Borrow Report  ||");
+        System.out.println("|| 2 ||  Daily Book Return Report  ||");
+        System.out.println("|| 0 ||  Back to Home              ||");
+        System.out.println("++===++============================++");
     }
 
     // User needs to be verified as administrator before entering this menu
     // Display Administrative Menu
     public void displayAdministrativeMenu() {
-        System.out.println("++==============================++");
-        System.out.println("||        Administrative        ||");
-        System.out.println("++===++=========================++");
-        System.out.println("|| 1 || Member Management       ||");
-        System.out.println("|| 2 || Librarian Management    ||");
-        System.out.println("|| 3 || Books Inv. Management   ||");
-        System.out.println("|| 0 || Back                    ||");
-        System.out.println("++===++=========================++");
+        System.out.println("++===================================++");
+        System.out.println("||          Administrative           ||");
+        System.out.println("++===++==============================++");
+        System.out.println("|| 1 ||  Member Management           ||");
+        System.out.println("|| 2 ||  Librarian Management        ||");
+        System.out.println("|| 3 ||  Books Inventory Management  ||");
+        System.out.println("|| 0 ||  Back to Home                ||");
+        System.out.println("++===++==============================++");
     }
 
     // Display Member Management Menu
     public void displayMemberManagementMenu() {
-        System.out.println("++==============================++");
-        System.out.println("||      Member Management       ||");
-        System.out.println("++===++=========================++");
-        System.out.println("|| 1 || Add Member              ||");
-        System.out.println("|| 2 || Modify Member           ||");
-        System.out.println("|| 3 || Delete Member           ||");
-        System.out.println("|| 0 || Back                    ||");
-        System.out.println("++===++=========================++");
+        System.out.println("++===============================++");
+        System.out.println("||       Member Management       ||");
+        System.out.println("++===++==========================++");
+        System.out.println("|| 1 ||  Add Member              ||");
+        System.out.println("|| 2 ||  Modify Member           ||");
+        System.out.println("|| 3 ||  Delete Member           ||");
+        System.out.println("|| 0 ||  Back to Administrative  ||");
+        System.out.println("++===++==========================++");
     }
 
     // Display Librarian Management Menu
     public void displayLibrarianManagementMenu() {
-        System.out.println("++==============================++");
-        System.out.println("||     Librarian Management     ||");
-        System.out.println("++===++=========================++");
-        System.out.println("|| 1 || Add Librarian           ||");
-        System.out.println("|| 2 || Modify Librarian        ||");
-        System.out.println("|| 3 || Delete Librarian        ||");
-        System.out.println("|| 0 || Back                    ||");
-        System.out.println("++===++=========================++");
+        System.out.println("++===============================++");
+        System.out.println("||     Librarian Management      ||");
+        System.out.println("++===++==========================++");
+        System.out.println("|| 1 ||  Add New Librarian       ||");
+        System.out.println("|| 2 ||  Modify Librarian        ||");
+        System.out.println("|| 3 ||  Delete Librarian        ||");
+        System.out.println("|| 0 ||  Back to Administrative  ||");
+        System.out.println("++===++==========================++");
     }
 
     // Display Books Inventory Management Menu
     public void displayBooksInvManagementMenu() {
-        System.out.println("++==============================++");
-        System.out.println("||  Books Inventory Management  ||");
-        System.out.println("++===++=========================++");
-        System.out.println("|| 1 || Add Book Data           ||");
-        System.out.println("|| 2 || Modify Book Data        ||");
-        System.out.println("|| 3 || Delete Book Data        ||");
-        System.out.println("|| 0 || Back                    ||");
-        System.out.println("++===++=========================++");
+        System.out.println("++===============================++");
+        System.out.println("||  Books Inventory Management   ||");
+        System.out.println("++===++==========================++");
+        System.out.println("|| 1 ||  Add Book                ||");
+        System.out.println("|| 2 ||  Modify Book             ||");
+        System.out.println("|| 3 ||  Delete Book             ||");
+        System.out.println("|| 0 ||  Back to Administrative  ||");
+        System.out.println("++===++==========================++");
     }
 
-    public void addBook(){
-
-    }
-
-    public void modifyBook(){
+    public void addBook() {
 
     }
 
-    public void deleteBook(){
+    public void modifyBook() {
 
     }
 
-    // Removed, put here for decorative and reference purpose
-    // Display Reserve Menu
-    public void displayReserveMenu() {
-        System.out.println("++=========================++");
-        System.out.println("||  Facility Reservation   ||");
-        System.out.println("++===++====================++");
-        System.out.println("|| 1 ||  Display Facility  ||");
-        System.out.println("|| 2 ||  Search Facility   ||");
-        System.out.println("|| 3 ||  Reserve Facility  ||");
-        System.out.println("|| 4 ||  Return Facility   ||");
-        System.out.println("|| 0 ||  Exit              ||");
-        System.out.println("++===++====================++");
-    }
+    public void deleteBook() {
 
-    public void displayFacility() {
-        System.out.println("++===========================++");
-        System.out.println("||     Display Facility      ||");
-        System.out.println("++====++=====================++=============++===============++");
-        System.out.println("|| NO ||    Facility Name    || Facility ID || Facility Type ||");
-        System.out.println("++====++=====================++=============++===============++");
-
-        for (int i = 0; i < facilityList.length; i++) {
-            System.out.printf("|| %02d || %-19s || %-11s || %-13s ||\n", i + 1, facilityList[i].facilityName,
-                    facilityList[i].facilityID, facilityList[i].facilityType);
-            System.out.println("++====++=====================++=============++===============++");
-        }
-
-        System.out.println("\nTotal Facilities Found: " + facilityList.length);
-    }
-
-    public void searchFacilityMenu() {
-        System.out.println("++================================++");
-        System.out.println("||        Search Facility         ||");
-        System.out.println("++===++===========================++");
-        System.out.println("|| 1 ||  Search by Facility Name  ||");
-        System.out.println("|| 2 ||  Search by Facility ID    ||");
-        System.out.println("|| 3 ||  Search by Facility Type  ||");
-        System.out.println("|| 0 ||  Exit                     ||");
-        System.out.println("++===++===========================++");
-    }
-
-    public void searchFacilityByName(String facilityName) {
-        int totalResult = 0;
-
-        System.out.println("Results match with \"" + facilityName + "\":");
-
-        for (int i = 0; i < facilityList.length; i++) {
-            if (facilityList[i].facilityName.toUpperCase().indexOf(facilityName.toUpperCase()) != -1) {
-                totalResult++;
-                System.out.printf("\nResult %d\n", totalResult);
-                System.out.println("========");
-                facilityList[i].displayFacilityDetails();
-            }
-        }
-
-        System.out.println("\nTotal Facilities Found: " + totalResult);
-    }
-
-    public Facility searchFacilityByID(String facilityID) {
-        if (!(facilityID.toUpperCase().matches("FT[0-9]{3}"))) {
-            System.out.print("\n\tInvalid Facility ID! Please try agian...");
-        } else {
-            System.out.println("Results match with \"" + facilityID + "\":");
-
-            for (int i = 0; i < facilityList.length; i++) {
-                if (facilityList[i].facilityID.matches(facilityID.toUpperCase())) {
-                    facilityList[i].displayFacilityDetails();
-                    return facilityList[i];
-                }
-            }
-        }
-
-        return null;
-    }
-
-    public void searchFacilityByType(String facilityType) {
-        if (!(facilityType.toUpperCase().matches("AREA|ROOM"))) {
-            System.out.print("\n\tInvalid Facility Type! Please try agian...");
-        } else {
-            int totalResult = 0;
-
-            System.out.println("Results match with \"" + facilityType + "\":");
-
-            for (int i = 0; i < facilityList.length; i++) {
-                if (facilityList[i].facilityType.toUpperCase().matches(facilityType.toUpperCase())) {
-                    totalResult++;
-                    System.out.printf("\nResult %d\n", totalResult);
-                    System.out.println("========");
-                    facilityList[i].displayFacilityDetails();
-                }
-            }
-
-            System.out.println("\nTotal Facilities Found: " + totalResult);
-        }
-    }
-
-    public Member searchMemberByID(String memberID) {
-        if (!(memberID.toUpperCase().matches("MB[0-9]{3}"))) {
-            System.out.print("\n\tInvalid Member ID! Please try agian...");
-        } else {
-            for (int i = 0; i < memberList.length; i++) {
-                if (((Member) memberList[i]).getMemberID().matches(memberID.toUpperCase())) {
-                    return (Member) memberList[i];
-                }
-            }
-        }
-
-        return null;
-    }
-
-    public LibraryCard searchLibraryCardByNO(String cardNO) {
-        if (!(cardNO.toUpperCase().matches("LC[0-9]{3}"))) {
-            System.out.print("\n\tInvalid Library Card Number! Please try agian...");
-        } else {
-            for (int i = 0; i < memberList.length; i++) {
-                if (((Member) memberList[i]).getLibraryCard().getCardNO().matches(cardNO.toUpperCase())) {
-                    return ((Member) memberList[i]).getLibraryCard();
-                }
-            }
-        }
-
-        return null;
     }
 
     // Capture an menu selection after invoke any menu method
@@ -388,17 +276,17 @@ public class LibrarySystem {
         return selection; // Return menu selection
     }
 
-    // Capture an continue choice before end of any menu
-    public String captureContinueChoice() {
+    // Capture a Y or N choice
+    public String captureYesNoChoice(String message) {
         Scanner sc = new Scanner(System.in);
         boolean continueInput = true;
         String choice = "";
 
         // Keep looping until:
-        // 1. Captured a proper continue choice ("Y" / "N")
-        // 2. Continue choice is exact 1 character
+        // 1. Captured a proper choice ("Y" / "N")
+        // 2. The choice is exact 1 character
         do {
-            System.out.print("\nContinue (Y/N) > ");
+            System.out.print("\n" + message + " (Y/N) > ");
             choice = sc.nextLine();
 
             if (!(choice.length() == 1 && choice.toUpperCase().matches("Y|N"))) {
@@ -413,7 +301,79 @@ public class LibrarySystem {
 
         sc.close();
 
-        return choice; // Return continue choice
+        return choice; // Return choice
+    }
+
+    public boolean validateStringFormat(String type, String str, String regex) {
+        if (!str.matches(regex)) {
+            System.out.println("\n\tInvalid " + type + "! Please try agian...\n");
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public int[] toIntDate(String[] day_month_year) {
+        int[] d = new int[day_month_year.length];
+
+        for (int i = 0; i < day_month_year.length; i++) {
+            char[] c = day_month_year[i].toCharArray();
+
+            for (int j = c.length - 1; j >= 0; j--) {
+                d[i] += ((int) c[j] - 48) * (int) Math.pow(10, c.length - j - 1);
+            }
+        }
+
+        return d;
+    }
+
+    public boolean validateDate(String date) {
+        if (!validateStringFormat("Date Format", date, "[0-9]{2}/[0-9]{2}/[0-9]{4}")) {
+            return false;
+        } else {
+            String[] day_month_year = date.split("/");
+
+            if (toIntDate(day_month_year)[2] < 1900 || toIntDate(day_month_year)[2] > LocalDate.now().getYear()) {
+                System.out.println("Invalid Year! Please try again...");
+                return false;
+            }
+
+            switch (toIntDate(day_month_year)[1]) {
+                case 1, 3, 5, 7, 8, 10, 12:
+                    if (toIntDate(day_month_year)[0] <= 0 || toIntDate(day_month_year)[0] > 31) {
+                        System.out.println("Invalid Day! Please try again...");
+                        return false;
+                    }
+
+                    break;
+                case 4, 6, 9, 11:
+                    if (toIntDate(day_month_year)[0] <= 0 || toIntDate(day_month_year)[0] > 30) {
+                        System.out.println("Invalid Day! Please try again...");
+                        return false;
+                    }
+
+                    break;
+                case 2:
+                    if (toIntDate(day_month_year)[2] % 4 == 0) {
+                        if (toIntDate(day_month_year)[0] <= 0 || toIntDate(day_month_year)[0] > 29) {
+                            System.out.println("Invalid Day! Please try again...");
+                            return false;
+                        }
+                    } else {
+                        if (toIntDate(day_month_year)[0] <= 0 || toIntDate(day_month_year)[0] > 28) {
+                            System.out.println("Invalid Day! Please try again...");
+                            return false;
+                        }
+                    }
+
+                    break;
+                default:
+                    System.out.println("Invalid Month! Please try again...");
+                    return false;
+            }
+
+            return true;
+        }
     }
 
     // Login method
@@ -449,17 +409,6 @@ public class LibrarySystem {
         }
 
         return false; // Return False when both conditions above is not achieved
-    }
-
-    // Logout method
-    public boolean Logout() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Are you sure you want to logout? (Y/N)");
-        char confirmation = sc.nextLine().charAt(0);
-        sc.close();
-        if (confirmation == 'Y')
-            return true;
-        return false;
     }
 
     // HoloLib logo

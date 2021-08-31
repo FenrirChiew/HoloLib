@@ -224,6 +224,8 @@ public class LibrarySystem {
 
 	public void DailyBookBorrowReport(Member[] member, Librarian[] librarian) {
 
+		int count = 0;
+
 		System.out.println("                        Daily Book Borrowed Report for " + LocalDate.now().getDayOfMonth()
 				+ "/" + LocalDate.now().getMonthValue() + "/" + LocalDate.now().getYear());
 		System.out.println("+===================================================================================+");
@@ -235,6 +237,7 @@ public class LibrarySystem {
 					if (((Borrowable) book).getBorrowDate() == LocalDate.now()) {
 						System.out.printf("%-25s|%-19s|%-20s|%-16s|", book.getMaterialTitle(), book.materialID,
 								member[i].name, member[i].getMemberID());
+								count++;
 					}
 				}
 			}
@@ -247,11 +250,14 @@ public class LibrarySystem {
 					if (((Borrowable) book).getBorrowDate() == LocalDate.now()) {
 						System.out.printf("%-25s|%-19s|%-20s|%-16s|", book.getMaterialTitle(), book.materialID,
 								librarian[i].name, librarian[i].getLibrarianID());
+								count++;
 					}
 				}
 			}
 
 		}
+		System.out.println("+===================================================================================+");
+		System.out.println("Total count book borrowed: " + count);
 
 	}
 

@@ -1,5 +1,6 @@
 package holoLib;
 
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class LibraryCard {
@@ -75,7 +76,30 @@ public class LibraryCard {
 
 	/********** Methods **********/
 	public boolean validatePinNO(String pinNO) {
-		return this.pinNO.matches(pinNO);
+		if (!this.pinNO.matches(pinNO)) {
+			System.out.println("\n\tInvalid Pin Number! Please try again...");
+			return false;
+		}
+
+		return true;
+	}
+
+	public void cashIn(double cash) {
+		cardBalance += cash;
+	}
+
+	public void cashOut(double cash) {
+		cardBalance -= cash;
+	}
+
+	public String cardExpDateToString() {
+		return String.format("%02d", cardExpDate.get(Calendar.DATE)) + "/"
+				+ String.format("%02d", cardExpDate.get(Calendar.MONTH) + 1) + "/" + cardExpDate.get(Calendar.YEAR);
+	}
+
+	public void renewCardExpDate() {
+		cardExpDate.set(cardExpDate.get(Calendar.DATE), cardExpDate.get(Calendar.MONTH),
+				cardExpDate.get(Calendar.YEAR) + 1);
 	}
 
 	public void addCurrentBorrowed(Material book) {
@@ -85,6 +109,6 @@ public class LibraryCard {
 	// toString() method
 	public String toString() {
 		return "Library Card Number: " + cardNO + String.format("\nLibrary Card Balance: %.2f", cardBalance)
-				+ "\nExpired Date: " + cardExpDate;
+				+ "\nCard Expired Date: " + cardExpDateToString();
 	}
 }

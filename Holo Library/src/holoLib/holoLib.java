@@ -1,6 +1,5 @@
 package holoLib;
 
-import java.time.LocalDateTime;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
@@ -27,7 +26,139 @@ public class holoLib {
 				new Member("Branch Horn", "888888-88-8888", "Female", new GregorianCalendar(2004, 4, 30), "888-8888888",
 						new LibraryCard("080808", new GregorianCalendar(2022, 1, 1))) };
 		LibrarySystem holoLib = new LibrarySystem(librarianList, memberList);
-    }
+
+		int selection = 0;
+		do {
+			cls();
+			holoLib.displayMembershipMenu();
+			selection = holoLib.captureMenuSelection(4);
+			cls();
+
+			switch (selection) {
+			case 0:
+				break;
+			case 1:
+				do {
+					String name;
+					do {
+						System.out.print("Name: ");
+						name = sc.nextLine();
+					} while (!holoLib.validateStringFormat("Name", name, "([A-Z][A-Za-z]* *)+"));
+
+					String icNO;
+					do {
+						System.out.print("IC Number: ");
+						icNO = sc.nextLine();
+					} while (!holoLib.validateStringFormat("IC Number", icNO, "[0-9]{6}-[0-9]{2}-[0-9]{4}"));
+
+					String gender;
+					do {
+						System.out.print("Gender: ");
+						gender = sc.nextLine();
+					} while (!holoLib.validateStringFormat("Gender", gender, "[Male|Female]"));
+
+					String dob;
+					do {
+						System.out.print("Date of Birth (DD/MM/YYYY): ");
+						dob = sc.nextLine();
+					} while (!holoLib.validateDate(dob));
+
+					String phoneNO;
+					do {
+						System.out.print("Phone Number (XXX-XXXXXXX): ");
+						phoneNO = sc.nextLine();
+					} while (!holoLib.validateStringFormat("Phone Number", phoneNO, "[0-9]{3}-[0-9]{7,8}"));
+
+					String pinNO;
+					do {
+						System.out.print("Pin Number for Library Card: ");
+						pinNO = sc.nextLine();
+					} while (!holoLib.validateStringFormat("Pin Number", pinNO, "[0-9]{6}"));
+
+					if (holoLib.captureYesNoChoice("Confirm Registration") == "Y") {
+						holoLib.registerMembership(name, icNO, gender, dob, phoneNO, pinNO);
+						System.out.println("Registration Successfully!");
+					} else {
+						System.out.println("Registration Canceled!");
+					}
+				} while (holoLib.captureYesNoChoice("Another Registration") == "Y");
+				break;
+			case 2:
+				do {
+					String cardNO;
+					do {
+						System.out.print("Library Card Number: ");
+						cardNO = sc.nextLine();
+					} while (!holoLib.validateStringFormat("Library Card Number", cardNO, "LC[0-9]{3}"));
+
+					String pinNO;
+					do {
+						System.out.print("Pin Number: ");
+						pinNO = sc.nextLine();
+					} while (!holoLib.validateStringFormat("Pin Number", pinNO, "[0-9]{6}"));
+
+					if (holoLib.validateLibraryCard(cardNO, pinNO)) {
+						System.out.println("Card Expired Date: "
+								+ holoLib.searchLibraryCardByCardNO(cardNO).cardExpDateToString());
+
+						if (holoLib.captureYesNoChoice("Confirm Renewal") == "Y") {
+							holoLib.searchLibraryCardByCardNO(cardNO).renewCardExpDate();
+							System.out.println("Renewal Successfully!");
+						} else {
+							System.out.println("Renewal Canceled!");
+						}
+					}
+				} while (holoLib.captureYesNoChoice("Another Reload") == "Y");
+				break;
+			case 3:
+				do {
+					String cardNO;
+					do {
+						System.out.print("Library Card Number: ");
+						cardNO = sc.nextLine();
+					} while (!holoLib.validateStringFormat("Library Card Number", cardNO, "LC[0-9]{3}"));
+
+					String pinNO;
+					do {
+						System.out.print("Pin Number: ");
+						pinNO = sc.nextLine();
+					} while (!holoLib.validateStringFormat("Pin Number", pinNO, "[0-9]{6}"));
+
+					if (holoLib.validateLibraryCard(cardNO, pinNO)) {
+						double cash = holoLib.captureMoney("Reload Amount");
+						if (holoLib.captureYesNoChoice("Confirm Reload") == "Y") {
+							holoLib.reloadCardBalance(cardNO, cash);
+							System.out.println("Reload Successfully!");
+						} else {
+							System.out.println("Reload Canceled!");
+						}
+					}
+				} while (holoLib.captureYesNoChoice("Another Reload") == "Y");
+				break;
+			case 4:
+				do {
+					String borrowerID;
+					do {
+						System.out.print("Member/Librarian ID: ");
+						borrowerID = sc.nextLine();
+					} while (!holoLib.validateStringFormat("Member/Librarian ID", borrowerID, "[LB|MB][0-9]{3}"));
+
+					if (holoLib.searchBorrowerByID(borrowerID) != null) {
+						holoLib.searchBorrowerByID(borrowerID).displayBorrowerDetails();
+					} else {
+						System.out.println("Borrower Not Found!");
+					}
+				} while (holoLib.captureYesNoChoice("Search Another Borrower") == "Y");
+				break;
+			}
+		} while (selection != 0);
+
+		System.out.println("\n\tBack to Home. Press Enter to continue...");
+		sc.nextLine();
+		cls();
+
+        sc.close();
+	}
 
     // Clear Screen
     public static void cls() {

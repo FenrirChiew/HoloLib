@@ -1,6 +1,8 @@
 package holoLib;
 
 import java.time.LocalDate;
+import java.time.Month;
+import java.time.Year;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
@@ -217,6 +219,21 @@ public class LibrarySystem {
 	}
 
 	public void returnBook() {
+
+	}
+
+	public void DailyBookBorrowReport(Borrowable borrowable){
+
+		
+
+	   System.out.println("                        Daily Book Borrowed Report for " + LocalDate.now().getDayOfMonth() + "/" + LocalDate.now().getMonthValue() + "/"  + LocalDate.now().getYear());
+	   System.out.println("+===================================================================================+");
+	   System.out.println("|        Book Name        |      Book ID      |    Borrower Name   |   Borrower ID  |  ");
+	   //for(int i = 0; i <  i++){
+		if(borrowable.borrowDate == LocalDate.now().getYear() && borrowable.borrowDate.get(Month) == LocalDate.now().getDayOfMonth() && borrowable.borrowDate.get(Day))
+		   System.out.println();
+	   }
+
 
 	}
 

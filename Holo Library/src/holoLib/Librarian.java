@@ -64,9 +64,9 @@ public class Librarian extends Borrower {
 
 	/********** Methods **********/
 	@Override
-	public void displayCardHolderDetails() {
-		System.out.println("Library Card Holder Details");
-		System.out.println("===========================");
+	public void displayBorrowerDetails() {
+		System.out.println("Library Borrower Details");
+		System.out.println("========================");
 		System.out.println("Name           : " + name);
 		System.out.println("Librarian ID   : " + librarianID);
 		System.out.println("Card Number    : " + libraryCard.getCardNO());

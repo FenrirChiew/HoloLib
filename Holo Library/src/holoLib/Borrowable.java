@@ -1,11 +1,13 @@
 package holoLib;
 
+import java.time.LocalDate;
 import java.util.GregorianCalendar;
 
 public class Borrowable extends Material{
     /********** Properties **********/
     protected double borrowFees;
     protected String borrowStatus;
+    protected GregorianCalendar borrowDate = new GregorianCalendar(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth());
 
     /********** Constructors **********/
     public Borrowable(String materialTitle, String materialID, String materialAuthor, String materialPublisher,
@@ -16,6 +18,13 @@ public class Borrowable extends Material{
     }
 
     /********** Accessors & Mutators **********/
+    public void setBorrowDate(GregorianCalendar borrowDate) {
+        this.borrowDate = borrowDate;
+    }
+
+    public GregorianCalendar getBorrowDate() {
+        return borrowDate;
+    }
 
     /********** Methods **********/
 

@@ -235,7 +235,7 @@ public class LibrarySystem {
 				for (int j = 0; j < member[i].libraryCard.getCurrentBorrowed().length; j++) {
 					Material book = member[i].libraryCard.getCurrentBorrowed()[j];
 					if (((Borrowable) book).getBorrowDate() == LocalDate.now()) {
-						System.out.printf("%-25s|%-19s|%-20s|%-16s|", book.getMaterialTitle(), book.materialID,
+						System.out.printf("|%-25s|%-19s|%-20s|%-16s|", book.getMaterialTitle(), book.materialID,
 								member[i].name, member[i].getMemberID());
 								count++;
 					}
@@ -248,7 +248,7 @@ public class LibrarySystem {
 				for (int j = 0; j < librarian[i].libraryCard.getCurrentBorrowed().length; j++) {
 					Material book = librarian[i].libraryCard.getCurrentBorrowed()[j];
 					if (((Borrowable) book).getBorrowDate() == LocalDate.now()) {
-						System.out.printf("%-25s|%-19s|%-20s|%-16s|", book.getMaterialTitle(), book.materialID,
+						System.out.printf("|%-25s|%-19s|%-20s|%-16s|", book.getMaterialTitle(), book.materialID,
 								librarian[i].name, librarian[i].getLibrarianID());
 								count++;
 					}
@@ -259,6 +259,23 @@ public class LibrarySystem {
 		System.out.println("+===================================================================================+");
 		System.out.println("Total count book borrowed: " + count);
 
+	}
+
+	public void DailyBookReturnedReport(Member[] member, Librarian[] librarian){
+		int count = 0;
+
+		System.out.println("                        Daily Book Returned Report for " + LocalDate.now().getDayOfMonth()
+				+ "/" + LocalDate.now().getMonthValue() + "/" + LocalDate.now().getYear());
+		System.out.println("+===================================================================================+");
+		System.out.println("|        Book Name        |      Book ID      |    Borrower Name   |   Borrower ID  |  ");
+
+		//searchmaterialbyid method return material 
+		//return book method --> LibraryCard no, bookID (parameter) 
+		//searchborrowerbyid return borrower 
+		//searchborrawablebyid 
+
+
+		//static arrayborrawable object --> variable returnedBook
 	}
 
 	// Display Book Searching Menu

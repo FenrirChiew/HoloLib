@@ -12,6 +12,7 @@ public class LibraryCard {
 	private Material[] currentBorrowed;
 	private Material[] borrowedHistory;
 	private static int totalCards = 0;
+	private static Borrowable[] returnedBook;
 
 	/********** Constructors **********/
 	public LibraryCard() {

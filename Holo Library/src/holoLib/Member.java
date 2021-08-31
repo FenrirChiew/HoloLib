@@ -2,6 +2,7 @@ package holoLib;
 
 //import java.util.Scanner;
 import java.util.GregorianCalendar;
+import java.time.LocalDate;
 
 public class Member extends Borrower {
 	/********** Properties **********/
@@ -67,6 +68,7 @@ public class Member extends Borrower {
 			if (libraryCard.getCurrentBorrowed().length >= MAX_BORROW) {
 				System.out.printf("\n\tYou have reached the Borrow Limit (%d)!\n\n", MAX_BORROW);
 			} else {
+				((Borrowable)book).setBorrowDate(LocalDate.now());
 				this.libraryCard.addCurrentBorrowed(book);
 			}
 		}

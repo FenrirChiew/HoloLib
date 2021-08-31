@@ -1,5 +1,6 @@
 package holoLib;
 
+import java.time.LocalDate;
 import java.util.GregorianCalendar;
 
 public class Librarian extends Borrower {
@@ -90,12 +91,15 @@ public class Librarian extends Borrower {
 
 	@Override
 	public void borrowBook(String pinNO, Material book) {
+	
+
 		if (!(this.libraryCard.validatePinNO(pinNO))) {
 			System.out.println("\n\tInvalid Pin Number!\n");
 		} else {
 			if (libraryCard.getCurrentBorrowed().length >= MAX_BORROW) {
 				System.out.printf("\n\tYou have reached the Borrow Limit (%d)!\n\n", MAX_BORROW);
 			} else {
+				((Borrowable)book).setBorrowDate(LocalDate.now());
 				this.libraryCard.addCurrentBorrowed(book);
 			}
 		}

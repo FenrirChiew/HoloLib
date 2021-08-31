@@ -1,10 +1,13 @@
+/*
 package holoLib;
 
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 public class LibraryCardOld {
-    /********** Properties **********/
+    */
+/********** Properties **********//*
+
     private String cardNO; // Library Card Number
     private String pinNo; // Pin Number
     private GregorianCalendar memberExpDate; // Membership Expire Date (initialize today date)
@@ -15,7 +18,9 @@ public class LibraryCardOld {
     private ReadingMaterial[] CurrentReadingMaterial;
     private static int nextCardNO = 0001;
 
-    /********** Constructors **********/
+    */
+/********** Constructors **********//*
+
     public LibraryCard() {
         this( "", null);
     }
@@ -27,7 +32,9 @@ public class LibraryCardOld {
         nextCardNO++;
     }
 
-    /********** Accessors & Mutators **********/
+    */
+/********** Accessors & Mutators **********//*
+
     public String getCardNO() {
         return cardNO;
     }
@@ -109,11 +116,15 @@ public class LibraryCardOld {
 
 
 
-    /********** Methods **********/
+    */
+/********** Methods **********//*
+
     // next memberId method
-    /*
+    */
+/*
      * public static String nextMemberID(){ return nextMemberID; }
-     */
+     *//*
+
 
     // toString() method
     public String toString() {
@@ -121,3 +132,4 @@ public class LibraryCardOld {
                 + cardBalance;
     }
 }
+*/

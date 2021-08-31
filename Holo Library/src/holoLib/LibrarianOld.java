@@ -1,3 +1,4 @@
+/*
 package holoLib;
 
  import java.util.Scanner;
@@ -6,13 +7,17 @@ package holoLib;
 import java.util.GregorianCalendar;
 
 public class LibrarianOld extends People {
-    /********** Properties **********/
+    */
+/********** Properties **********//*
+
     private String librarianID; // Librarian ID
     private String password; // Librarian Password
     private String position; // Librarian Position
     private static int totalLibrarian = 0; // Total Number of Librarian
 
-    /********** Constructors **********/
+    */
+/********** Constructors **********//*
+
     public Librarian() {
         this("", "", null, "", "", "", "", "");
         totalLibrarian++;
@@ -27,7 +32,9 @@ public class LibrarianOld extends People {
         totalLibrarian++;
     }
 
-    /********** Accessors & Mutators **********/
+    */
+/********** Accessors & Mutators **********//*
+
     public String getLibrarianID() {
         return librarianID;
     }
@@ -56,7 +63,9 @@ public class LibrarianOld extends People {
         return totalLibrarian;
     }
 
-     /********** Methods **********/
+     */
+/********** Methods **********//*
+
      // Register Membership method
      public Member registerMembership(){
 
@@ -405,3 +414,4 @@ public class LibrarianOld extends People {
         return super.toString() + "\nLibrarian ID: " + librarianID + "\nPosition: " + position;
     }
 }
+*/

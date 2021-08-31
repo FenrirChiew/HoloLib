@@ -80,8 +80,8 @@ public class Librarian extends Borrower {
 		} else {
 			for (int i = 0; i < libraryCard.getCurrentBorrowed().length; i++) {
 				System.out.printf("\n                 %d. %s (%s)", i + 1,
-						libraryCard.getCurrentBorrowed()[i].getMaterialTitle(),
-						libraryCard.getCurrentBorrowed()[i].getMaterialID());
+						libraryCard.getCurrentBorrowed()[i].getBookTitle(),
+						libraryCard.getCurrentBorrowed()[i].getBookID());
 			}
 
 			System.out.printf("\n                 (Total Borrow = %d units)\n",
@@ -90,16 +90,14 @@ public class Librarian extends Borrower {
 	}
 
 	@Override
-	public void borrowBook(String pinNO, Material book) {
-	
-
+	public void borrowBook(String pinNO, Book book) {
 		if (!(this.libraryCard.validatePinNO(pinNO))) {
 			System.out.println("\n\tInvalid Pin Number!\n");
 		} else {
 			if (libraryCard.getCurrentBorrowed().length >= MAX_BORROW) {
 				System.out.printf("\n\tYou have reached the Borrow Limit (%d)!\n\n", MAX_BORROW);
 			} else {
-				((Borrowable)book).setBorrowDate(LocalDate.now());
+                ((Book)book).setBorrowDate(LocalDate.now());
 				this.libraryCard.addCurrentBorrowed(book);
 			}
 		}

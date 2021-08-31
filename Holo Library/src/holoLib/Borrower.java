@@ -29,7 +29,7 @@ public abstract class Borrower {
 	/********** Methods **********/
 	public abstract void displayBorrowerDetails();
 
-	public abstract void borrowBook(String pinNO, Material book);
+	public abstract void borrowBook(String pinNO, Book book);
 
 	// toString() method
 	@Override

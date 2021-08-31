@@ -9,10 +9,10 @@ public class LibraryCard {
 	private String pinNO;
 	private double cardBalance;
 	private GregorianCalendar cardExpDate;
-	private Material[] currentBorrowed;
-	private Material[] borrowedHistory;
+	private Book[] currentBorrowed;
+	private Book[] borrowedHistory;
 	private static int totalCards = 0;
-	private static Borrowable[] returnedBook;
+	private static Book[] returnedBook;
 
 	/********** Constructors **********/
 	public LibraryCard() {
@@ -55,19 +55,19 @@ public class LibraryCard {
 		this.cardExpDate = cardExpDate;
 	}
 
-	public Material[] getCurrentBorrowed() {
+	public Book[] getCurrentBorrowed() {
 		return currentBorrowed;
 	}
 
-	public void setCurrentBorrowed(Material[] currentBorrowed) {
+	public void setCurrentBorrowed(Book[] currentBorrowed) {
 		this.currentBorrowed = currentBorrowed;
 	}
 
-	public Material[] getBorrowedHistory() {
+	public Book[] getBorrowedHistory() {
 		return borrowedHistory;
 	}
 
-	public void setBorrowedHistory(Material[] borrowedHistory) {
+	public void setBorrowedHistory(Book[] borrowedHistory) {
 		this.borrowedHistory = borrowedHistory;
 	}
 
@@ -103,7 +103,7 @@ public class LibraryCard {
 				cardExpDate.get(Calendar.YEAR) + 1);
 	}
 
-	public void addCurrentBorrowed(Material book) {
+	public void addCurrentBorrowed(Book book) {
 		currentBorrowed[currentBorrowed.length] = book;
 	}
 

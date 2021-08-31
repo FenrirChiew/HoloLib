@@ -10,7 +10,7 @@ public class LibrarySystem {
 	/********** Properties **********/
 	private Borrower[] librarianList;
 	private Borrower[] memberList;
-	private Material[] materialList;
+	private Book[] bookList;
 
 	/********** Constructors **********/
 	public LibrarySystem() {
@@ -21,13 +21,13 @@ public class LibrarySystem {
 	public LibrarySystem(Borrower[] librarianList, Borrower[] memberList) {
 		this.librarianList = librarianList;
 		this.memberList = memberList;
-		materialList = null;
+		bookList = null;
 	}
 
-	public LibrarySystem(Borrower[] librarianList, Borrower[] memberList, Material[] materialList) {
+	public LibrarySystem(Borrower[] librarianList, Borrower[] memberList, Book[] bookList) {
 		this.librarianList = librarianList;
 		this.memberList = memberList;
-		this.materialList = materialList;
+		this.bookList = bookList;
 	}
 
 	/********** Accessors & Mutators **********/
@@ -47,12 +47,12 @@ public class LibrarySystem {
 		this.memberList = memberList;
 	}
 
-	public Material[] getMaterialList() {
-		return materialList;
+	public Book[] getBookList() {
+		return bookList;
 	}
 
-	public void setMaterialList(Material[] materialList) {
-		this.materialList = materialList;
+	public void setBookList(Book[] bookList) {
+		this.bookList = bookList;
 	}
 
 	/********** Methods **********/
@@ -72,7 +72,7 @@ public class LibrarySystem {
 	// Display Membership Menu
 	public void displayMembershipMenu() {
 		System.out.println("++================================++");
-		System.out.println("||     Membership Managnement     ||");
+		System.out.println("||     Membership Management     ||");
 		System.out.println("++================================++");
 		System.out.println("|| 1 ||  Membership Registration  ||");
 		System.out.println("|| 2 ||  Card Renewal             ||");
@@ -81,7 +81,7 @@ public class LibrarySystem {
 		System.out.println("|| 0 ||  Back to Home             ||");
 		System.out.println("++===++===========================++");
 	}
-	// Renew means the expire date is reach then renew
+	// Renew means the expiry date is reach then renew
 	// Reload means the card do not have enough balance then reload
 	// this display all member detail?
 
@@ -185,97 +185,25 @@ public class LibrarySystem {
 		System.out.println("++===++====================++");
 	}
 
-	// * Date how to print @A@
 	public void displayBook() {
 		System.out.println("++======================++");
 		System.out.println("||     Display Book      ||");
 		System.out.println(
-				"++====++========================++=========++=========================++==================++=======================++============++");
+				"++====++========================++=========++=========================++==================++=======================++============++========++============++");
 		System.out.println(
-				"|| NO ||       Book Title       || Book ID ||       Book Author       ||  Book Publisher  || Book Publication Date || Book Price ||");
+				"|| NO ||       Book Title       || Book ID ||       Book Author       ||  Book Publisher  || Book Publication Date || Book Price || Status || Borrow Fee ||");
 		System.out.println(
-				"++====++========================++=========++=========================++==================++=======================++============++");
+				"++====++========================++=========++=========================++==================++=======================++============++========||============++");
 
-		for (int i = 0; i < materialList.length; i++) {
-			System.out.printf("|| %02d || %-22s || %-7s || %-23s || %-16s || date || %-10.2f ||\n", i + 1,
-					materialList[i].materialTitle, materialList[i].materialID, materialList[i].materialAuthor,
-					materialList[i].materialPublisher, materialList[i].materialPublicationDate,
-					materialList[i].materialPrice);
+		for (int i = 0; i < bookList.length; i++) {
+			System.out.printf("|| %02d || %-22s || %-7s || %-23s || %-16s || %-20s || %-10.2f || %-6s || %-10.2f ||\n", i + 1,
+					bookList[i].getBookTitle(), bookList[i].getBookID(), bookList[i].getBookAuthor(),
+					bookList[i].getBookPublisher(), bookList[i].publisherDateToString(),
+					bookList[i].getBookPrice());
 			System.out.println(
-					"++====++========================++=========++=========================++==================++=======================++============++");
+					"++====++========================++=========++=========================++==================++=======================++============++========++============++");
 		}
-		System.out.println("\nTotal Book(s) Found: " + materialList.length);
-	}
-
-	public void borrowBook() {
-		// Member ID:
-		// searchMemberByID()
-		// Book ID:
-		// searchBookByID()
-		// Confirmation
-		// Y - borrowBook(), cal()/pay()
-		// any wrong - captureContinueChoice() - used to ask user continue ? (Y/N)
-		// Y - loop again, N - back to menu
-	}
-
-	public void returnBook() {
-
-	}
-
-	public void DailyBookBorrowReport(Member[] member, Librarian[] librarian) {
-
-		int count = 0;
-
-		System.out.println("                        Daily Book Borrowed Report for " + LocalDate.now().getDayOfMonth()
-				+ "/" + LocalDate.now().getMonthValue() + "/" + LocalDate.now().getYear());
-		System.out.println("+===================================================================================+");
-		System.out.println("|        Book Name        |      Book ID      |    Borrower Name   |   Borrower ID  |  ");
-		for (int i = 0; i < member.length; i++) {
-			if (member[i].libraryCard.getCurrentBorrowed().length > 0) {
-				for (int j = 0; j < member[i].libraryCard.getCurrentBorrowed().length; j++) {
-					Material book = member[i].libraryCard.getCurrentBorrowed()[j];
-					if (((Borrowable) book).getBorrowDate() == LocalDate.now()) {
-						System.out.printf("|%-25s|%-19s|%-20s|%-16s|", book.getMaterialTitle(), book.materialID,
-								member[i].name, member[i].getMemberID());
-								count++;
-					}
-				}
-			}
-		}
-
-		for (int i = 0; i < librarian.length; i++) {
-			if (librarian[i].libraryCard.getCurrentBorrowed().length > 0) {
-				for (int j = 0; j < librarian[i].libraryCard.getCurrentBorrowed().length; j++) {
-					Material book = librarian[i].libraryCard.getCurrentBorrowed()[j];
-					if (((Borrowable) book).getBorrowDate() == LocalDate.now()) {
-						System.out.printf("|%-25s|%-19s|%-20s|%-16s|", book.getMaterialTitle(), book.materialID,
-								librarian[i].name, librarian[i].getLibrarianID());
-								count++;
-					}
-				}
-			}
-
-		}
-		System.out.println("+===================================================================================+");
-		System.out.println("Total count book borrowed: " + count);
-
-	}
-
-	public void DailyBookReturnedReport(Member[] member, Librarian[] librarian){
-		int count = 0;
-
-		System.out.println("                        Daily Book Returned Report for " + LocalDate.now().getDayOfMonth()
-				+ "/" + LocalDate.now().getMonthValue() + "/" + LocalDate.now().getYear());
-		System.out.println("+===================================================================================+");
-		System.out.println("|        Book Name        |      Book ID      |    Borrower Name   |   Borrower ID  |  ");
-
-		//searchmaterialbyid method return material 
-		//return book method --> LibraryCard no, bookID (parameter) 
-		//searchborrowerbyid return borrower 
-		//searchborrawablebyid 
-
-
-		//static arrayborrawable object --> variable returnedBook
+		System.out.println("\nTotal Book(s) Found: " + bookList.length);
 	}
 
 	// Display Book Searching Menu
@@ -298,12 +226,54 @@ public class LibrarySystem {
 
 		System.out.println("Results match with \"" + bookTitle + "\":");
 
-		for (int i = 0; i < materialList.length; i++) {
-			if (materialList[i].materialTitle.toUpperCase().indexOf(bookTitle.toUpperCase()) != -1) {
+		for (int i = 0; i < bookList.length; i++) {
+			if (bookList[i].getBookTitle().toUpperCase().indexOf(bookTitle.toUpperCase()) != -1) {
 				totalResult++;
 				System.out.printf("\nResult %d\n", totalResult);
 				System.out.println("========");
-				materialList[i].toString();
+				System.out.println(bookList[i]);
+			}
+		}
+		System.out.println("\nTotal Book(s) Found: " + totalResult);
+	}
+
+	public Book searchBookByID(String bookID){
+		for(int i = 0; i < bookList.length; i++){
+			if(bookList[i].getBookID().indexOf(bookID) != -1){
+				System.out.println("\nResult match with \"" + bookID + "\":");
+				return bookList[i];
+			}
+		}
+		return null;
+	}
+
+	public void searchBookByAuthor(String bookAuthor){
+		int totalResult = 0;
+
+		System.out.println("Results match with \"" + bookAuthor + "\":");
+
+		for (int i = 0; i < bookList.length; i++) {
+			if (bookList[i].getBookAuthor().toUpperCase().indexOf(bookAuthor.toUpperCase()) != -1) {
+				totalResult++;
+				System.out.printf("\nResult %d\n", totalResult);
+				System.out.println("========");
+				System.out.println(bookList[i]);
+			}
+		}
+		System.out.println("\nTotal Book(s) Found: " + totalResult);
+	}
+
+	public void searchBookByPublisher(String bookPublisher){
+		int totalResult = 0;
+
+		System.out.println("Results match with \"" + bookPublisher + "\":");
+
+		for (int i = 0; i < bookList.length; i++) {
+			if (bookList[i].getBookPublisher().toUpperCase().indexOf(bookPublisher.toUpperCase()) != -1) {
+				totalResult++;
+				System.out.printf("\nResult %d\n", totalResult);
+				System.out.println("========");
+				System.out.println(bookList[i]);
 			}
 		}
 		System.out.println("\nTotal Book(s) Found: " + totalResult);
@@ -318,6 +288,62 @@ public class LibrarySystem {
 		System.out.println("|| 2 ||  Daily Book Return Report  ||");
 		System.out.println("|| 0 ||  Back to Home              ||");
 		System.out.println("++===++============================++");
+	}
+
+	public void DailyBookBorrowReport(Member[] member, Librarian[] librarian) {
+
+		int count = 0;
+
+		System.out.println("                        Daily Book Borrowed Report for " + LocalDate.now().getDayOfMonth()
+				+ "/" + LocalDate.now().getMonthValue() + "/" + LocalDate.now().getYear());
+		System.out.println("+===================================================================================+");
+		System.out.println("|        Book Name        |      Book ID      |    Borrower Name   |   Borrower ID  |  ");
+		for (int i = 0; i < member.length; i++) {
+			if (member[i].libraryCard.getCurrentBorrowed().length > 0) {
+				for (int j = 0; j < member[i].libraryCard.getCurrentBorrowed().length; j++) {
+					Book book = member[i].libraryCard.getCurrentBorrowed()[j];
+					if (((Book) book).getBorrowDate() == LocalDate.now()) {
+						System.out.printf("|%-25s|%-19s|%-20s|%-16s|", book.getBookTitle(), book.getBookID(),
+								member[i].name, member[i].getMemberID());
+						count++;
+					}
+				}
+			}
+		}
+
+		for (int i = 0; i < librarian.length; i++) {
+			if (librarian[i].libraryCard.getCurrentBorrowed().length > 0) {
+				for (int j = 0; j < librarian[i].libraryCard.getCurrentBorrowed().length; j++) {
+					Book book = librarian[i].libraryCard.getCurrentBorrowed()[j];
+					if (((Book) book).getBorrowDate() == LocalDate.now()) {
+						System.out.printf("|%-25s|%-19s|%-20s|%-16s|", book.getBookTitle(), book.getBookID(),
+								librarian[i].name, librarian[i].getLibrarianID());
+						count++;
+					}
+				}
+			}
+
+		}
+		System.out.println("+===================================================================================+");
+		System.out.println("Total count book borrowed: " + count);
+
+	}
+
+	public void DailyBookReturnedReport(Member[] member, Librarian[] librarian){
+		int count = 0;
+
+		System.out.println("                        Daily Book Returned Report for " + LocalDate.now().getDayOfMonth()
+				+ "/" + LocalDate.now().getMonthValue() + "/" + LocalDate.now().getYear());
+		System.out.println("+===================================================================================+");
+		System.out.println("|        Book Name        |      Book ID      |    Borrower Name   |   Borrower ID  |  ");
+
+		//searchbookbyid method return book
+		//return book method --> LibraryCard no, bookID (parameter)
+		//searchborrowerbyid return borrower
+		//searchborrawablebyid
+
+
+		//static arrayborrawable object --> variable returnedBook
 	}
 
 	// User needs to be verified as administrator before entering this menu
@@ -369,9 +395,12 @@ public class LibrarySystem {
 		System.out.println("++===++==========================++");
 	}
 
-	public void addBook() {
+	public void addBook(String title, String author, String publisher, String publisherDate, double price) {
+		int[] dmy = toIntDate(publisherDate.split("/"));
 
+		bookList[bookList.length] = new Book(title, author, publisher, new GregorianCalendar(dmy[2], dmy[1], dmy[0]), price);
 	}
+
 
 	public void modifyBook() {
 
@@ -426,7 +455,7 @@ public class LibrarySystem {
 			choice = sc.nextLine();
 
 			if (!(choice.length() == 1 && choice.toUpperCase().matches("Y|N"))) {
-				System.out.println("\n\tInvalid choice! Please try agian...");
+				System.out.println("\n\tInvalid choice! Please try again...");
 				sc.nextLine();
 			} else {
 				continueInput = false;
@@ -442,7 +471,7 @@ public class LibrarySystem {
 
 	public boolean validateStringFormat(String type, String str, String regex) {
 		if (!str.matches(regex)) {
-			System.out.println("\n\tInvalid " + type + "! Please try agian...\n");
+			System.out.println("\n\tInvalid " + type + "! Please try again...\n");
 			return false;
 		} else {
 			return true;

@@ -6,6 +6,8 @@ import java.time.Year;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
+import jdk.javadoc.internal.doclets.formats.html.SourceToHTMLConverter;
+
 public class LibrarySystem {
 	/********** Properties **********/
 	private Borrower[] librarianList;
@@ -343,6 +345,19 @@ public class LibrarySystem {
 		// searchborrawablebyid
 
 		// static arrayborrawable object --> variable returnedBook
+	}
+
+	public void expiredMembershipReport(Member[] member){
+		int count = 0;
+
+		System.out.println("                                Expired Memebrship Report                                   ");
+		System.out.println("+=============+=====================+==============+==================+====================+");
+		System.out.println("|  Member ID  |     Member Name     |   Phone No   |   Expired Date   |  Expired Duration  | ");
+
+		for(int i = 0; i < member.length; i++ ){
+			
+			//if(member[i].libraryCard.getCardExpDate() <= LocalDate.now())
+		}
 	}
 
 	// User needs to be verified as administrator before entering this menu

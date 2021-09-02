@@ -128,6 +128,13 @@ public class holoLib {
 							if (holoLib.captureYesNoChoice("Confirm Renewal") == "Y") {
 								holoLib.searchLibraryCardByCardNO(cardNO).renewCardExpDate();
 								System.out.println("Renewal Successfully!");
+
+								//pay 
+								double cash = 20.00;
+								holoLib.searchLibraryCardByCardNO(cardNO).cashOut(cash);
+
+								// Display Receipt 
+
 							} else {
 								System.out.println("Renewal Canceled!");
 							}

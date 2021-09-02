@@ -3,6 +3,7 @@ package holoLib;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.Year;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
@@ -347,17 +348,61 @@ public class LibrarySystem {
 		// static arrayborrawable object --> variable returnedBook
 	}
 
-	public void expiredMembershipReport(Member[] member){
+	public void expiredMembershipReport(Member[] member) {
 		int count = 0;
 
-		System.out.println("                                Expired Memebrship Report                                   ");
-		System.out.println("+=============+=====================+==============+==================+====================+");
-		System.out.println("|  Member ID  |     Member Name     |   Phone No   |   Expired Date   |  Expired Duration  | ");
+		System.out.println(
+				"                                Expired Memebrship Report                                   ");
+		System.out.println(
+				"+=============+=====================+==============+==================+===========================+");
+		System.out.println(
+				"|  Member ID  |     Member Name     |   Phone No   |   Expired Date   |      Expired Duration     | ");
 
-		for(int i = 0; i < member.length; i++ ){
-			
-			//if(member[i].libraryCard.getCardExpDate() <= LocalDate.now())
+		for (int i = 0; i < member.length; i++) {
+			int day = member[i].libraryCard.getCardExpDate().get(Calendar.DAY_OF_MONTH);
+			int month = member[i].libraryCard.getCardExpDate().get(Calendar.MONTH);
+			int year = member[i].libraryCard.getCardExpDate().get(Calendar.YEAR);
+			if (year <= LocalDate.now().getYear()) {
+				if (year < LocalDate.now().getYear()) {
+					int yearExpiredDuration = LocalDate.now().getYear() - year;
+					System.out.printf("%-13s|%-24s|%-15s|%-18s|%-17d year(s) more|\n", member[i].getMemberID(),
+							member[i].name, member[i].phoneNO, member[i].libraryCard.cardExpDateToString(),
+							yearExpiredDuration);
+					count++;
+				} else {
+					if (month <= LocalDate.now().getMonthValue()) {
+						if (month < LocalDate.now().getMonthValue()) {
+							int yearExpiredDuration = LocalDate.now().getYear() - year;
+							int monthExpiredDuration = LocalDate.now().getMonthValue() - month;
+							System.out.printf("%-13s|%-24s|%-15s|%-18s|     %-02d yr(s) %-02d month(s)     |\n",
+									member[i].getMemberID(), member[i].name, member[i].phoneNO,
+									member[i].libraryCard.cardExpDateToString(), yearExpiredDuration,
+									monthExpiredDuration);
+							count++;
+						} else {
+							if (day <= LocalDate.now().getDayOfMonth()) {
+								if (day < LocalDate.now().getDayOfMonth()) {
+									int yearExpiredDuration = LocalDate.now().getYear() - year;
+									int monthExpiredDuration = LocalDate.now().getMonthValue() - month;
+									int dayExpiredDuration = LocalDate.now().getDayOfMonth() - day;
+									System.out.printf("%-13s|%-24s|%-15s|%-18s|%-02d yr(s) %-02d month(s) %-02d day(s)\n",
+											member[i].getMemberID(), member[i].name, member[i].phoneNO,
+											member[i].libraryCard.cardExpDateToString(), yearExpiredDuration,
+											monthExpiredDuration, dayExpiredDuration);
+									count++;
+								}
+							}
+						}
+
+					}
+				}
+			}
+
 		}
+		System.out.println(
+			"+=============+=====================+==============+==================+===========================+");
+		System.out.printf("Total memeber had expired membership :                                  %d(person(s))\n",count);
+
 	}
 
 	// User needs to be verified as administrator before entering this menu

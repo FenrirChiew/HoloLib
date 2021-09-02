@@ -16,7 +16,6 @@ public class LibrarySystem {
 	/********** Constructors **********/
 	public LibrarySystem() {
 		this(null, null, null);
-		currentLoggedUser = null;
 	}
 
 	// testing purpose
@@ -24,6 +23,7 @@ public class LibrarySystem {
 		this.librarianList = librarianList;
 		this.memberList = memberList;
 		bookList = null;
+		currentLoggedUser = null;
 	}
 
 	public LibrarySystem(Borrower[] librarianList, Borrower[] memberList, Book[] bookList) {

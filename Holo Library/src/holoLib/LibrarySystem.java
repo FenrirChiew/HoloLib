@@ -11,10 +11,12 @@ public class LibrarySystem {
 	private Borrower[] librarianList;
 	private Borrower[] memberList;
 	private Book[] bookList;
+	private Librarian currentLoggedUser;
 
 	/********** Constructors **********/
 	public LibrarySystem() {
 		this(null, null, null);
+		currentLoggedUser = null;
 	}
 
 	// testing purpose
@@ -28,6 +30,7 @@ public class LibrarySystem {
 		this.librarianList = librarianList;
 		this.memberList = memberList;
 		this.bookList = bookList;
+		currentLoggedUser = null;
 	}
 
 	/********** Accessors & Mutators **********/
@@ -55,6 +58,14 @@ public class LibrarySystem {
 		this.bookList = bookList;
 	}
 
+	public Librarian getCurrentLoggedUser() {
+		return currentLoggedUser;
+	}
+
+	public void setCurrentLoggedUser(Librarian currentLoggedUser) {
+		this.currentLoggedUser = currentLoggedUser;
+	}
+
 	/********** Methods **********/
 	// Display Main Menu
 	public void displayMainMenu() {
@@ -72,7 +83,7 @@ public class LibrarySystem {
 	// Display Membership Menu
 	public void displayMembershipMenu() {
 		System.out.println("++================================++");
-		System.out.println("||     Membership Management     ||");
+		System.out.println("||     Membership Management      ||");
 		System.out.println("++================================++");
 		System.out.println("|| 1 ||  Membership Registration  ||");
 		System.out.println("|| 2 ||  Card Renewal             ||");
@@ -156,20 +167,10 @@ public class LibrarySystem {
 
 	public Borrower searchBorrowerByID(String borrowerID) {
 		if (borrowerID.matches("MB[0-9]{3}")) {
-			for (int i = 0; i < memberList.length; i++) {
-				if (((Member) memberList[i]).getMemberID().matches(borrowerID)) {
-					return memberList[i];
-				}
-			}
-		} else if (borrowerID.matches("LB[0-9]{3}")) {
-			for (int i = 0; i < librarianList.length; i++) {
-				if (((Librarian) librarianList[i]).getLibrarianID().matches(borrowerID)) {
-					return librarianList[i];
-				}
-			}
+			return searchMemberByID(borrowerID);
+		} else {
+			return searchLibrarianByID(borrowerID);
 		}
-
-		return null;
 	}
 
 	// Display Borrow Menu
@@ -196,10 +197,9 @@ public class LibrarySystem {
 				"++====++========================++=========++=========================++==================++=======================++============++========||============++");
 
 		for (int i = 0; i < bookList.length; i++) {
-			System.out.printf("|| %02d || %-22s || %-7s || %-23s || %-16s || %-20s || %-10.2f || %-6s || %-10.2f ||\n", i + 1,
-					bookList[i].getBookTitle(), bookList[i].getBookID(), bookList[i].getBookAuthor(),
-					bookList[i].getBookPublisher(), bookList[i].publisherDateToString(),
-					bookList[i].getBookPrice());
+			System.out.printf("|| %02d || %-22s || %-7s || %-23s || %-16s || %-20s || %-10.2f || %-6s || %-10.2f ||\n",
+					i + 1, bookList[i].getBookTitle(), bookList[i].getBookID(), bookList[i].getBookAuthor(),
+					bookList[i].getBookPublisher(), bookList[i].publisherDateToString(), bookList[i].getBookPrice());
 			System.out.println(
 					"++====++========================++=========++=========================++==================++=======================++============++========++============++");
 		}
@@ -237,9 +237,9 @@ public class LibrarySystem {
 		System.out.println("\nTotal Book(s) Found: " + totalResult);
 	}
 
-	public Book searchBookByID(String bookID){
-		for(int i = 0; i < bookList.length; i++){
-			if(bookList[i].getBookID().indexOf(bookID) != -1){
+	public Book searchBookByID(String bookID) {
+		for (int i = 0; i < bookList.length; i++) {
+			if (bookList[i].getBookID().indexOf(bookID) != -1) {
 				System.out.println("\nResult match with \"" + bookID + "\":");
 				return bookList[i];
 			}
@@ -247,7 +247,7 @@ public class LibrarySystem {
 		return null;
 	}
 
-	public void searchBookByAuthor(String bookAuthor){
+	public void searchBookByAuthor(String bookAuthor) {
 		int totalResult = 0;
 
 		System.out.println("Results match with \"" + bookAuthor + "\":");
@@ -263,7 +263,7 @@ public class LibrarySystem {
 		System.out.println("\nTotal Book(s) Found: " + totalResult);
 	}
 
-	public void searchBookByPublisher(String bookPublisher){
+	public void searchBookByPublisher(String bookPublisher) {
 		int totalResult = 0;
 
 		System.out.println("Results match with \"" + bookPublisher + "\":");
@@ -329,7 +329,7 @@ public class LibrarySystem {
 
 	}
 
-	public void DailyBookReturnedReport(Member[] member, Librarian[] librarian){
+	public void DailyBookReturnedReport(Member[] member, Librarian[] librarian) {
 		int count = 0;
 
 		System.out.println("                        Daily Book Returned Report for " + LocalDate.now().getDayOfMonth()
@@ -337,13 +337,12 @@ public class LibrarySystem {
 		System.out.println("+===================================================================================+");
 		System.out.println("|        Book Name        |      Book ID      |    Borrower Name   |   Borrower ID  |  ");
 
-		//searchbookbyid method return book
-		//return book method --> LibraryCard no, bookID (parameter)
-		//searchborrowerbyid return borrower
-		//searchborrawablebyid
+		// searchbookbyid method return book
+		// return book method --> LibraryCard no, bookID (parameter)
+		// searchborrowerbyid return borrower
+		// searchborrawablebyid
 
-
-		//static arrayborrawable object --> variable returnedBook
+		// static arrayborrawable object --> variable returnedBook
 	}
 
 	// User needs to be verified as administrator before entering this menu
@@ -357,6 +356,26 @@ public class LibrarySystem {
 		System.out.println("|| 3 ||  Books Inventory Management  ||");
 		System.out.println("|| 0 ||  Back to Home                ||");
 		System.out.println("++===++==============================++");
+	}
+
+	public Borrower searchMemberByID(String memberID) {
+		for (int i = 0; i < memberList.length; i++) {
+			if (((Member) memberList[i]).getMemberID().matches(memberID)) {
+				return memberList[i];
+			}
+		}
+
+		return null;
+	}
+
+	public Borrower searchLibrarianByID(String librarianID) {
+		for (int i = 0; i < librarianList.length; i++) {
+			if (((Librarian) librarianList[i]).getLibrarianID().matches(librarianID)) {
+				return librarianList[i];
+			}
+		}
+
+		return null;
 	}
 
 	// Display Member Management Menu
@@ -398,9 +417,9 @@ public class LibrarySystem {
 	public void addBook(String title, String author, String publisher, String publisherDate, double price) {
 		int[] dmy = toIntDate(publisherDate.split("/"));
 
-		bookList[bookList.length] = new Book(title, author, publisher, new GregorianCalendar(dmy[2], dmy[1], dmy[0]), price);
+		bookList[bookList.length] = new Book(title, author, publisher, new GregorianCalendar(dmy[2], dmy[1], dmy[0]),
+				price);
 	}
-
 
 	public void modifyBook() {
 
@@ -542,38 +561,8 @@ public class LibrarySystem {
 	}
 
 	// Login method
-	public void Login() {
-		Scanner sc = new Scanner(System.in);
-
-		do {
-			System.out.println("ID: ");
-			String id = sc.nextLine();
-			System.out.println("Password: ");
-			String password = sc.nextLine();
-
-			if (validateLogin(id, password)) {
-				sc.close();
-				break;
-			} else {
-				System.out.println("\n\tWrong ID or password. Please try again.");
-			}
-		} while (true);
-	}
-
-	// Validate Login using Input Librarian ID and Input Password
-	public boolean validateLogin(String librarianID, String password) {
-		// Loop through Librarian List to search matched Librarian ID and Password
-		for (int i = 0; i < librarianList.length; i++) {
-			// Return True when:
-			// 1. The Input Librarian ID is matched with the Librarian ID at the index i
-			// 2. The Input Password is matched with the Librarian Password at the index i
-			if (((Librarian) librarianList[i]).getLibrarianID().matches(librarianID)
-					&& ((Librarian) librarianList[i]).getPassword().matches(password)) {
-				return true;
-			}
-		}
-
-		return false; // Return False when both conditions above is not achieved
+	public void login(String librarianID) {
+		currentLoggedUser = (Librarian) searchLibrarianByID(librarianID);
 	}
 
 	// HoloLib logo

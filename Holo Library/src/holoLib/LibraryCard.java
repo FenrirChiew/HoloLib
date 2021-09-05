@@ -107,6 +107,13 @@ public class LibraryCard {
 		currentBorrowed[currentBorrowed.length] = book;
 	}
 
+	public void removeCurrentBorrow(int index){
+		// remove book details from currentBorrowed
+		for(int i = index; i < currentBorrowed.length; i++){
+			currentBorrowed[i] = currentBorrowed[i+1];
+		}
+	}
+
 	// toString() method
 	public String toString() {
 		return "Library Card Number: " + cardNO + String.format("\nLibrary Card Balance: %.2f", cardBalance)

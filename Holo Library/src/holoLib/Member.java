@@ -64,10 +64,13 @@ public class Member extends Borrower {
 	public void borrowBook(String pinNO, Book book) {
 		if (!(this.libraryCard.validatePinNO(pinNO))) {
 			System.out.println("\n\tInvalid Pin Number!\n");
-		} else {
+		}
+		else {
 			if (libraryCard.getCurrentBorrowed().length >= MAX_BORROW) {
 				System.out.printf("\n\tYou have reached the Borrow Limit (%d)!\n\n", MAX_BORROW);
-			} else {
+			}
+			else {
+				((Book) book).setBorrowed(true);
 				((Book)book).setBorrowDate(LocalDate.now());
 				this.libraryCard.addCurrentBorrowed(book);
 			}

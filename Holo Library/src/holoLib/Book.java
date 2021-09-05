@@ -15,6 +15,7 @@ public class Book {
     private boolean isBorrowed;
     private double borrowFees;
     private LocalDate borrowDate;
+    private LocalDate returnDate;
     private static int totalBooks = 0;
     private static final int MAX_GRACE_PERIOD_IN_DAY = 30;
 
@@ -97,12 +98,20 @@ public class Book {
         return borrowFees;
     }
 
+    public LocalDate getBorrowDate() {
+        return borrowDate;
+    }
+
     public void setBorrowDate(LocalDate borrowDate) {
         this.borrowDate = borrowDate;
     }
 
-    public LocalDate getBorrowDate() {
-        return borrowDate;
+    public LocalDate getReturnDate() {
+        return returnDate;
+    }
+
+    public void setReturnDate(LocalDate returnDate) {
+        this.returnDate = returnDate;
     }
 
     public static int getTotalBooks() {
@@ -117,14 +126,14 @@ public class Book {
     public void displayBookDetails(){
         System.out.println("Book Details");
         System.out.println("==========================");
-        System.out.println("Title                     : " + bookTitle);
-        System.out.println("Material ID               : " + bookID);
-        System.out.println("Material Author           : " + bookAuthor);
-        System.out.println("Material Publisher        : " + bookPublisher);
-        System.out.println("Material Publication Date : " + publisherDateToString());
-        System.out.println("Material Price            : " + bookPrice);
-        System.out.println("Material Borrow Status    : " + isBorrowed);
-        System.out.println("\nBorrow Fee                : " + borrowFees);
+        System.out.println("Title                 : " + bookTitle);
+        System.out.println("Book ID               : " + bookID);
+        System.out.println("Book Author           : " + bookAuthor);
+        System.out.println("Book Publisher        : " + bookPublisher);
+        System.out.println("Book Publication Date : " + publisherDateToString());
+        System.out.println("Book Price            : " + bookPrice);
+        System.out.println("Book Borrow Status    : " + isBorrowed);
+        System.out.println("\nBorrow Fee          : " + borrowFees);
     }
 
     public String publisherDateToString() {
@@ -140,8 +149,8 @@ public class Book {
 
     @Override
     public String toString() {
-        return "Material Title: " + bookTitle + "\nMaterial ID: " + bookID + "\nMaterial Author: "
-                + bookAuthor + "\nMaterial Publisher: " + bookPublisher + "\nMaterial Publication Date: "
-                + bookPublicationDate + "\nMaterial Price: " + bookPrice;
+        return "Book Title: " + bookTitle + "\nBook ID: " + bookID + "\nBook Author: "
+                + bookAuthor + "\nBook Publisher: " + bookPublisher + "\nBook Publication Date: "
+                + bookPublicationDate + "\nBook Price: " + bookPrice;
     }
 }

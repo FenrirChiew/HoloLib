@@ -152,7 +152,7 @@ public class LibrarySystem {
 				}
 			} catch (Exception e) {
 				sc.nextLine();
-				System.out.println("\n\tInvalid " + message + "! Please try agian...\n");
+				System.out.println("\n\tInvalid " + message + "! Please try again...\n");
 				sc.nextLine();
 			}
 		} while (continueInput);
@@ -208,6 +208,17 @@ public class LibrarySystem {
 		}
 		System.out.println("\nTotal Book(s) Found: " + bookList.length);
 	}
+
+    public void displayBorrowReport(String bookID){
+        System.out.println("+------------------------------------------+");
+        System.out.println("|              Borrow Receipt              |");
+        System.out.println("+------------------------------------------+");
+        searchBookByID(bookID).displayBookDetails();
+        System.out.println("+------------------------------------------+");
+
+
+
+    }
 
 	// Display Book Searching Menu
 	public void displayBookSearchingMenu() {
@@ -339,6 +350,34 @@ public class LibrarySystem {
 				+ "/" + LocalDate.now().getMonthValue() + "/" + LocalDate.now().getYear());
 		System.out.println("+===================================================================================+");
 		System.out.println("|        Book Name        |      Book ID      |    Borrower Name   |   Borrower ID  |  ");
+		for (int i = 0; i < member.length; i++) {
+			if (member[i].libraryCard.getBorrowedHistory().length > 0) {
+				for (int j = 0; j < member[i].libraryCard.getBorrowedHistory().length; j++) {
+					Book book = member[i].libraryCard.getBorrowedHistory()[j];
+					if (((Book) book).getReturnDate() == LocalDate.now()) {
+						System.out.printf("|%-25s|%-19s|%-20s|%-16s|", book.getBookTitle(), book.getBookID(),
+								member[i].name, member[i].getMemberID());
+						count++;
+					}
+				}
+			}
+		}
+
+		for (int i = 0; i < librarian.length; i++) {
+			if (librarian[i].libraryCard.getBorrowedHistory().length > 0) {
+				for (int j = 0; j < librarian[i].libraryCard.getBorrowedHistory().length; j++) {
+					Book book = librarian[i].libraryCard.getBorrowedHistory()[j];
+					if (((Book) book).getReturnDate() == LocalDate.now()) {
+						System.out.printf("|%-25s|%-19s|%-20s|%-16s|", book.getBookTitle(), book.getBookID(),
+								librarian[i].name, librarian[i].getLibrarianID());
+						count++;
+					}
+				}
+			}
+
+		}
+		System.out.println("+===================================================================================+");
+		System.out.println("Total count book retruned: " + count);
 
 		// searchbookbyid method return book
 		// return book method --> LibraryCard no, bookID (parameter)
@@ -352,7 +391,7 @@ public class LibrarySystem {
 		int count = 0;
 
 		System.out.println(
-				"                                Expired Memebrship Report                                   ");
+				"                                Expired Membership Report                                   ");
 		System.out.println(
 				"+=============+=====================+==============+==================+===========================+");
 		System.out.println(
@@ -401,7 +440,7 @@ public class LibrarySystem {
 		}
 		System.out.println(
 			"+=============+=====================+==============+==================+===========================+");
-		System.out.printf("Total memeber had expired membership :                                  %d(person(s))\n",count);
+		System.out.printf("Total member had expired membership :                                  %d(person(s))\n",count);
 
 	}
 
@@ -474,22 +513,41 @@ public class LibrarySystem {
 		System.out.println("++===++==========================++");
 	}
 
-	public void addBook(String title, String author, String publisher, String publisherDate, double price) {
-		int[] dmy = toIntDate(publisherDate.split("/"));
+	public void addBook(String title, String author, String publisher, String publicationDate, double price) {
+		int[] dmy = toIntDate(publicationDate.split("/"));
 
 		bookList[bookList.length] = new Book(title, author, publisher, new GregorianCalendar(dmy[2], dmy[1], dmy[0]),
 				price);
 	}
 
-	public void modifyBook() {
-
+	public void deleteBook(String bookID) {
+		for (int i = 0; i < bookList.length; i++) {
+			if (bookList[i].getBookID().indexOf(bookID) != -1) {
+				for (int j = i; j < bookList.length; j++){
+					bookList[j] = bookList[j+1];
+				}
+			}
+		}
 	}
 
-	public void deleteBook() {
-
+	// Display Book Searching Menu
+	public void displayBookModifyMenu() {
+		System.out.println("++===========================================++");
+		System.out.println("||                 Modify Book               ||");
+		System.out.println("++===========================================++");
+		System.out.println("|| Modify :                                  ||");
+		System.out.println("++===++======================================++");
+		System.out.println("|| 1 ||  Book Title                          ||");
+		System.out.println("|| 2 ||  Author                              ||");
+		System.out.println("|| 3 ||  Publisher                           ||");
+		System.out.println("|| 4 ||  Publication Date                    ||");
+		System.out.println("|| 5 ||  Price                               ||");
+		System.out.println("|| 0 ||  Back to Books Inventory Management  ||");
+		System.out.println("++===++======================================++");
 	}
 
-	// Capture an menu selection after invoke any menu method
+
+	// Capture a menu selection after invoke any menu method
 	public int captureMenuSelection(int maxMenuSelection) {
 		Scanner sc = new Scanner(System.in);
 		boolean continueInput = true;
@@ -508,7 +566,7 @@ public class LibrarySystem {
 				}
 			} catch (Exception e) { // Activate when captured non-integer menu selection
 				sc.nextLine();
-				System.out.println("\n\tInvalid selection! Please try agian...");
+				System.out.println("\n\tInvalid selection! Please try again...");
 				sc.nextLine();
 			}
 		} while (continueInput);

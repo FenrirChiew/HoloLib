@@ -93,9 +93,11 @@ public class Librarian extends Borrower {
 	public void borrowBook(String pinNO, Book book) {
 		if (this.libraryCard.validatePinNO(pinNO)) {
 			if (libraryCard.getCurrentBorrowed().length < MAX_BORROW) {
+				((Book) book).setBorrowed(true);
 				((Book) book).setBorrowDate(LocalDate.now());
 				this.libraryCard.addCurrentBorrowed(book);
-			} else {
+			}
+			else {
 				System.out.printf("\n\tYou have reached the Borrow Limit (%d)!\n\n", MAX_BORROW);
 			}
 		}

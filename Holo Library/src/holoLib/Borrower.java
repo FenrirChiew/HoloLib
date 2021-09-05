@@ -1,5 +1,6 @@
 package holoLib;
 
+import java.time.LocalDate;
 import java.util.GregorianCalendar;
 
 public abstract class Borrower {
@@ -30,6 +31,29 @@ public abstract class Borrower {
 	public abstract void displayBorrowerDetails();
 
 	public abstract void borrowBook(String pinNO, Book book);
+
+	public void returnBook(String pinNo, Book book){
+		if (!(this.libraryCard.validatePinNO(pinNo))) {
+			System.out.println("\n\tInvalid Pin Number!\n");
+		}
+		else {
+			for (int i = 0; i < libraryCard.getCurrentBorrowed().length; i++) {
+				// find the book borrow record in current borrowed
+				if (libraryCard.getCurrentBorrowed()[i].getBookID().matches(book.getBookID())) {
+					// move the book returned to borrow history
+					libraryCard.getBorrowedHistory()[libraryCard.getBorrowedHistory().length] = libraryCard.getCurrentBorrowed()[i];
+
+					((Book) book).setReturnDate(LocalDate.now());
+					((Book) book).setBorrowed(false);
+
+					// remove the book record from current borrowed
+					libraryCard.removeCurrentBorrow(i);
+
+					System.out.println("This return book action has been success.");
+				}
+			}
+		}
+	}
 
 	// toString() method
 	@Override

@@ -38,7 +38,7 @@ public class holoLib {
 
 		String password;
 		do {
-			System.out.print("Passoword: ");
+			System.out.print("Password: ");
 			password = sc.nextLine();
 		} while (!holoLib.validateStringFormat("Password (Must be a combination of letters and digits)", password,
 				"(?=.*[0-9])(?=.*[a-z])(?=.*[a-zA-Z])[0-9A-Za-z]+"));

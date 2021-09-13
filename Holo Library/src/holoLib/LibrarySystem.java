@@ -102,7 +102,7 @@ public class LibrarySystem {
 		GregorianCalendar cardEXPDate = new GregorianCalendar(LocalDate.now().getYear() + 1,
 				LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth());
 
-		memberList[memberList.length] = new Member(name, icNO, gender, new GregorianCalendar(dmy[2], dmy[1], dmy[0]),
+		memberList[Member.getTotalMembers()] = new Member(name, icNO, gender, new GregorianCalendar(dmy[2], dmy[1], dmy[0]),
 				phoneNO, new LibraryCard(pinNO, cardEXPDate));
 	}
 

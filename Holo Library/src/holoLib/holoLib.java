@@ -8,25 +8,28 @@ import java.util.Scanner;
 public class holoLib {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		Librarian[] librarianList = {
-				new Librarian("Watoto", "111111-11-1111", "Male", new GregorianCalendar(2001, 1, 1), "111-1111111",
-						new LibraryCard("010101", new GregorianCalendar(2022, 02, 1)), "admin1", "Library Admin"),
-				new Librarian("Kiwawa", "222222-22-2222", "Female", new GregorianCalendar(2002, 2, 2), "222-2222222",
-						new LibraryCard("020202", new GregorianCalendar(2021, 12, 1)), "admin2", "General Staff"),
-				new Librarian("Yuul B Alwright", "333333-33-3333", "Female", new GregorianCalendar(2003, 3, 3),
+		Librarian[] librarianList = new Librarian[100];
+
+		librarianList[0] = new Librarian("Watoto", "111111-11-1111", "Male", new GregorianCalendar(2001, 1, 1), "111-1111111",
+						new LibraryCard("010101", new GregorianCalendar(2022, 02, 1)), "admin1", "Library Admin");
+		librarianList[1] = new Librarian("Kiwawa", "222222-22-2222", "Female", new GregorianCalendar(2002, 2, 2), "222-2222222",
+						new LibraryCard("020202", new GregorianCalendar(2021, 12, 1)), "admin2", "General Staff");
+		librarianList[2] = new Librarian("Yuul B Alwright", "333333-33-3333", "Female", new GregorianCalendar(2003, 3, 3),
 						"333-3333333", new LibraryCard("030303", new GregorianCalendar(2022, 5, 1)), "admin3",
-						"General Staff"),
-				new Librarian("Memei", "444444-44-4444", "Female", new GregorianCalendar(2004, 4, 4), "444-4444444",
-						new LibraryCard("040404", new GregorianCalendar(2021, 10, 1)), "admin4", "Librarian Admin") };
-		Member[] memberList = {
-				new Member("LaoSu", "555555-55-5555", "Female", new GregorianCalendar(2001, 1, 31), "555-5555555",
-						new LibraryCard("050505", new GregorianCalendar(2022, 9, 1))),
-				new Member("FEET", "666666-66-6666", "Female", new GregorianCalendar(2002, 2, 28), "666-6666666",
-						new LibraryCard("060606", new GregorianCalendar(2021, 9, 1))),
-				new Member("Kawaiiope Morison", "777777-77-7777", "Male", new GregorianCalendar(2003, 3, 31),
-						"777-7777777", new LibraryCard("070707", new GregorianCalendar(2022, 3, 1))),
-				new Member("Branch Horn", "888888-88-8888", "Female", new GregorianCalendar(2004, 4, 30), "888-8888888",
-						new LibraryCard("080808", new GregorianCalendar(2022, 1, 1))) };
+						"General Staff");
+		librarianList[3] = new Librarian("Memei", "444444-44-4444", "Female", new GregorianCalendar(2004, 4, 4), "444-4444444",
+						new LibraryCard("040404", new GregorianCalendar(2021, 10, 1)), "admin4", "Librarian Admin");
+
+		Member[] memberList = new Member[100];
+
+		memberList[0] =	new Member("LaoSu", "555555-55-5555", "Female", new GregorianCalendar(2001, 1, 31), "555-5555555",
+						new LibraryCard("050505", new GregorianCalendar(2022, 9, 1)));
+		memberList[1] =	new Member("FEET", "666666-66-6666", "Female", new GregorianCalendar(2002, 2, 28), "666-6666666",
+						new LibraryCard("060606", new GregorianCalendar(2021, 9, 1)));
+		memberList[2] =	new Member("Kawaiiope Morison", "777777-77-7777", "Male", new GregorianCalendar(2003, 3, 31),
+						"777-7777777", new LibraryCard("070707", new GregorianCalendar(2022, 3, 1)));
+		memberList[3] =	new Member("Branch Horn", "888888-88-8888", "Female", new GregorianCalendar(2004, 4, 30), "888-8888888",
+						new LibraryCard("080808", new GregorianCalendar(2022, 1, 1))) ;
 		LibrarySystem holoLib = new LibrarySystem(librarianList, memberList);
 
 		// Login
@@ -34,7 +37,7 @@ public class holoLib {
 		do {
 			System.out.print("Librarian ID: ");
 			librarianID = sc.nextLine();
-		} while (!holoLib.validateStringFormat("Librarian ID", librarianID, "(LB[0-9]{3}"));
+		} while (!holoLib.validateStringFormat("Librarian ID", librarianID, "LB[0-9]{3}"));
 
 		String password;
 		do {
@@ -85,7 +88,7 @@ public class holoLib {
 						do {
 							System.out.print("Gender: ");
 							gender = sc.nextLine();
-						} while (!holoLib.validateStringFormat("Gender", gender, "[Male|Female]"));
+						} while (!holoLib.validateStringFormat("Gender", gender, "Male|Female"));
 
 						String dob;
 						do {

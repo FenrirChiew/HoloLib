@@ -16,6 +16,7 @@ public class Book {
     private double borrowFees;
     private LocalDate borrowDate;
     private LocalDate returnDate;
+    private int bookCount;
     private static int totalBooks = 0;
     private static final int MAX_GRACE_PERIOD_IN_DAY = 30;
 
@@ -24,6 +25,7 @@ public class Book {
         this("", "", "", null, 0.0);
         isBorrowed = false;
         calBorrowFees();
+        bookCount = 0;
         totalBooks++;
     }
 
@@ -37,6 +39,7 @@ public class Book {
         this.bookPrice = bookPrice;
         isBorrowed = false;
         calBorrowFees();
+        bookCount = 0;
         totalBooks++;
     }
 
@@ -120,6 +123,14 @@ public class Book {
 
     public static int getMAX_GRACE_PERIOD_IN_DAY() {
         return MAX_GRACE_PERIOD_IN_DAY;
+    }
+
+    public int getBookCount() {
+        return bookCount;
+    }
+
+    public void setBookCount(int bookCount) {
+        this.bookCount = bookCount;
     }
 
     /********** Methods **********/

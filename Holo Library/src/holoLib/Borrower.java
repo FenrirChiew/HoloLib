@@ -37,7 +37,7 @@ public abstract class Borrower {
 			System.out.println("\n\tInvalid Pin Number!\n");
 		}
 		else {
-			for (int i = 0; i < libraryCard.getCurrentBorrowed().length; i++) {
+			for (int i = 0; i < libraryCard.getCurrentBorrowed().getBookCount(); i++) {
 				// find the book borrow record in current borrowed
 				if (libraryCard.getCurrentBorrowed()[i].getBookID().matches(book.getBookID())) {
 					// move the book returned to borrow history

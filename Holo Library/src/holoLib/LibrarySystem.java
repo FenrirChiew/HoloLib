@@ -592,7 +592,7 @@ public class LibrarySystem {
 			}
 		} while (continueInput);
 
-		sc.nextLine(); // Clear input buffer
+		// sc.nextLine(); // Clear input buffer
 
 		return choice; // Return choice
 	}
@@ -626,7 +626,7 @@ public class LibrarySystem {
 		} else {
 			String[] day_month_year = date.split("/");
 
-			if (toIntDate(day_month_year)[2] < 1900 || toIntDate(day_month_year)[2] > LocalDate.now().getYear()) {
+			if (toIntDate(day_month_year)[2] < 1800 || toIntDate(day_month_year)[2] > LocalDate.now().getYear()) {
 				System.out.println("\n\tInvalid Year! Please try again...");
 				return false;
 			}

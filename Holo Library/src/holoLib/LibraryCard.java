@@ -9,10 +9,10 @@ public class LibraryCard {
 	private String pinNO;
 	private double cardBalance;
 	private GregorianCalendar cardExpDate;
-	private Book[] currentBorrowed;
-	private Book[] borrowedHistory;
+	private Book[] currentBorrowed = new Book[5];
+	private Book[] borrowedHistory = new Book[100];
 	private static int totalCards = 0;
-	private static Book[] returnedBook;
+	private static Book[] returnedBook = new Book[100];
 
 	/********** Constructors **********/
 	public LibraryCard() {

@@ -72,6 +72,7 @@ public class holoLib {
 				// 1. Membership Registration
 				case 1:
 					do {
+						cls();
 						String name;
 						do {
 							System.out.print("Name: ");

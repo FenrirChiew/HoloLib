@@ -124,8 +124,9 @@ public class Book {
 
     /********** Methods **********/
     public void displayBookDetails(){
-        System.out.println("Book Details");
-        System.out.println("==========================");
+        System.out.println("================================================");
+        System.out.println("                  Book Details                  ");
+        System.out.println("================================================");
         System.out.println("Title                 : " + bookTitle);
         System.out.println("Book ID               : " + bookID);
         System.out.println("Book Author           : " + bookAuthor);
@@ -133,7 +134,8 @@ public class Book {
         System.out.println("Book Publication Date : " + publisherDateToString());
         System.out.println("Book Price            : " + bookPrice);
         System.out.println("Book Borrow Status    : " + isBorrowed);
-        System.out.println("\nBorrow Fee          : " + borrowFees);
+        System.out.println("Borrow Fee            : " + borrowFees);
+        System.out.println("================================================");
     }
 
     public String publisherDateToString() {

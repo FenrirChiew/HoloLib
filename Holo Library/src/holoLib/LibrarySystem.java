@@ -7,8 +7,6 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
-import jdk.javadoc.internal.doclets.formats.html.SourceToHTMLConverter;
-
 public class LibrarySystem {
 	/********** Properties **********/
 	private Borrower[] librarianList;
@@ -181,10 +179,10 @@ public class LibrarySystem {
 		System.out.println("++=========================++");
 		System.out.println("||     Book Borrowing      ||");
 		System.out.println("++=========================++");
-		System.out.println("|| 1 ||  Display book      ||");
-		System.out.println("|| 2 ||  Search book       ||");
-		System.out.println("|| 3 ||  Borrow book       ||");
-		System.out.println("|| 4 ||  Return book       ||");
+		System.out.println("|| 1 ||  Display Book      ||");
+		System.out.println("|| 2 ||  Search Book       ||");
+		System.out.println("|| 3 ||  Borrow Book       ||");
+		System.out.println("|| 4 ||  Return Book       ||");
 		System.out.println("|| 0 ||  Back to Home      ||");
 		System.out.println("++===++====================++");
 	}
@@ -538,10 +536,10 @@ public class LibrarySystem {
 		System.out.println("|| Modify :                                  ||");
 		System.out.println("++===++======================================++");
 		System.out.println("|| 1 ||  Book Title                          ||");
-		System.out.println("|| 2 ||  Author                              ||");
-		System.out.println("|| 3 ||  Publisher                           ||");
-		System.out.println("|| 4 ||  Publication Date                    ||");
-		System.out.println("|| 5 ||  Price                               ||");
+		System.out.println("|| 2 ||  Book Author                         ||");
+		System.out.println("|| 3 ||  Book Publisher                      ||");
+		System.out.println("|| 4 ||  Book Publication Date               ||");
+		System.out.println("|| 5 ||  Book Price                          ||");
 		System.out.println("|| 0 ||  Back to Books Inventory Management  ||");
 		System.out.println("++===++======================================++");
 	}

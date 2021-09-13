@@ -1,5 +1,5 @@
 package holoLib;
 
-public class Menu {
-    
+public interface Menu {
+    public abstract void displayMenu();
 }

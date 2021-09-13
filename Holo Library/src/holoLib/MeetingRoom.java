@@ -2,19 +2,21 @@ package holoLib;
 
 public class MeetingRoom extends Facility {
     /********** Properties **********/
-    private Schedule meetingRoomSchedule = null;
-    private int roomCapacity = 0;
+    private Schedule meetingRoomSchedule;
+    private int roomCapacity;
     private static int totalRooms = 0;
 
     /********** Constructors **********/
     public MeetingRoom() {
         super();
+        meetingRoomSchedule = null;
+        roomCapacity = 0;
         totalRooms++;
     }
 
-    public MeetingRoom(String facilityName, String facilityID, String facilityType, Schedule meetingRoomSchedule,
-            int roomCapacity) {
-        super(facilityName, facilityID, facilityType);
+    public MeetingRoom(String facilityName, String facilityID, String facilityType, String equipments,
+            Schedule meetingRoomSchedule, int roomCapacity) {
+        super(facilityName, facilityID, facilityType, equipments);
         this.meetingRoomSchedule = meetingRoomSchedule;
         this.roomCapacity = roomCapacity;
         totalRooms++;
@@ -42,6 +44,13 @@ public class MeetingRoom extends Facility {
     }
 
     /********** Methods **********/
+    @Override
+    public void makeAppointment() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
     public String toString() {
         return super.toString() + "\nSchedule Info: " + meetingRoomSchedule.toString() + "Room Capacity: "
                 + roomCapacity;

@@ -12,7 +12,7 @@ public abstract class Facility {
 
     /********** Constructors **********/
     protected Facility() {
-        this("", "", "", "", 0.0, new Member[]{});
+        this("", "", "", "", 0.0, null);
         totalFacilities++;
     }
 
@@ -86,11 +86,12 @@ public abstract class Facility {
 
     /********** Methods **********/
     public abstract void makeReservation(Member member);
+    public abstract void displayFacilityDetails();
 
     // toString() method
     @Override
     public String toString() {
         return "Facility Name: " + facilityName + "\nFacility ID: " + facilityID + "\nFacility Type: " + facilityType
-                + "\nReservation Fees: " + reservationFees + "\nEquipments: " + equipments;
+                + "\nReservation Fees Per Hour: " + reservationFees + "\nEquipments: " + equipments;
     }
 }

@@ -8,15 +8,16 @@ public class Room extends Facility {
 
     /********** Constructors **********/
     public Room() {
-        this("", "", "", "", 0.0, new Member[] {}, 0, new Schedule());
+        this("", "", "", "", 0.0, null, 0);
+        createSchedule();
         totalRooms++;
     }
 
-    public Room(String facilityName, String facilityID, String facilityType, String equipments, double reservationFees,
-            Member[] reservationList, int roomCapacity, Schedule schedule) {
+    public Room(String facilityName, String facilityID, String facilityType, String equipments,
+            double reservationFees, Member[] reservationList, int roomCapacity) {
         super(facilityName, facilityID, facilityType, equipments, reservationFees, reservationList);
         this.roomCapacity = roomCapacity;
-        this.schedule = schedule;
+        createSchedule();
         totalRooms++;
     }
 
@@ -33,8 +34,8 @@ public class Room extends Facility {
         return schedule;
     }
 
-    public void setSchedule(Schedule schedule) {
-        this.schedule = schedule;
+    public void createSchedule() {
+        schedule = new Schedule(String.format("SD%03d", Schedule.getTotalSchedule()));
     }
 
     public static int getTotalRooms() {
@@ -43,21 +44,24 @@ public class Room extends Facility {
 
     /********** Methods **********/
     public void displayPendingReservation() {
-        System.out.println("Pending Reservation");
-        System.out.println("===================");
+        System.out.print("Pending Reservation");
 
-        for (int i = 1; i < reservationList.length; i++) {
-            if (schedule.searchTimeslotbySlotID(String.format("S00%02d", i)).isReserved() == true) {
-                System.out
-                        .println(String.format("S00%02d", i) + " ("
-                                + String.format("%-9s",
-                                        schedule.searchTimeslotbySlotID(String.format("S00%02d", i)).getWeekdays())
-                                + String.format("%02d:00",
-                                        schedule.searchTimeslotbySlotID(String.format("S00%02d", i)).getStartTime())
-                                + " ~ "
-                                + String.format("%02d:00",
-                                        schedule.searchTimeslotbySlotID(String.format("S00%02d", i)).getEndTime())
-                                + "): " + reservationList[i].getMemberID());
+        if (reservationList.length == 0) {
+            System.out.println(": null");
+        } else {
+            for (int i = 0; i < reservationList.length; i++) {
+                System.out.println("\n===================");
+                if (schedule.searchTimeslotbySlotID(String.format("TS%03d", i + 1)).isReserved() == true) {
+                    System.out.println(String.format("TS%03d", i + 1) + " ("
+                            + String.format("%-9s",
+                                    schedule.searchTimeslotbySlotID(String.format("TS%03d", i + 1)).getWeekdays())
+                            + String.format("%02d:00",
+                                    schedule.searchTimeslotbySlotID(String.format("TS%03d", i + 1)).getStartTime())
+                            + " ~ "
+                            + String.format("%02d:00",
+                                    schedule.searchTimeslotbySlotID(String.format("TS%03d", i + 1)).getEndTime())
+                            + "): " + reservationList[i].getMemberID());
+                }
             }
         }
     }
@@ -66,6 +70,13 @@ public class Room extends Facility {
     public void makeReservation(Member member) {
         // schedule.searchTimeslotbySlotID(slotID);
         reservationList[reservationList.length] = member;
+    }
+
+    @Override
+    public void displayFacilityDetails() {
+        System.out.println(toString());
+        System.out.println(schedule.toString());
+        displayPendingReservation();
     }
 
     // toString() method

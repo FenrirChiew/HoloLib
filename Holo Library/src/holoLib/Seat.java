@@ -9,7 +9,7 @@ public class Seat {
 
     /********** Constructors **********/
     public Seat() {
-        this("", new Member());
+        this("", null);
         isReserved = false;
         totalSeats++;
     }

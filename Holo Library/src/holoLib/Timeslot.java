@@ -14,8 +14,8 @@ public class Timeslot {
 
     /********** Constructors **********/
     public Timeslot() {
-        slotID = String.format("S00%02d", totalSlots + 1);
-        slotCoordinate = new int[] { 0, 0 };
+        slotID = "";
+        slotCoordinate = null;
         weekdays = null;
         startTime = 0;
         endTime = 0;
@@ -23,8 +23,8 @@ public class Timeslot {
         totalSlots++;
     }
 
-    public Timeslot(int[] slotCoordinate) {
-        slotID = String.format("S00%02d", totalSlots + 1);
+    public Timeslot(String slotID, int[] slotCoordinate) {
+        this.slotID = slotID;
         this.slotCoordinate = slotCoordinate;
         weekdays = Weekdays.values()[slotCoordinate[0]];
         startTime = slotCoordinate[1] + INITIAL_OPERATION_HOUR;

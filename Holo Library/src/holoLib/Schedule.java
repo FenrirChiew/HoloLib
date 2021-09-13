@@ -10,7 +10,7 @@ public class Schedule {
 
     /********** Constructors **********/
     public Schedule() {
-        scheduleID = null;
+        scheduleID = "";
         createTimeslots();
         totalSchedule++;
     }
@@ -39,7 +39,8 @@ public class Schedule {
         timeslots = new Timeslot[TOTAL_OPERATION_DAYS_PER_WEEK][TOTAL_TIMESLOTS_PER_DAY];
         for (int i = 0; i < timeslots.length; i++) {
             for (int j = 0; j < timeslots[i].length; j++) {
-                timeslots[i][j] = new Timeslot(new int[] { i, j });
+                timeslots[i][j] = new Timeslot(String.format("TS%03d", j + 1 + i * TOTAL_TIMESLOTS_PER_DAY),
+                        new int[] { i, j });
             }
         }
     }
@@ -60,62 +61,65 @@ public class Schedule {
         return availableTimeSlots;
     }
 
-    public void displayScheduleTempleted() {
-        System.out.printf("++===========");
-        for (int j = 0; j < timeslots[0].length; j++) {
-            System.out.printf("+=======");
-        }
-        System.out.printf("++\n");
+    public void displaySchedule() {
+        System.out.println("++===================+");
+        System.out.printf("||  Schedule %5s   |\n", scheduleID);
+        System.out.print("++===========");
 
-        System.out.printf("||           ");
+        for (int j = 0; j < timeslots[0].length; j++) {
+            System.out.print("+=======");
+        }
+        System.out.println("++");
+
+        System.out.print("||           ");
         for (int j = 0; j < timeslots[0].length; j++) {
             System.out.printf("| %02d:00 ", timeslots[0][j].getStartTime(), timeslots[0][j].getEndTime());
         }
-        System.out.printf("||\n");
+        System.out.println("||");
 
-        System.out.printf("||           ");
+        System.out.print("||           ");
         for (int j = 0; j < timeslots[0].length; j++) {
-            System.out.printf("|   ~   ");
+            System.out.print("|   ~   ");
         }
-        System.out.printf("||\n");
+        System.out.println("||");
 
-        System.out.printf("||           ");
+        System.out.print("||           ");
         for (int j = 0; j < timeslots[0].length; j++) {
             System.out.printf("| %02d:00 ", timeslots[0][j].getEndTime());
         }
-        System.out.printf("||\n");
+        System.out.println("||");
 
         for (int i = 0; i < timeslots.length; i++) {
-            System.out.printf("++-----------");
+            System.out.print("++-----------");
             for (int j = 0; j < timeslots[0].length; j++) {
-                System.out.printf("+-------");
+                System.out.print("+-------");
             }
-            System.out.printf("++\n");
+            System.out.println("++");
 
-            System.out.printf("||           ");
+            System.out.print("||           ");
             for (int j = 0; j < timeslots[i].length; j++) {
                 System.out.printf("| %5s ", timeslots[i][j].getSlotID());
             }
-            System.out.printf("||\n");
+            System.out.println("||");
 
             System.out.printf("|| %-9s ", Weekdays.values()[i]);
             for (int j = 0; j < timeslots[i].length; j++) {
-                System.out.printf("|       ");
+                System.out.print("|       ");
             }
-            System.out.printf("||\n");
+            System.out.println("||");
 
-            System.out.printf("||           ");
+            System.out.print("||           ");
             for (int j = 0; j < timeslots[i].length; j++) {
                 System.out.printf("|   %c   ", timeslots[i][j].isReserved() == true ? '\u2718' : '\u2714');
             }
-            System.out.printf("||\n");
+            System.out.println("||");
         }
 
-        System.out.printf("++===========");
+        System.out.print("++===========");
         for (int j = 0; j < timeslots[0].length; j++) {
-            System.out.printf("+=======");
+            System.out.print("+=======");
         }
-        System.out.printf("++\n");
+        System.out.println("++");
     }
 
     public Timeslot searchTimeslotbySlotID(String slotID) {

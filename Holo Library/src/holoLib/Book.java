@@ -16,8 +16,8 @@ public class Book {
     private double borrowFees;
     private LocalDate borrowDate;
     private LocalDate returnDate;
-    private int bookCount;
     private static int totalBooks = 0;
+    private static final double PENALTY_RATE = 1.0;
     private static final int MAX_GRACE_PERIOD_IN_DAY = 30;
 
     /********** Constructors **********/
@@ -25,12 +25,11 @@ public class Book {
         this("", "", "", null, 0.0);
         isBorrowed = false;
         calBorrowFees();
-        bookCount = 0;
         totalBooks++;
     }
 
-    public Book(String bookTitle, String bookAuthor, String bookPublisher,
-            GregorianCalendar bookPublicationDate, double bookPrice) {
+    public Book(String bookTitle, String bookAuthor, String bookPublisher, GregorianCalendar bookPublicationDate,
+            double bookPrice) {
         this.bookTitle = bookTitle;
         bookID = String.format("BK%03d", totalBooks + 1);
         this.bookAuthor = bookAuthor;
@@ -39,7 +38,6 @@ public class Book {
         this.bookPrice = bookPrice;
         isBorrowed = false;
         calBorrowFees();
-        bookCount = 0;
         totalBooks++;
     }
 
@@ -121,20 +119,16 @@ public class Book {
         return totalBooks;
     }
 
-    public static int getMAX_GRACE_PERIOD_IN_DAY() {
+    public static double getPenaltyRate() {
+        return PENALTY_RATE;
+    }
+
+    public static int getMaxGracePeriodInDay() {
         return MAX_GRACE_PERIOD_IN_DAY;
     }
 
-    public int getBookCount() {
-        return bookCount;
-    }
-
-    public void setBookCount(int bookCount) {
-        this.bookCount = bookCount;
-    }
-
     /********** Methods **********/
-    public void displayBookDetails(){
+    public void displayBookDetails() {
         System.out.println("================================================");
         System.out.println("                  Book Details                  ");
         System.out.println("================================================");
@@ -151,19 +145,22 @@ public class Book {
 
     public String publisherDateToString() {
         return String.format("%02d", bookPublicationDate.get(Calendar.DATE)) + "/"
-                + String.format("%02d", bookPublicationDate.get(Calendar.MONTH) + 1) + "/" + bookPublicationDate.get(Calendar.YEAR);
+                + String.format("%02d", bookPublicationDate.get(Calendar.MONTH) + 1) + "/"
+                + bookPublicationDate.get(Calendar.YEAR);
     }
 
-    // accept the type of borrower (librarian/member)
-    // the rate will change...OR fix payment amount?
-    public void calBorrowFees(){
+    public void calBorrowFees() {
         borrowFees = bookPrice * 0.1;
+    }
+
+    public static double calPenalty(int dayBorrowed) {
+        return PENALTY_RATE * (dayBorrowed - MAX_GRACE_PERIOD_IN_DAY);
     }
 
     @Override
     public String toString() {
-        return "Book Title: " + bookTitle + "\nBook ID: " + bookID + "\nBook Author: "
-                + bookAuthor + "\nBook Publisher: " + bookPublisher + "\nBook Publication Date: "
-                + bookPublicationDate + "\nBook Price: " + bookPrice;
+        return "Book Title: " + bookTitle + "\nBook ID: " + bookID + "\nBook Author: " + bookAuthor
+                + "\nBook Publisher: " + bookPublisher + "\nBook Publication Date: " + bookPublicationDate
+                + "\nBook Price: " + bookPrice;
     }
 }

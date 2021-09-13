@@ -1,6 +1,5 @@
 package holoLib;
 
-import java.time.Duration;
 import java.time.LocalDate;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
@@ -10,26 +9,29 @@ public class holoLib {
 		Scanner sc = new Scanner(System.in);
 		Librarian[] librarianList = new Librarian[100];
 
-		librarianList[0] = new Librarian("Watoto", "111111-11-1111", "Male", new GregorianCalendar(2001, 1, 1), "111-1111111",
-						new LibraryCard("010101", new GregorianCalendar(2022, 02, 1)), "admin1", "Library Admin");
-		librarianList[1] = new Librarian("Kiwawa", "222222-22-2222", "Female", new GregorianCalendar(2002, 2, 2), "222-2222222",
-						new LibraryCard("020202", new GregorianCalendar(2021, 12, 1)), "admin2", "General Staff");
-		librarianList[2] = new Librarian("Yuul B Alwright", "333333-33-3333", "Female", new GregorianCalendar(2003, 3, 3),
-						"333-3333333", new LibraryCard("030303", new GregorianCalendar(2022, 5, 1)), "admin3",
-						"General Staff");
-		librarianList[3] = new Librarian("Memei", "444444-44-4444", "Female", new GregorianCalendar(2004, 4, 4), "444-4444444",
-						new LibraryCard("040404", new GregorianCalendar(2021, 10, 1)), "admin4", "Librarian Admin");
+		librarianList[0] = new Librarian("Watoto", "111111-11-1111", "Male", new GregorianCalendar(2001, 1, 1),
+				"111-1111111", new LibraryCard("010101", new GregorianCalendar(2022, 02, 1)), "admin1",
+				"Library Admin");
+		librarianList[1] = new Librarian("Kiwawa", "222222-22-2222", "Female", new GregorianCalendar(2002, 2, 2),
+				"222-2222222", new LibraryCard("020202", new GregorianCalendar(2021, 12, 1)), "admin2",
+				"General Staff");
+		librarianList[2] = new Librarian("Yuul B Alwright", "333333-33-3333", "Female",
+				new GregorianCalendar(2003, 3, 3), "333-3333333",
+				new LibraryCard("030303", new GregorianCalendar(2022, 5, 1)), "admin3", "General Staff");
+		librarianList[3] = new Librarian("Memei", "444444-44-4444", "Female", new GregorianCalendar(2004, 4, 4),
+				"444-4444444", new LibraryCard("040404", new GregorianCalendar(2021, 10, 1)), "admin4",
+				"Librarian Admin");
 
 		Member[] memberList = new Member[100];
 
-		memberList[0] =	new Member("LaoSu", "555555-55-5555", "Female", new GregorianCalendar(2001, 1, 31), "555-5555555",
-						new LibraryCard("050505", new GregorianCalendar(2022, 9, 1)));
-		memberList[1] =	new Member("FEET", "666666-66-6666", "Female", new GregorianCalendar(2002, 2, 28), "666-6666666",
-						new LibraryCard("060606", new GregorianCalendar(2021, 9, 1)));
-		memberList[2] =	new Member("Kawaiiope Morison", "777777-77-7777", "Male", new GregorianCalendar(2003, 3, 31),
-						"777-7777777", new LibraryCard("070707", new GregorianCalendar(2022, 3, 1)));
-		memberList[3] =	new Member("Branch Horn", "888888-88-8888", "Female", new GregorianCalendar(2004, 4, 30), "888-8888888",
-						new LibraryCard("080808", new GregorianCalendar(2022, 1, 1))) ;
+		memberList[0] = new Member("LaoSu", "555555-55-5555", "Female", new GregorianCalendar(2001, 1, 31),
+				"555-5555555", new LibraryCard("050505", new GregorianCalendar(2022, 9, 1)));
+		memberList[1] = new Member("FEET", "666666-66-6666", "Female", new GregorianCalendar(2002, 2, 28),
+				"666-6666666", new LibraryCard("060606", new GregorianCalendar(2021, 9, 1)));
+		memberList[2] = new Member("Kawaiiope Morison", "777777-77-7777", "Male", new GregorianCalendar(2003, 3, 31),
+				"777-7777777", new LibraryCard("070707", new GregorianCalendar(2022, 3, 1)));
+		memberList[3] = new Member("Branch Horn", "888888-88-8888", "Female", new GregorianCalendar(2004, 4, 30),
+				"888-8888888", new LibraryCard("080808", new GregorianCalendar(2022, 1, 1)));
 		LibrarySystem holoLib = new LibrarySystem(librarianList, memberList);
 
 		// Login
@@ -143,6 +145,8 @@ public class holoLib {
 								// pay
 								double cash = 20.00;
 								holoLib.searchLibraryCardByCardNO(cardNO).cashOut(cash);
+								System.out.printf("Current Balance: RM .2f\n",
+										holoLib.searchLibraryCardByCardNO(cardNO).getCardBalance());
 
 								// Display Receipt
 
@@ -172,6 +176,8 @@ public class holoLib {
 							if (holoLib.captureYesNoChoice(sc, "Confirm Reload").matches("Y")) {
 								holoLib.reloadCardBalance(cardNO, cash);
 								System.out.println("Reload Successfully!");
+								System.out.printf("Card Balance: RM .2f\n",
+										holoLib.searchLibraryCardByCardNO(cardNO).getCardBalance());
 							} else {
 								System.out.println("Reload Canceled!");
 							}
@@ -289,9 +295,9 @@ public class holoLib {
 								holoLib.searchBookByID(bookID).displayBookDetails();
 
 								// check borrow status
-								if (((Book) holoLib.searchBookByID(bookID)).isBorrowed() == false) {
+								if (holoLib.searchBookByID(bookID).isBorrowed() == false) {
 									// Confirmation
-									if (holoLib.captureYesNoChoice(sc, "Borrow Book " + bookID + "?").matches("Y")) {
+									if (holoLib.captureYesNoChoice(sc, "Borrow Book").matches("Y")) {
 										// borrow
 										String pinNo;
 										System.out.println("Pin Number: ");
@@ -299,21 +305,6 @@ public class holoLib {
 
 										holoLib.searchBorrowerByID(borrowerID).borrowBook(pinNo,
 												holoLib.searchBookByID(bookID));
-
-										// pay
-										// LB - Borrowing Rate 0.8
-										// MB - original borrow fee
-										if (borrowerID.indexOf("LB") != -1) {
-											holoLib.searchBorrowerByID(borrowerID).libraryCard
-													.cashOut(((Book) holoLib.searchBookByID(bookID)).getBorrowFees()
-															* Librarian.getBorrowingRate());
-
-										} else if (borrowerID.indexOf("MB") != -1) {
-											holoLib.searchBorrowerByID(borrowerID).libraryCard
-													.cashOut(((Book) holoLib.searchBookByID(bookID)).getBorrowFees());
-										}
-
-										System.out.println("Borrow Success!");
 									}
 								} else {
 									System.out.println("\nBook Not Available!");
@@ -355,18 +346,8 @@ public class holoLib {
 								System.out.println("Pin Number: ");
 								pinNo = sc.nextLine();
 
-								long daysBetween = Duration
-										.between(holoLib.searchBookByID(bookID).getBorrowDate(), LocalDate.now())
-										.toDays();
-								if (daysBetween < Book.getMAX_GRACE_PERIOD_IN_DAY()) {
-									// * pay "?" penalty
-									holoLib.searchBorrowerByID(borrowerID).libraryCard.cashOut(0.0);
-									holoLib.searchBorrowerByID(borrowerID).returnBook(pinNo,
-											holoLib.searchBookByID(bookID));
-								} else {
-									holoLib.searchBorrowerByID(borrowerID).returnBook(pinNo,
-											holoLib.searchBookByID(bookID));
-								}
+								holoLib.searchBorrowerByID(borrowerID).returnBook(pinNo,
+										holoLib.searchBookByID(bookID));
 							} else {
 								System.out.println("Repeal Book Return!");
 							}
@@ -456,7 +437,8 @@ public class holoLib {
 													} else {
 														System.out.println("Repeal Adding Book!");
 													}
-												} while (holoLib.captureYesNoChoice(sc, "Add Another Book").matches("Y"));
+												} while (holoLib.captureYesNoChoice(sc, "Add Another Book")
+														.matches("Y"));
 												break;
 											// 2. Modify Book
 											case 2:
@@ -487,8 +469,8 @@ public class holoLib {
 																	String title;
 																	System.out.print("Book Title: ");
 																	title = sc.nextLine();
-																	modificationChoice = holoLib
-																			.captureYesNoChoice(sc, "Modify Book Title");
+																	modificationChoice = holoLib.captureYesNoChoice(sc,
+																			"Modify Book Title");
 																	if (modificationChoice.matches("Y")) {
 																		holoLib.searchBookByID(bookID)
 																				.setBookTitle(title);
@@ -499,8 +481,8 @@ public class holoLib {
 																	String author;
 																	System.out.print("Book Author: ");
 																	author = sc.nextLine();
-																	modificationChoice = holoLib
-																			.captureYesNoChoice(sc, "Modify Book Author");
+																	modificationChoice = holoLib.captureYesNoChoice(sc,
+																			"Modify Book Author");
 																	if (modificationChoice.matches("Y")) {
 																		holoLib.searchBookByID(bookID)
 																				.setBookAuthor(author);
@@ -511,7 +493,7 @@ public class holoLib {
 																	String publisher;
 																	System.out.print("Book Publisher: ");
 																	publisher = sc.nextLine();
-																	modificationChoice = holoLib.captureYesNoChoice(sc, 
+																	modificationChoice = holoLib.captureYesNoChoice(sc,
 																			"Modify Book Publisher");
 																	if (modificationChoice.matches("Y")) {
 																		holoLib.searchBookByID(bookID)
@@ -533,7 +515,7 @@ public class holoLib {
 																	GregorianCalendar publicationDate = new GregorianCalendar(
 																			dmy[2], dmy[1], dmy[0]);
 
-																	modificationChoice = holoLib.captureYesNoChoice(sc, 
+																	modificationChoice = holoLib.captureYesNoChoice(sc,
 																			"Modify Book Publication Date");
 																	if (modificationChoice.matches("Y")) {
 																		holoLib.searchBookByID(bookID)
@@ -546,8 +528,8 @@ public class holoLib {
 																	double price;
 																	System.out.print("Book Price: ");
 																	price = sc.nextDouble();
-																	modificationChoice = holoLib
-																			.captureYesNoChoice(sc, "Modify Book Price");
+																	modificationChoice = holoLib.captureYesNoChoice(sc,
+																			"Modify Book Price");
 																	if (modificationChoice.matches("Y")) {
 																		holoLib.searchBookByID(bookID)
 																				.setBookPrice(price);
@@ -564,7 +546,8 @@ public class holoLib {
 															} else {
 																System.out.println("Repeal Book Modification!");
 															}
-														} while (holoLib.captureYesNoChoice(sc, "Continue Modify " + bookID)
+														} while (holoLib
+																.captureYesNoChoice(sc, "Continue Modify " + bookID)
 																.matches("Y"));
 													} else {
 														System.out.println("Book ID Not Found!");
@@ -587,14 +570,16 @@ public class holoLib {
 														holoLib.searchBookByID(bookID).displayBookDetails();
 
 														// delete
-														if (holoLib.captureYesNoChoice(sc, "Delete Book").matches("Y")) {
+														if (holoLib.captureYesNoChoice(sc, "Delete Book")
+																.matches("Y")) {
 															holoLib.deleteBook(bookID);
 															System.out.println("Book Deleted!");
 														} else {
 															System.out.println("Repeal Book Deletion!");
 														}
 													}
-												} while (holoLib.captureYesNoChoice(sc, "Delete Another Book").matches("Y"));
+												} while (holoLib.captureYesNoChoice(sc, "Delete Another Book")
+														.matches("Y"));
 												break;
 										}
 									} while (selection != 0);

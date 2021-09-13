@@ -93,9 +93,6 @@ public class LibrarySystem {
 		System.out.println("|| 0 ||  Back to Home             ||");
 		System.out.println("++===++===========================++");
 	}
-	// Renew means the expiry date is reach then renew
-	// Reload means the card do not have enough balance then reload
-	// this display all member detail?
 
 	public void registerMembership(String name, String icNO, String gender, String dob, String phoneNO, String pinNO) {
 		int[] dmy = toIntDate(dob.split("/"));
@@ -313,7 +310,7 @@ public class LibrarySystem {
 			if (member[i].libraryCard.getCurrentBorrowed().length > 0) {
 				for (int j = 0; j < member[i].libraryCard.getCurrentBorrowed().length; j++) {
 					Book book = member[i].libraryCard.getCurrentBorrowed()[j];
-					if (((Book) book).getBorrowDate() == LocalDate.now()) {
+					if (book.getBorrowDate() == LocalDate.now()) {
 						System.out.printf("|%-25s|%-19s|%-20s|%-16s|", book.getBookTitle(), book.getBookID(),
 								member[i].name, member[i].getMemberID());
 						count++;
@@ -326,7 +323,7 @@ public class LibrarySystem {
 			if (librarian[i].libraryCard.getCurrentBorrowed().length > 0) {
 				for (int j = 0; j < librarian[i].libraryCard.getCurrentBorrowed().length; j++) {
 					Book book = librarian[i].libraryCard.getCurrentBorrowed()[j];
-					if (((Book) book).getBorrowDate() == LocalDate.now()) {
+					if (book.getBorrowDate() == LocalDate.now()) {
 						System.out.printf("|%-25s|%-19s|%-20s|%-16s|", book.getBookTitle(), book.getBookID(),
 								librarian[i].name, librarian[i].getLibrarianID());
 						count++;
@@ -351,7 +348,7 @@ public class LibrarySystem {
 			if (member[i].libraryCard.getBorrowedHistory().length > 0) {
 				for (int j = 0; j < member[i].libraryCard.getBorrowedHistory().length; j++) {
 					Book book = member[i].libraryCard.getBorrowedHistory()[j];
-					if (((Book) book).getReturnDate() == LocalDate.now()) {
+					if (book.getReturnDate() == LocalDate.now()) {
 						System.out.printf("|%-25s|%-19s|%-20s|%-16s|", book.getBookTitle(), book.getBookID(),
 								member[i].name, member[i].getMemberID());
 						count++;
@@ -364,7 +361,7 @@ public class LibrarySystem {
 			if (librarian[i].libraryCard.getBorrowedHistory().length > 0) {
 				for (int j = 0; j < librarian[i].libraryCard.getBorrowedHistory().length; j++) {
 					Book book = librarian[i].libraryCard.getBorrowedHistory()[j];
-					if (((Book) book).getReturnDate() == LocalDate.now()) {
+					if (book.getReturnDate() == LocalDate.now()) {
 						System.out.printf("|%-25s|%-19s|%-20s|%-16s|", book.getBookTitle(), book.getBookID(),
 								librarian[i].name, librarian[i].getLibrarianID());
 						count++;

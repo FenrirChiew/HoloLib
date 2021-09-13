@@ -62,17 +62,19 @@ public class Member extends Borrower {
 
 	@Override
 	public void borrowBook(String pinNO, Book book) {
-		if (!(this.libraryCard.validatePinNO(pinNO))) {
+		if (!(libraryCard.validatePinNO(pinNO))) {
 			System.out.println("\n\tInvalid Pin Number!\n");
-		}
-		else {
+		} else {
 			if (libraryCard.getCurrentBorrowed().length >= MAX_BORROW) {
 				System.out.printf("\n\tYou have reached the Borrow Limit (%d)!\n\n", MAX_BORROW);
-			}
-			else {
-				((Book) book).setBorrowed(true);
-				((Book)book).setBorrowDate(LocalDate.now());
-				this.libraryCard.addCurrentBorrowed(book);
+			} else {
+				book.setBorrowed(true);
+				book.setBorrowDate(LocalDate.now());
+				libraryCard.addCurrentBorrowed(book);
+				libraryCard.cashOut(book.getBorrowFees());
+
+				System.out.println("Borrow Success!");
+				System.out.printf("Card Balance: RM .2f\n", libraryCard.getCardBalance());
 			}
 		}
 	}

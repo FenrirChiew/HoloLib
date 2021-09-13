@@ -1,5 +1,6 @@
 package holoLib;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.util.GregorianCalendar;
 
@@ -32,24 +33,29 @@ public abstract class Borrower {
 
 	public abstract void borrowBook(String pinNO, Book book);
 
-	public void returnBook(String pinNo, Book book){
-		if (!(this.libraryCard.validatePinNO(pinNo))) {
+	public void returnBook(String pinNo, Book book) {
+		if (!(libraryCard.validatePinNO(pinNo))) {
 			System.out.println("\n\tInvalid Pin Number!\n");
-		}
-		else {
-			for (int i = 0; i < libraryCard.getCurrentBorrowed().getBookCount(); i++) {
+		} else {
+			for (int i = 0; i < libraryCard.getCurrentBorrowedCount(); i++) {
 				// find the book borrow record in current borrowed
 				if (libraryCard.getCurrentBorrowed()[i].getBookID().matches(book.getBookID())) {
-					// move the book returned to borrow history
-					libraryCard.getBorrowedHistory()[libraryCard.getBorrowedHistory().length] = libraryCard.getCurrentBorrowed()[i];
+					long daysBetween = Duration.between(book.getBorrowDate(), LocalDate.now()).toDays();
 
-					((Book) book).setReturnDate(LocalDate.now());
-					((Book) book).setBorrowed(false);
-
+					if (daysBetween > Book.getMaxGracePeriodInDay()) {
+						System.out.println("Day Exceeded: " + (daysBetween - Book.getMaxGracePeriodInDay()));
+						System.out.printf("Penalty: RM .2f\n", Book.calPenalty((int) daysBetween));
+						libraryCard.cashOut(Book.calPenalty((int) daysBetween));
+					}
 					// remove the book record from current borrowed
-					libraryCard.removeCurrentBorrow(i);
+					libraryCard.removeBorrow(i);
+					book.setBorrowed(false);
+					book.setReturnDate(LocalDate.now());
+					// remove the book record from current borrowed
+					libraryCard.removeBorrow(i);
 
-					System.out.println("This return book action has been success.");
+					System.out.println("Book Returned!");
+					System.out.printf("Card Balance: RM .2f\n", libraryCard.getCardBalance());
 				}
 			}
 		}

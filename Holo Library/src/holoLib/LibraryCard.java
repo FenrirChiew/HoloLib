@@ -10,9 +10,12 @@ public class LibraryCard {
 	private double cardBalance;
 	private GregorianCalendar cardExpDate;
 	private Book[] currentBorrowed = new Book[5];
+	private int currentBorrowedCount = 0;
 	private Book[] borrowedHistory = new Book[100];
+	private int borrowedHistoryCount = 0;
 	private static int totalCards = 0;
 	private static Book[] returnedBook = new Book[100];
+	private static int returnedBookCount = 0;
 
 	/********** Constructors **********/
 	public LibraryCard() {
@@ -63,6 +66,10 @@ public class LibraryCard {
 		this.currentBorrowed = currentBorrowed;
 	}
 
+	public int getCurrentBorrowedCount() {
+		return currentBorrowedCount;
+	}
+
 	public Book[] getBorrowedHistory() {
 		return borrowedHistory;
 	}
@@ -71,8 +78,20 @@ public class LibraryCard {
 		this.borrowedHistory = borrowedHistory;
 	}
 
+	public int getBorrowedHistoryCount() {
+		return borrowedHistoryCount;
+	}
+
 	public static int getTotalCards() {
 		return totalCards;
+	}
+
+	public static Book[] getReturnedBook() {
+		return returnedBook;
+	}
+
+	public static int getReturnedBookCount() {
+		return returnedBookCount;
 	}
 
 	/********** Methods **********/
@@ -104,14 +123,21 @@ public class LibraryCard {
 	}
 
 	public void addCurrentBorrowed(Book book) {
-		currentBorrowed[currentBorrowed.length] = book;
+		currentBorrowed[currentBorrowedCount] = book;
+		currentBorrowedCount++;
 	}
 
-	public void removeCurrentBorrow(int index){
+	public void removeBorrow(int index){
+		borrowedHistory[borrowedHistoryCount] = currentBorrowed[index];
+		borrowedHistoryCount++;
+		returnedBook[returnedBookCount] = currentBorrowed[index];
+		returnedBookCount++;
+
 		// remove book details from currentBorrowed
 		for(int i = index; i < currentBorrowed.length; i++){
 			currentBorrowed[i] = currentBorrowed[i+1];
 		}
+		currentBorrowedCount--;
 	}
 
 	// toString() method

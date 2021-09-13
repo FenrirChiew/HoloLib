@@ -135,8 +135,7 @@ public class LibrarySystem {
 		searchLibraryCardByCardNO(cardNO).renewCardExpDate();
 	}
 
-	public double captureMoney(String message) {
-		Scanner sc = new Scanner(System.in);
+	public double captureMoney(Scanner sc, String message) {
 		boolean continueInput = true;
 		double cash = 0.0;
 
@@ -546,8 +545,7 @@ public class LibrarySystem {
 
 
 	// Capture a menu selection after invoke any menu method
-	public int captureMenuSelection(int maxMenuSelection) {
-		Scanner sc = new Scanner(System.in);
+	public int captureMenuSelection(Scanner sc, int maxMenuSelection) {
 		boolean continueInput = true;
 		int selection = 0;
 
@@ -571,14 +569,11 @@ public class LibrarySystem {
 
 		sc.nextLine(); // Clear input buffer
 
-		sc.close();
-
 		return selection; // Return menu selection
 	}
 
 	// Capture a Y or N choice
-	public String captureYesNoChoice(String message) {
-		Scanner sc = new Scanner(System.in);
+	public String captureYesNoChoice(Scanner sc, String message) {
 		boolean continueInput = true;
 		String choice = "";
 
@@ -598,8 +593,6 @@ public class LibrarySystem {
 		} while (continueInput);
 
 		sc.nextLine(); // Clear input buffer
-
-		sc.close();
 
 		return choice; // Return choice
 	}

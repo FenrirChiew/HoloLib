@@ -59,7 +59,7 @@ public class holoLib {
 		do {
 			cls();
 			holoLib.displayMembershipMenu();
-			selection = holoLib.captureMenuSelection(4);
+			selection = holoLib.captureMenuSelection(sc, 4);
 			cls();
 
 			switch (selection) {
@@ -105,13 +105,13 @@ public class holoLib {
 							pinNO = sc.nextLine();
 						} while (!holoLib.validateStringFormat("Pin Number", pinNO, "[0-9]{6}"));
 
-						if (holoLib.captureYesNoChoice("Confirm Registration").matches("Y")) {
+						if (holoLib.captureYesNoChoice(sc, "Confirm Registration").matches("Y")) {
 							holoLib.registerMembership(name, icNO, gender, dob, phoneNO, pinNO);
 							System.out.println("Registration Successfully!");
 						} else {
 							System.out.println("Registration Canceled!");
 						}
-					} while (holoLib.captureYesNoChoice("Another Registration").matches("Y"));
+					} while (holoLib.captureYesNoChoice(sc, "Another Registration").matches("Y"));
 					break;
 				// 2. Card Renewal
 				case 2:
@@ -132,7 +132,7 @@ public class holoLib {
 							System.out.println("Card Expired Date: "
 									+ holoLib.searchLibraryCardByCardNO(cardNO).cardExpDateToString());
 
-							if (holoLib.captureYesNoChoice("Confirm Renewal").matches("Y")) {
+							if (holoLib.captureYesNoChoice(sc, "Confirm Renewal").matches("Y")) {
 								holoLib.searchLibraryCardByCardNO(cardNO).renewCardExpDate();
 								System.out.println("Renewal Successfully!");
 
@@ -146,7 +146,7 @@ public class holoLib {
 								System.out.println("Renewal Canceled!");
 							}
 						}
-					} while (holoLib.captureYesNoChoice("Another Reload").matches("Y"));
+					} while (holoLib.captureYesNoChoice(sc, "Another Reload").matches("Y"));
 					break;
 				// 3. Reload Card Balance
 				case 3:
@@ -164,15 +164,15 @@ public class holoLib {
 						} while (!holoLib.validateStringFormat("Pin Number", pinNO, "[0-9]{6}"));
 
 						if (holoLib.validateLibraryCard(cardNO, pinNO)) {
-							double cash = holoLib.captureMoney("Reload Amount");
-							if (holoLib.captureYesNoChoice("Confirm Reload").matches("Y")) {
+							double cash = holoLib.captureMoney(sc, "Reload Amount");
+							if (holoLib.captureYesNoChoice(sc, "Confirm Reload").matches("Y")) {
 								holoLib.reloadCardBalance(cardNO, cash);
 								System.out.println("Reload Successfully!");
 							} else {
 								System.out.println("Reload Canceled!");
 							}
 						}
-					} while (holoLib.captureYesNoChoice("Another Reload").matches("Y"));
+					} while (holoLib.captureYesNoChoice(sc, "Another Reload").matches("Y"));
 					break;
 				// 4. Search Borrower
 				case 4:
@@ -188,7 +188,7 @@ public class holoLib {
 						} else {
 							System.out.println("Borrower Not Found!");
 						}
-					} while (holoLib.captureYesNoChoice("Search Another Borrower").matches("Y"));
+					} while (holoLib.captureYesNoChoice(sc, "Search Another Borrower").matches("Y"));
 					break;
 			}
 		} while (selection != 0);
@@ -201,7 +201,7 @@ public class holoLib {
 		do {
 			cls();
 			holoLib.displayBorrowMenu();
-			selection = holoLib.captureMenuSelection(4);
+			selection = holoLib.captureMenuSelection(sc, 4);
 			cls();
 
 			switch (selection) {
@@ -218,7 +218,7 @@ public class holoLib {
 					// search book
 					cls();
 					holoLib.displayBookSearchingMenu();
-					int searchSelection = holoLib.captureMenuSelection(4);
+					int searchSelection = holoLib.captureMenuSelection(sc, 4);
 					cls();
 					do {
 						switch (searchSelection) {
@@ -287,7 +287,7 @@ public class holoLib {
 								// check borrow status
 								if (((Book) holoLib.searchBookByID(bookID)).isBorrowed() == false) {
 									// Confirmation
-									if (holoLib.captureYesNoChoice("Borrow Book " + bookID + "?").matches("Y")) {
+									if (holoLib.captureYesNoChoice(sc, "Borrow Book " + bookID + "?").matches("Y")) {
 										// borrow
 										String pinNo;
 										System.out.println("Pin Number: ");
@@ -318,7 +318,7 @@ public class holoLib {
 								System.out.println("\nBook Not Found!");
 							}
 						}
-					} while (holoLib.captureYesNoChoice("Another Borrow").matches("Y"));
+					} while (holoLib.captureYesNoChoice(sc, "Another Borrow").matches("Y"));
 					break;
 				// 4. Return Book
 				case 4:
@@ -346,7 +346,7 @@ public class holoLib {
 							// Display Book Details found
 							holoLib.searchBookByID(bookID).displayBookDetails();
 
-							if (holoLib.captureYesNoChoice("Return Book").matches("Y")) {
+							if (holoLib.captureYesNoChoice(sc, "Return Book").matches("Y")) {
 								String pinNo;
 								System.out.println("Pin Number: ");
 								pinNo = sc.nextLine();
@@ -398,7 +398,7 @@ public class holoLib {
 					} else {
 						do {
 							holoLib.displayAdministrativeMenu();
-							selection = holoLib.captureMenuSelection(3);
+							selection = holoLib.captureMenuSelection(sc, 3);
 							cls();
 
 							switch (selection) {
@@ -414,7 +414,7 @@ public class holoLib {
 									// 3. Books Inventory Management
 									do {
 										holoLib.displayBooksInvManagementMenu();
-										selection = holoLib.captureMenuSelection(3);
+										selection = holoLib.captureMenuSelection(sc, 3);
 										cls();
 
 										String bookID;
@@ -445,20 +445,20 @@ public class holoLib {
 													double price = sc.nextDouble();
 
 													// Ask user to confirm add this book
-													if (holoLib.captureYesNoChoice("Add Book").matches("Y")) {
+													if (holoLib.captureYesNoChoice(sc, "Add Book").matches("Y")) {
 														holoLib.addBook(title, author, publisher, publicationDate,
 																price);
 														System.out.println("Book Added!");
 													} else {
 														System.out.println("Repeal Adding Book!");
 													}
-												} while (holoLib.captureYesNoChoice("Add Another Book").matches("Y"));
+												} while (holoLib.captureYesNoChoice(sc, "Add Another Book").matches("Y"));
 												break;
 											// 2. Modify Book
 											case 2:
 												do {
 													holoLib.displayBookModifyMenu();
-													int modifySelection = holoLib.captureMenuSelection(5);
+													int modifySelection = holoLib.captureMenuSelection(sc, 5);
 													cls();
 
 													// Get Book ID
@@ -484,7 +484,7 @@ public class holoLib {
 																	System.out.print("Book Title: ");
 																	title = sc.nextLine();
 																	modificationChoice = holoLib
-																			.captureYesNoChoice("Modify Book Title");
+																			.captureYesNoChoice(sc, "Modify Book Title");
 																	if (modificationChoice.matches("Y")) {
 																		holoLib.searchBookByID(bookID)
 																				.setBookTitle(title);
@@ -496,7 +496,7 @@ public class holoLib {
 																	System.out.print("Book Author: ");
 																	author = sc.nextLine();
 																	modificationChoice = holoLib
-																			.captureYesNoChoice("Modify Book Author");
+																			.captureYesNoChoice(sc, "Modify Book Author");
 																	if (modificationChoice.matches("Y")) {
 																		holoLib.searchBookByID(bookID)
 																				.setBookAuthor(author);
@@ -507,7 +507,7 @@ public class holoLib {
 																	String publisher;
 																	System.out.print("Book Publisher: ");
 																	publisher = sc.nextLine();
-																	modificationChoice = holoLib.captureYesNoChoice(
+																	modificationChoice = holoLib.captureYesNoChoice(sc, 
 																			"Modify Book Publisher");
 																	if (modificationChoice.matches("Y")) {
 																		holoLib.searchBookByID(bookID)
@@ -529,7 +529,7 @@ public class holoLib {
 																	GregorianCalendar publicationDate = new GregorianCalendar(
 																			dmy[2], dmy[1], dmy[0]);
 
-																	modificationChoice = holoLib.captureYesNoChoice(
+																	modificationChoice = holoLib.captureYesNoChoice(sc, 
 																			"Modify Book Publication Date");
 																	if (modificationChoice.matches("Y")) {
 																		holoLib.searchBookByID(bookID)
@@ -543,7 +543,7 @@ public class holoLib {
 																	System.out.print("Book Price: ");
 																	price = sc.nextDouble();
 																	modificationChoice = holoLib
-																			.captureYesNoChoice("Modify Book Price");
+																			.captureYesNoChoice(sc, "Modify Book Price");
 																	if (modificationChoice.matches("Y")) {
 																		holoLib.searchBookByID(bookID)
 																				.setBookPrice(price);
@@ -560,12 +560,12 @@ public class holoLib {
 															} else {
 																System.out.println("Repeal Book Modification!");
 															}
-														} while (holoLib.captureYesNoChoice("Continue Modify " + bookID)
+														} while (holoLib.captureYesNoChoice(sc, "Continue Modify " + bookID)
 																.matches("Y"));
 													} else {
 														System.out.println("Book ID Not Found!");
 													}
-												} while (holoLib.captureYesNoChoice("Modify Another Book")
+												} while (holoLib.captureYesNoChoice(sc, "Modify Another Book")
 														.matches("Y"));
 												break;
 											// 3. Delete Book
@@ -583,14 +583,14 @@ public class holoLib {
 														holoLib.searchBookByID(bookID).displayBookDetails();
 
 														// delete
-														if (holoLib.captureYesNoChoice("Delete Book").matches("Y")) {
+														if (holoLib.captureYesNoChoice(sc, "Delete Book").matches("Y")) {
 															holoLib.deleteBook(bookID);
 															System.out.println("Book Deleted!");
 														} else {
 															System.out.println("Repeal Book Deletion!");
 														}
 													}
-												} while (holoLib.captureYesNoChoice("Delete Another Book").matches("Y"));
+												} while (holoLib.captureYesNoChoice(sc, "Delete Another Book").matches("Y"));
 												break;
 										}
 									} while (selection != 0);
@@ -639,7 +639,7 @@ public class holoLib {
 
 // cls();
 // holoLib.displayReserveMenu();
-// selection = holoLib.captureMenuSelection(3);
+// selection = holoLib.captureMenuSelection(sc, 3);
 // cls();
 
 // switch (selection) {
@@ -659,7 +659,7 @@ public class holoLib {
 
 // do {
 // holoLib.searchFacilityMenu();
-// searchSelection = holoLib.captureMenuSelection(3);
+// searchSelection = holoLib.captureMenuSelection(sc, 3);
 
 // sc.nextLine();
 // cls();

@@ -104,13 +104,13 @@ public class LibrarySystem {
 	}
 
 	public LibraryCard searchLibraryCardByCardNO(String cardNO) {
-		for (int i = 0; i < memberList.length; i++) {
+		for (int i = 0; i < Member.getTotalMembers(); i++) {
 			if (memberList[i].libraryCard.getCardNO().matches(cardNO)) {
 				return memberList[i].libraryCard;
 			}
 		}
 
-		for (int i = 0; i < librarianList.length; i++) {
+		for (int i = 0; i < Librarian.getTotalLibrarians(); i++) {
 			if (librarianList[i].libraryCard.getCardNO().matches(cardNO)) {
 				return librarianList[i].libraryCard;
 			}
@@ -390,15 +390,16 @@ public class LibrarySystem {
 				"+=============+=====================+==============+==================+===========================+");
 		System.out.println(
 				"|  Member ID  |     Member Name     |   Phone No   |   Expired Date   |      Expired Duration     | ");
-
+				System.out.println("A");
 		for (int i = 0; i < member.length; i++) {
+			System.out.println("B");
 			int day = member[i].libraryCard.getCardExpDate().get(Calendar.DAY_OF_MONTH);
 			int month = member[i].libraryCard.getCardExpDate().get(Calendar.MONTH);
 			int year = member[i].libraryCard.getCardExpDate().get(Calendar.YEAR);
 			if (year <= LocalDate.now().getYear()) {
 				if (year < LocalDate.now().getYear()) {
 					int yearExpiredDuration = LocalDate.now().getYear() - year;
-					System.out.printf("%-13s|%-24s|%-15s|%-18s|%-17d year(s) more|\n", member[i].getMemberID(),
+					System.out.format("%-13s|%-24s|%-15s|%-18s|%-17d year(s) more|\n", member[i].getMemberID(),
 							member[i].name, member[i].phoneNO, member[i].libraryCard.cardExpDateToString(),
 							yearExpiredDuration);
 					count++;

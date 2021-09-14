@@ -23,7 +23,7 @@ public class LibraryCard {
 	}
 
 	public LibraryCard(String pinNO, GregorianCalendar cardExpDate) {
-		this.cardNO = String.format("C%04d", totalCards + 1);
+		this.cardNO = String.format("LC%03d", totalCards + 1);
 		this.pinNO = pinNO;
 		this.cardExpDate = cardExpDate;
 		totalCards++;

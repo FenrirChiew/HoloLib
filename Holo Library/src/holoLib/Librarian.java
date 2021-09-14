@@ -51,10 +51,6 @@ public class Librarian extends Borrower {
 		this.position = position;
 	}
 
-	public static int getTotalLibrarian() {
-		return totalLibrarians;
-	}
-
 	public static int getTotalLibrarians() {
 		return totalLibrarians;
 	}

@@ -172,7 +172,7 @@ public class LibrarySystem {
 
 	// Display Borrow Menu
 	public void displayBorrowMenu() {
-		System.out.println("++=========================++");
+		System.out.println("\n++=========================++");
 		System.out.println("||     Book Borrowing      ||");
 		System.out.println("++=========================++");
 		System.out.println("|| 1 ||  Display Book      ||");
@@ -187,20 +187,21 @@ public class LibrarySystem {
 		System.out.println("++======================++");
 		System.out.println("||     Display Book      ||");
 		System.out.println(
-				"++====++========================++=========++=========================++==================++=======================++============++========++============++");
+				"++====++==========================================++=========++=========================++==========================================++=======================++============++========++============++");
 		System.out.println(
-				"|| NO ||       Book Title       || Book ID ||       Book Author       ||  Book Publisher  || Book Publication Date || Book Price || Status || Borrow Fee ||");
+				"|| NO ||                Book Title                || Book ID ||       Book Author       ||              Book Publisher              || Book Publication Date || Book Price || Status || Borrow Fee ||");
 		System.out.println(
-				"++====++========================++=========++=========================++==================++=======================++============++========||============++");
+				"++====++==========================================++=========++=========================++==========================================++=======================++============++========||============++");
 
 		for (int i = 0; i < bookList.length; i++) {
-			System.out.printf("|| %02d || %-22s || %-7s || %-23s || %-16s || %-20s || %-10.2f || %-6s || %-10.2f ||\n",
+			System.out.printf("|| %02d || %-40s || %-7s || %-23s || %-40s || %-21s || %-10.2f || %-6s || %-10.2f ||\n",
 					i + 1, bookList[i].getBookTitle(), bookList[i].getBookID(), bookList[i].getBookAuthor(),
-					bookList[i].getBookPublisher(), bookList[i].publisherDateToString(), bookList[i].getBookPrice());
+					bookList[i].getBookPublisher(), bookList[i].publisherDateToString(), bookList[i].getBookPrice(),
+					bookList[i].isBorrowed(), bookList[i].getBorrowFees());
 			System.out.println(
-					"++====++========================++=========++=========================++==================++=======================++============++========++============++");
+					"++====++==========================================++=========++=========================++==========================================++=======================++============++========||============++");
 		}
-		System.out.println("\nTotal Book(s) Found: " + bookList.length);
+		System.out.println("\nTotal Book(s) Found: " + bookList.length + "\n\n");
 	}
 
     public void displayBorrowReport(String bookID){
@@ -216,7 +217,7 @@ public class LibrarySystem {
 
 	// Display Book Searching Menu
 	public void displayBookSearchingMenu() {
-		System.out.println("++===============================++");
+		System.out.println("\n++===============================++");
 		System.out.println("||          Search Book          ||");
 		System.out.println("++===============================++");
 		System.out.println("|| Search By:                    ||");
@@ -238,8 +239,7 @@ public class LibrarySystem {
 			if (bookList[i].getBookTitle().toUpperCase().indexOf(bookTitle.toUpperCase()) != -1) {
 				totalResult++;
 				System.out.printf("\nResult %d\n", totalResult);
-				System.out.println("========");
-				System.out.println(bookList[i]);
+				bookList[i].displayBookDetails();
 			}
 		}
 		System.out.println("\nTotal Book(s) Found: " + totalResult);
@@ -264,8 +264,7 @@ public class LibrarySystem {
 			if (bookList[i].getBookAuthor().toUpperCase().indexOf(bookAuthor.toUpperCase()) != -1) {
 				totalResult++;
 				System.out.printf("\nResult %d\n", totalResult);
-				System.out.println("========");
-				System.out.println(bookList[i]);
+				bookList[i].displayBookDetails();
 			}
 		}
 		System.out.println("\nTotal Book(s) Found: " + totalResult);
@@ -280,8 +279,7 @@ public class LibrarySystem {
 			if (bookList[i].getBookPublisher().toUpperCase().indexOf(bookPublisher.toUpperCase()) != -1) {
 				totalResult++;
 				System.out.printf("\nResult %d\n", totalResult);
-				System.out.println("========");
-				System.out.println(bookList[i]);
+				bookList[i].displayBookDetails();
 			}
 		}
 		System.out.println("\nTotal Book(s) Found: " + totalResult);

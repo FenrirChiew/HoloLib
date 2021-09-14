@@ -32,7 +32,16 @@ public class holoLib {
 				"777-7777777", new LibraryCard("070707", new GregorianCalendar(2022, 3, 1)));
 		memberList[3] = new Member("Branch Horn", "888888-88-8888", "Female", new GregorianCalendar(2004, 4, 30),
 				"888-8888888", new LibraryCard("080808", new GregorianCalendar(2022, 1, 1)));
-		LibrarySystem holoLib = new LibrarySystem(librarianList, memberList);
+
+		Book[] book = new Book[100];
+		Book[] bookList = {
+				new Book("Effective Java", "Joshua Bloch", "Addison-Wesley Professional", new GregorianCalendar(2017, 12, 27), 185.88),
+				new Book("HTML and CSS: Design and Build Websites", "Jon Duckett", "John Wiley&Sonc Inc", new GregorianCalendar(2011, 11, 18), 124.02),
+				new Book("I Had That Same Dream Again", "Yoru Sumino", "Seven Seas Entertainment,LLC", new GregorianCalendar(2020, 7, 7), 58.02),
+				new Book("Your Name", "Makoto Shinkai", "Little,Brown&Company", new GregorianCalendar(2017, 5, 23), 71.65),
+				new Book("Japanese Cooking Made Simple", "Salinas Press", "Salinas Press", new GregorianCalendar(2014, 4, 29), 59.02) };
+
+		LibrarySystem holoLib = new LibrarySystem(librarianList, memberList, bookList);
 
 		// Login
 		String librarianID;
@@ -225,12 +234,13 @@ public class holoLib {
 					break;
 				// 2. Search Book
 				case 2:
-					// search book
-					cls();
-					holoLib.displayBookSearchingMenu();
-					int searchSelection = holoLib.captureMenuSelection(sc, 4);
-					cls();
+					int searchSelection;
 					do {
+						cls();
+						holoLib.displayBookSearchingMenu();
+						searchSelection = holoLib.captureMenuSelection(sc, 4);
+						cls();
+
 						switch (searchSelection) {
 							case 0:
 								break;
@@ -244,28 +254,28 @@ public class holoLib {
 							case 2:
 								String id;
 								do {
-									System.out.println("Book ID: ");
+									System.out.print("Book ID: ");
 									id = sc.nextLine();
 								} while (!holoLib.validateStringFormat("Book ID", id, "BK[0-9]{3}"));
 
-								holoLib.searchBookByID(id);
+								holoLib.searchBookByID(id).displayBookDetails();
 								break;
 							case 3:
 								String author;
-								System.out.println("Book Author: ");
+								System.out.print("Book Author: ");
 								author = sc.nextLine();
 
 								holoLib.searchBookByAuthor(author);
 								break;
 							case 4:
 								String publisher;
-								System.out.println("Book Publisher: ");
+								System.out.print("Book Publisher: ");
 								publisher = sc.nextLine();
 
 								holoLib.searchBookByPublisher(publisher);
 								break;
 						}
-					} while (searchSelection != 0);
+					}while (searchSelection != 0 && holoLib.captureYesNoChoice(sc, "Continue search book?").matches("Y"));
 					break;
 				// 3. Borrow Book
 				case 3:
@@ -285,7 +295,7 @@ public class holoLib {
 							// Get Book ID
 							String bookID;
 							do {
-								System.out.println("Book ID: ");
+								System.out.print("Book ID: ");
 								bookID = sc.nextLine();
 							} while (!holoLib.validateStringFormat("Book ID", bookID, "BK[0-9]{3}"));
 
@@ -332,7 +342,7 @@ public class holoLib {
 						// Get Book ID
 						String bookID;
 						do {
-							System.out.println("Book ID: ");
+							System.out.print("Book ID: ");
 							bookID = sc.nextLine();
 						} while (!holoLib.validateStringFormat("Book ID", bookID, "BK[0-9]{3}"));
 
@@ -343,7 +353,7 @@ public class holoLib {
 
 							if (holoLib.captureYesNoChoice(sc, "Return Book").matches("Y")) {
 								String pinNo;
-								System.out.println("Pin Number: ");
+								System.out.print("Pin Number: ");
 								pinNo = sc.nextLine();
 
 								holoLib.searchBorrowerByID(borrowerID).returnBook(pinNo,
@@ -449,7 +459,7 @@ public class holoLib {
 
 													// Get Book ID
 													do {
-														System.out.println("Enter Book ID: ");
+														System.out.print("Book ID: ");
 														bookID = sc.nextLine();
 													} while (!holoLib.validateStringFormat("Book ID", bookID,
 															"BK[0-9]{3}"));
@@ -560,7 +570,7 @@ public class holoLib {
 												do {
 													// Get Book ID
 													do {
-														System.out.println("Book ID: ");
+														System.out.print("Book ID: ");
 														bookID = sc.nextLine();
 													} while (!holoLib.validateStringFormat("Book ID", bookID,
 															"BK[0-9]{3}"));

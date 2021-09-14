@@ -114,7 +114,7 @@ public class LibraryCard {
 
 	public String cardExpDateToString() {
 		return String.format("%02d", cardExpDate.get(Calendar.DAY_OF_MONTH)) + "/"
-				+ String.format("%02d", cardExpDate.get(Calendar.MONTH) + 1) + "/" + cardExpDate.get(Calendar.YEAR);
+				+ String.format("%02d", cardExpDate.get(Calendar.MONTH)) + "/" + cardExpDate.get(Calendar.YEAR);
 	}
 
 	public void renewCardExpDate() {

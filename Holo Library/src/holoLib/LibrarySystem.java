@@ -100,8 +100,8 @@ public class LibrarySystem {
 		GregorianCalendar cardEXPDate = new GregorianCalendar(LocalDate.now().getYear() + 1,
 				LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth());
 
-		memberList[Member.getTotalMembers()] = new Member(name, icNO, gender, new GregorianCalendar(dmy[2], dmy[1], dmy[0]),
-				phoneNO, new LibraryCard(pinNO, cardEXPDate));
+		memberList[Member.getTotalMembers()] = new Member(name, icNO, gender,
+				new GregorianCalendar(dmy[2], dmy[1], dmy[0]), phoneNO, new LibraryCard(pinNO, cardEXPDate));
 	}
 
 	public LibraryCard searchLibraryCardByCardNO(String cardNO) {
@@ -205,16 +205,14 @@ public class LibrarySystem {
 		System.out.println("\nTotal Book(s) Found: " + bookList.length + "\n\n");
 	}
 
-    public void displayBorrowReport(String bookID){
-        System.out.println("+------------------------------------------+");
-        System.out.println("|              Borrow Receipt              |");
-        System.out.println("+------------------------------------------+");
-        searchBookByID(bookID).displayBookDetails();
-        System.out.println("+------------------------------------------+");
+	public void displayBorrowReport(String bookID) {
+		System.out.println("+------------------------------------------+");
+		System.out.println("|              Borrow Receipt              |");
+		System.out.println("+------------------------------------------+");
+		searchBookByID(bookID).displayBookDetails();
+		System.out.println("+------------------------------------------+");
 
-
-
-    }
+	}
 
 	// Display Book Searching Menu
 	public void displayBookSearchingMenu() {
@@ -382,43 +380,52 @@ public class LibrarySystem {
 
 	public void expiredMembershipReport(Member[] member, Librarian[] librarian) {
 		int count = 0;
+		int daysBetween = 0;
 
 		System.out.println(
 				"                               Library Card Expired Report                                   ");
 		System.out.println(
-				"+===============+=====================+==============+==================+===========================+");
+				"+===============+=====================+==============+==================+===================+");
 		System.out.println(
-				"|  Borrower ID  |     Member Name     |   Phone No   |   Expired Date   |      Expired Duration   | ");
+				"|  Borrower ID  |     Member Name     |   Phone No   |   Expired Date   |  Expired Duration | ");
 		System.out.println(
-				"---------------------------------------------------------------------------------------------------");
-			
+				"---------------------------------------------------------------------------------------------");
+
 		for (int i = 0; i < Member.getTotalMembers(); i++) {
-			LocalDate expDate = LocalDate.of(member[i].libraryCard.getCardExpDate().get(Calendar.YEAR), member[i].libraryCard.getCardExpDate().get(Calendar.MONTH), member[i].libraryCard.getCardExpDate().get(Calendar.DAY_OF_MONTH)) ;
-			long daysBetween = Duration.between(expDate, LocalDate.now()).toDays();
-			if (daysBetween > 0) {
-				System.out.format("| %-12s| %-20s| %-14s| %-16s|    %-02ld day(s) more   |\n", member[i].getMemberID(),
+			LocalDate expDate = LocalDate.of(member[i].libraryCard.getCardExpDate().get(Calendar.YEAR),
+					member[i].libraryCard.getCardExpDate().get(Calendar.MONTH),
+					member[i].libraryCard.getCardExpDate().get(Calendar.DAY_OF_MONTH));
+
+			if (toDays(LocalDate.now()) > toDays(expDate)) {
+				daysBetween = toDays(LocalDate.now()) - toDays(expDate);
+
+				System.out.format("| %-14s| %-20s| %-13s|    %-14s|    %4d day(s)    |\n", member[i].getMemberID(),
 						member[i].name, member[i].phoneNO, member[i].libraryCard.cardExpDateToString(), daysBetween);
 				count++;
 			}
-
-			for (int j = 0; j < Librarian.getTotalLibrarians(); j++) {
-
-				LocalDate libExpDate = LocalDate.of(librarian[i].libraryCard.getCardExpDate().get(Calendar.YEAR), librarian[i].libraryCard.getCardExpDate().get(Calendar.MONTH), librarian[i].libraryCard.getCardExpDate().get(Calendar.DAY_OF_MONTH)) ;
-				long libDaysBetween = Duration.between(libExpDate, LocalDate.now()).toDays();
-				if (daysBetween > 0) {
-					System.out.format("| %-12s| %-20s| %-14s| %-16s|    %-02d day(s) more   |\n",
-							member[i].getMemberID(), member[i].name, member[i].phoneNO,
-							member[i].libraryCard.cardExpDateToString(), libDaysBetween);
-					count++;
-				}
-
-			}
-			System.out.println(
-					"+=============+=====================+==============+==================+===========================+");
-			System.out.printf("Total member had expired membership :                                  %d(person(s))\n",
-					count);
 		}
+		for (int i = 0; i < Librarian.getTotalLibrarians(); i++) {
+
+			LocalDate expDate = LocalDate.of(librarian[i].libraryCard.getCardExpDate().get(Calendar.YEAR),
+					librarian[i].libraryCard.getCardExpDate().get(Calendar.MONTH),
+					librarian[i].libraryCard.getCardExpDate().get(Calendar.DAY_OF_MONTH));
+
+			daysBetween = toDays(LocalDate.now()) - toDays(expDate);
+			if (daysBetween > 0) {
+				System.out.format("| %-14s| %-20s| %-13s|    %-14s|    %4d day(s)    |\n",
+						librarian[i].getLibrarianID(), librarian[i].name, librarian[i].phoneNO,
+						librarian[i].libraryCard.cardExpDateToString(), daysBetween);
+				count++;
+			}
+
+		}
+		System.out.println(
+				"+===============+=====================+==============+==================+===================+");
+		System.out.printf("Total member had expired membership :                                  %d(person(s))\n",
+				count);
+
 	}
+
 	// User needs to be verified as administrator before entering this menu
 	// Display Administrative Menu
 	public void displayAdministrativeMenu() {
@@ -498,8 +505,8 @@ public class LibrarySystem {
 	public void deleteBook(String bookID) {
 		for (int i = 0; i < bookList.length; i++) {
 			if (bookList[i].getBookID().indexOf(bookID) != -1) {
-				for (int j = i; j < bookList.length; j++){
-					bookList[j] = bookList[j+1];
+				for (int j = i; j < bookList.length; j++) {
+					bookList[j] = bookList[j + 1];
 				}
 			}
 		}
@@ -520,7 +527,6 @@ public class LibrarySystem {
 		System.out.println("|| 0 ||  Back to Books Inventory Management  ||");
 		System.out.println("++===++======================================++");
 	}
-
 
 	// Capture a menu selection after invoke any menu method
 	public int captureMenuSelection(Scanner sc, int maxMenuSelection) {
@@ -647,39 +653,58 @@ public class LibrarySystem {
 		}
 	}
 
+	// Convert Date to Days
+	public int toDays(LocalDate localDate) {
+		return (localDate.getYear() * 365 + localDate.getMonthValue() * 30 + localDate.getDayOfMonth());
+	}
+
 	// Login method
 	public void login(String librarianID) {
 		currentLoggedUser = (Librarian) searchLibrarianByID(librarianID);
 	}
 
 	/*
-	// HoloLib logo
-	public void Logo() {
-		System.out.println("⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
-		System.out.println("⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣀⠠⠤⠤⠤⠤⠤⠤⠤⠤⠤⠐⠒⠒⢄⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
-		System.out.println("⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣀⡠⠤⠄⠒⠒⠂⠤⣀⠄⠄⡠⠒⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠒⢄⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
-		System.out.println("⠄⠄⠄⠄⠄⠄⠄⠄⢀⠠⠒⠉⠄⠄⠄⠄⠄⠄⠄⠄⠄⠑⠲⣅⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠒⢄⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
-		System.out.println("⠄⠄⠄⠄⠄⣀⠤⠊⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠳⣄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠒⢄⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
-		System.out.println("⠄⠄⠄⡴⢫⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠓⢄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠒⢄⡀⠄⠄⠄⠄⠄⠄⠄⠄");
-		System.out.println("⠄⠄⣰⠇⠄⠱⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠑⢄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠒⢄⡀⠄⠄⠄⠄⠄");
-		System.out.println("⠄⠄⠙⣷⡀⠄⠘⣄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠙⢦⡀⠄⠄⠄⠄⠄⠄⠄⠄⢀⣀⣤⣤⠤⠤⠴⠶⠒⠒⠒⠒⠒⠒⠒⢺⠂⠄⠄⠄⠄");
-		System.out.println("⠄⠄⠄⠘⢿⣄⠄⠈⢆⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠙⢦⡀⠄⠄⢀⡤⠖⠋⠉⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠘⣷⣦⣀⠄⠄");
-		System.out.println("⠄⠄⠄⠄⠈⢻⣆⠄⠄⠣⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣀⣀⡠⠤⠤⠤⠽⣦⣰⠋⠄⠄⠄⠄⠄⣀⣀⣀⣀⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣽⣿⣿⠃⠄");
-		System.out.println("⠄⠄⠄⠄⠄⠄⠹⣧⡀⠄⠱⡄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣠⠤⠒⠋⠉⠄⠄⠄⠄⠄⠄⢠⣾⣥⣤⣄⠄⣠⣶⣿⣿⣿⣿⡿⠿⠿⠿⠛⠛⠛⠛⠉⠉⠉⠉⠁⠄⠄⠄");
-		System.out.println("⠄⠄⠄⠄⠄⠄⠄⠙⣷⡄⠄⠘⢄⠄⠄⠄⠄⠄⠄⣀⠤⠒⠉⠄⠄⠄⠄⠄⠄⠄⣀⣀⣀⣀⣿⣿⣿⣿⡿⠟⠉⠉⠉⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
-		System.out.println("⠄⠄⠄⠄⠄⠄⠄⠄⠘⢿⣄⠄⠈⢢⠄⣀⡠⠔⠋⠁⠄⠄⠄⠄⣀⣤⣴⣾⣿⠿⠟⠛⠉⠙⠛⠋⠉⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
-		System.out.println("⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⢻⣦⠄⠄⡏⠄⠄⠄⠄⢀⣠⣴⣾⡿⠿⠛⠉⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
-		System.out.println("⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠻⣷⣀⡇⠄⣀⣤⣶⠿⠛⠉⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
-		System.out.println("⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠙⣿⡷⠟⠋⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
-		System.out.println("⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
-		System.out.println("\n");
-		System.out.println("⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⣿⣿⣿⠀");
-		System.out.println("⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⣿⠀⠀⠀⣿");
-		System.out.println("⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⣿⣿⣿⣿");
-		System.out.println("⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⣿⠀⠀⠀⣿");
-		System.out.println("⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⣿⣿⣿⠀");
-		System.out.println("\n");
-		System.out.println("                 Press Enter to start...");
-	}
-	*/
+	 * // HoloLib logo public void Logo() { System.out.println(
+	 * "⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
+	 * System.out.println(
+	 * "⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣀⠠⠤⠤⠤⠤⠤⠤⠤⠤⠤⠐⠒⠒⢄⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
+	 * System.out.println(
+	 * "⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣀⡠⠤⠄⠒⠒⠂⠤⣀⠄⠄⡠⠒⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠒⢄⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
+	 * System.out.println(
+	 * "⠄⠄⠄⠄⠄⠄⠄⠄⢀⠠⠒⠉⠄⠄⠄⠄⠄⠄⠄⠄⠄⠑⠲⣅⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠒⢄⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
+	 * System.out.println(
+	 * "⠄⠄⠄⠄⠄⣀⠤⠊⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠳⣄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠒⢄⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
+	 * System.out.println(
+	 * "⠄⠄⠄⡴⢫⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠓⢄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠒⢄⡀⠄⠄⠄⠄⠄⠄⠄⠄");
+	 * System.out.println(
+	 * "⠄⠄⣰⠇⠄⠱⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠑⢄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠒⢄⡀⠄⠄⠄⠄⠄");
+	 * System.out.println(
+	 * "⠄⠄⠙⣷⡀⠄⠘⣄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠙⢦⡀⠄⠄⠄⠄⠄⠄⠄⠄⢀⣀⣤⣤⠤⠤⠴⠶⠒⠒⠒⠒⠒⠒⠒⢺⠂⠄⠄⠄⠄");
+	 * System.out.println(
+	 * "⠄⠄⠄⠘⢿⣄⠄⠈⢆⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠙⢦⡀⠄⠄⢀⡤⠖⠋⠉⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠘⣷⣦⣀⠄⠄");
+	 * System.out.println(
+	 * "⠄⠄⠄⠄⠈⢻⣆⠄⠄⠣⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣀⣀⡠⠤⠤⠤⠽⣦⣰⠋⠄⠄⠄⠄⠄⣀⣀⣀⣀⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣽⣿⣿⠃⠄");
+	 * System.out.println(
+	 * "⠄⠄⠄⠄⠄⠄⠹⣧⡀⠄⠱⡄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣠⠤⠒⠋⠉⠄⠄⠄⠄⠄⠄⢠⣾⣥⣤⣄⠄⣠⣶⣿⣿⣿⣿⡿⠿⠿⠿⠛⠛⠛⠛⠉⠉⠉⠉⠁⠄⠄⠄");
+	 * System.out.println(
+	 * "⠄⠄⠄⠄⠄⠄⠄⠙⣷⡄⠄⠘⢄⠄⠄⠄⠄⠄⠄⣀⠤⠒⠉⠄⠄⠄⠄⠄⠄⠄⣀⣀⣀⣀⣿⣿⣿⣿⡿⠟⠉⠉⠉⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
+	 * System.out.println(
+	 * "⠄⠄⠄⠄⠄⠄⠄⠄⠘⢿⣄⠄⠈⢢⠄⣀⡠⠔⠋⠁⠄⠄⠄⠄⣀⣤⣴⣾⣿⠿⠟⠛⠉⠙⠛⠋⠉⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
+	 * System.out.println(
+	 * "⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⢻⣦⠄⠄⡏⠄⠄⠄⠄⢀⣠⣴⣾⡿⠿⠛⠉⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
+	 * System.out.println(
+	 * "⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠻⣷⣀⡇⠄⣀⣤⣶⠿⠛⠉⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
+	 * System.out.println(
+	 * "⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠙⣿⡷⠟⠋⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
+	 * System.out.println(
+	 * "⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
+	 * System.out.println("\n");
+	 * System.out.println("⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⣿⣿⣿⠀");
+	 * System.out.println("⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⣿⠀⠀⠀⣿");
+	 * System.out.println("⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⣿⣿⣿⣿");
+	 * System.out.println("⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⣿⠀⠀⠀⣿");
+	 * System.out.println("⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⣿⣿⣿⠀");
+	 * System.out.println("\n");
+	 * System.out.println("                 Press Enter to start..."); }
+	 */
 }

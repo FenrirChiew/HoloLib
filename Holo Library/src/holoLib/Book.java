@@ -31,7 +31,7 @@ public class Book {
     public Book(String bookTitle, String bookAuthor, String bookPublisher, GregorianCalendar bookPublicationDate,
             double bookPrice) {
         this.bookTitle = bookTitle;
-        bookID = String.format("BK%03d", totalBooks + 1);
+        bookID = String.format("BK%03d", totalBooks);
         this.bookAuthor = bookAuthor;
         this.bookPublisher = bookPublisher;
         this.bookPublicationDate = bookPublicationDate;
@@ -132,20 +132,20 @@ public class Book {
         System.out.println("================================================");
         System.out.println("                  Book Details                  ");
         System.out.println("================================================");
-        System.out.println("Title                 : " + bookTitle);
+        System.out.println("Book Title            : " + bookTitle);
         System.out.println("Book ID               : " + bookID);
         System.out.println("Book Author           : " + bookAuthor);
         System.out.println("Book Publisher        : " + bookPublisher);
         System.out.println("Book Publication Date : " + publisherDateToString());
-        System.out.println("Book Price            : " + bookPrice);
+        System.out.printf("Book Price            : %.2f\n", bookPrice);
         System.out.println("Book Borrow Status    : " + isBorrowed);
-        System.out.println("Borrow Fee            : " + borrowFees);
+        System.out.printf("Borrow Fee            : %.2f\n", borrowFees);
         System.out.println("================================================");
     }
 
     public String publisherDateToString() {
         return String.format("%02d", bookPublicationDate.get(Calendar.DATE)) + "/"
-                + String.format("%02d", bookPublicationDate.get(Calendar.MONTH) + 1) + "/"
+                + String.format("%02d", bookPublicationDate.get(Calendar.MONTH)) + "/"
                 + bookPublicationDate.get(Calendar.YEAR);
     }
 
@@ -160,7 +160,7 @@ public class Book {
     @Override
     public String toString() {
         return "Book Title: " + bookTitle + "\nBook ID: " + bookID + "\nBook Author: " + bookAuthor
-                + "\nBook Publisher: " + bookPublisher + "\nBook Publication Date: " + bookPublicationDate
+                + "\nBook Publisher: " + bookPublisher + "\nBook Publication Date: " + publisherDateToString()
                 + "\nBook Price: " + bookPrice;
     }
 }

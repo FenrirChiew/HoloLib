@@ -6,6 +6,7 @@ import java.time.Year;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
+import java.time.Duration;
 
 public class LibrarySystem {
 	/********** Properties **********/
@@ -99,8 +100,8 @@ public class LibrarySystem {
 		GregorianCalendar cardEXPDate = new GregorianCalendar(LocalDate.now().getYear() + 1,
 				LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth());
 
-		memberList[Member.getTotalMembers()] = new Member(name, icNO, gender, new GregorianCalendar(dmy[2], dmy[1], dmy[0]),
-				phoneNO, new LibraryCard(pinNO, cardEXPDate));
+		memberList[Member.getTotalMembers()] = new Member(name, icNO, gender,
+				new GregorianCalendar(dmy[2], dmy[1], dmy[0]), phoneNO, new LibraryCard(pinNO, cardEXPDate));
 	}
 
 	public LibraryCard searchLibraryCardByCardNO(String cardNO) {
@@ -172,7 +173,7 @@ public class LibrarySystem {
 
 	// Display Borrow Menu
 	public void displayBorrowMenu() {
-		System.out.println("++=========================++");
+		System.out.println("\n++=========================++");
 		System.out.println("||     Book Borrowing      ||");
 		System.out.println("++=========================++");
 		System.out.println("|| 1 ||  Display Book      ||");
@@ -187,36 +188,35 @@ public class LibrarySystem {
 		System.out.println("++======================++");
 		System.out.println("||     Display Book      ||");
 		System.out.println(
-				"++====++========================++=========++=========================++==================++=======================++============++========++============++");
+				"++====++==========================================++=========++=========================++==========================================++=======================++============++========++============++");
 		System.out.println(
-				"|| NO ||       Book Title       || Book ID ||       Book Author       ||  Book Publisher  || Book Publication Date || Book Price || Status || Borrow Fee ||");
+				"|| NO ||                Book Title                || Book ID ||       Book Author       ||              Book Publisher              || Book Publication Date || Book Price || Status || Borrow Fee ||");
 		System.out.println(
-				"++====++========================++=========++=========================++==================++=======================++============++========||============++");
+				"++====++==========================================++=========++=========================++==========================================++=======================++============++========||============++");
 
 		for (int i = 0; i < bookList.length; i++) {
-			System.out.printf("|| %02d || %-22s || %-7s || %-23s || %-16s || %-20s || %-10.2f || %-6s || %-10.2f ||\n",
+			System.out.printf("|| %02d || %-40s || %-7s || %-23s || %-40s || %-21s || %-10.2f || %-6s || %-10.2f ||\n",
 					i + 1, bookList[i].getBookTitle(), bookList[i].getBookID(), bookList[i].getBookAuthor(),
-					bookList[i].getBookPublisher(), bookList[i].publisherDateToString(), bookList[i].getBookPrice());
+					bookList[i].getBookPublisher(), bookList[i].publisherDateToString(), bookList[i].getBookPrice(),
+					bookList[i].isBorrowed(), bookList[i].getBorrowFees());
 			System.out.println(
-					"++====++========================++=========++=========================++==================++=======================++============++========++============++");
+					"++====++==========================================++=========++=========================++==========================================++=======================++============++========||============++");
 		}
-		System.out.println("\nTotal Book(s) Found: " + bookList.length);
+		System.out.println("\nTotal Book(s) Found: " + bookList.length + "\n\n");
 	}
 
-    public void displayBorrowReport(String bookID){
-        System.out.println("+------------------------------------------+");
-        System.out.println("|              Borrow Receipt              |");
-        System.out.println("+------------------------------------------+");
-        searchBookByID(bookID).displayBookDetails();
-        System.out.println("+------------------------------------------+");
+	public void displayBorrowReport(String bookID) {
+		System.out.println("+------------------------------------------+");
+		System.out.println("|              Borrow Receipt              |");
+		System.out.println("+------------------------------------------+");
+		searchBookByID(bookID).displayBookDetails();
+		System.out.println("+------------------------------------------+");
 
-
-
-    }
+	}
 
 	// Display Book Searching Menu
 	public void displayBookSearchingMenu() {
-		System.out.println("++===============================++");
+		System.out.println("\n++===============================++");
 		System.out.println("||          Search Book          ||");
 		System.out.println("++===============================++");
 		System.out.println("|| Search By:                    ||");
@@ -238,8 +238,7 @@ public class LibrarySystem {
 			if (bookList[i].getBookTitle().toUpperCase().indexOf(bookTitle.toUpperCase()) != -1) {
 				totalResult++;
 				System.out.printf("\nResult %d\n", totalResult);
-				System.out.println("========");
-				System.out.println(bookList[i]);
+				bookList[i].displayBookDetails();
 			}
 		}
 		System.out.println("\nTotal Book(s) Found: " + totalResult);
@@ -264,8 +263,7 @@ public class LibrarySystem {
 			if (bookList[i].getBookAuthor().toUpperCase().indexOf(bookAuthor.toUpperCase()) != -1) {
 				totalResult++;
 				System.out.printf("\nResult %d\n", totalResult);
-				System.out.println("========");
-				System.out.println(bookList[i]);
+				bookList[i].displayBookDetails();
 			}
 		}
 		System.out.println("\nTotal Book(s) Found: " + totalResult);
@@ -280,8 +278,7 @@ public class LibrarySystem {
 			if (bookList[i].getBookPublisher().toUpperCase().indexOf(bookPublisher.toUpperCase()) != -1) {
 				totalResult++;
 				System.out.printf("\nResult %d\n", totalResult);
-				System.out.println("========");
-				System.out.println(bookList[i]);
+				bookList[i].displayBookDetails();
 			}
 		}
 		System.out.println("\nTotal Book(s) Found: " + totalResult);
@@ -381,61 +378,51 @@ public class LibrarySystem {
 		// static arrayborrawable object --> variable returnedBook
 	}
 
-	public void expiredMembershipReport(Member[] member) {
+	public void expiredMembershipReport(Member[] member, Librarian[] librarian) {
 		int count = 0;
+		int daysBetween = 0;
 
 		System.out.println(
-				"                                Expired Membership Report                                   ");
+				"                               Library Card Expired Report                                   ");
 		System.out.println(
-				"+=============+=====================+==============+==================+===========================+");
+				"+===============+=====================+==============+==================+===================+");
 		System.out.println(
-				"|  Member ID  |     Member Name     |   Phone No   |   Expired Date   |      Expired Duration     | ");
-				System.out.println(
-				"----------------------------------------------------------------------------------------------------");
-				for (int i = 0; i < Member.getTotalMembers(); i++) {
-			int day = member[i].libraryCard.getCardExpDate().get(Calendar.DAY_OF_MONTH);
-			int month = member[i].libraryCard.getCardExpDate().get(Calendar.MONTH);
-			int year = member[i].libraryCard.getCardExpDate().get(Calendar.YEAR);
-			if (year <= LocalDate.now().getYear()) {
-				if (year < LocalDate.now().getYear()) {
-					int yearExpiredDuration = LocalDate.now().getYear() - year;
-					System.out.format("| %-12s| %-21s| %-14s| %-16s| %-14d year(s) more|\n", member[i].getMemberID(),
-							member[i].name, member[i].phoneNO, member[i].libraryCard.cardExpDateToString(),
-							yearExpiredDuration);
-					count++;
-				} else {
-					if (month <= LocalDate.now().getMonthValue()) {
-						if (month < LocalDate.now().getMonthValue()) {
-							int yearExpiredDuration = LocalDate.now().getYear() - year;
-							int monthExpiredDuration = LocalDate.now().getMonthValue() - month;
-							System.out.printf("%-13s|%-24s|%-15s|%-18s|     %-02d yr(s) %-02d month(s)     |\n",
-									member[i].getMemberID(), member[i].name, member[i].phoneNO,
-									member[i].libraryCard.cardExpDateToString(), yearExpiredDuration,
-									monthExpiredDuration);
-							count++;
-						} else {
-							if (day <= LocalDate.now().getDayOfMonth()) {
-								if (day < LocalDate.now().getDayOfMonth()) {
-									int yearExpiredDuration = LocalDate.now().getYear() - year;
-									int monthExpiredDuration = LocalDate.now().getMonthValue() - month;
-									int dayExpiredDuration = LocalDate.now().getDayOfMonth() - day;
-									System.out.printf("%-13s|%-24s|%-15s|%-18s|%-02d yr(s) %-02d month(s) %-02d day(s)\n",
-											member[i].getMemberID(), member[i].name, member[i].phoneNO,
-											member[i].libraryCard.cardExpDateToString(), yearExpiredDuration,
-											monthExpiredDuration, dayExpiredDuration);
-									count++;
-								}
-							}
-						}
+				"|  Borrower ID  |     Member Name     |   Phone No   |   Expired Date   |  Expired Duration | ");
+		System.out.println(
+				"---------------------------------------------------------------------------------------------");
 
-					}
-				}
+		for (int i = 0; i < Member.getTotalMembers(); i++) {
+			LocalDate expDate = LocalDate.of(member[i].libraryCard.getCardExpDate().get(Calendar.YEAR),
+					member[i].libraryCard.getCardExpDate().get(Calendar.MONTH),
+					member[i].libraryCard.getCardExpDate().get(Calendar.DAY_OF_MONTH));
+
+			if (toDays(LocalDate.now()) > toDays(expDate)) {
+				daysBetween = toDays(LocalDate.now()) - toDays(expDate);
+
+				System.out.format("| %-14s| %-20s| %-13s|    %-14s|    %4d day(s)    |\n", member[i].getMemberID(),
+						member[i].name, member[i].phoneNO, member[i].libraryCard.cardExpDateToString(), daysBetween);
+				count++;
+			}
+		}
+		for (int i = 0; i < Librarian.getTotalLibrarians(); i++) {
+
+			LocalDate expDate = LocalDate.of(librarian[i].libraryCard.getCardExpDate().get(Calendar.YEAR),
+					librarian[i].libraryCard.getCardExpDate().get(Calendar.MONTH),
+					librarian[i].libraryCard.getCardExpDate().get(Calendar.DAY_OF_MONTH));
+
+			daysBetween = toDays(LocalDate.now()) - toDays(expDate);
+			if (daysBetween > 0) {
+				System.out.format("| %-14s| %-20s| %-13s|    %-14s|    %4d day(s)    |\n",
+						librarian[i].getLibrarianID(), librarian[i].name, librarian[i].phoneNO,
+						librarian[i].libraryCard.cardExpDateToString(), daysBetween);
+				count++;
 			}
 
 		}
 		System.out.println(
-			"+=============+=====================+==============+==================+===========================+");
-		System.out.printf("Total member had expired membership :                                  %d(person(s))\n",count);
+				"+===============+=====================+==============+==================+===================+");
+		System.out.printf("Total member had expired membership :                                  %d(person(s))\n",
+				count);
 
 	}
 
@@ -518,8 +505,8 @@ public class LibrarySystem {
 	public void deleteBook(String bookID) {
 		for (int i = 0; i < bookList.length; i++) {
 			if (bookList[i].getBookID().indexOf(bookID) != -1) {
-				for (int j = i; j < bookList.length; j++){
-					bookList[j] = bookList[j+1];
+				for (int j = i; j < bookList.length; j++) {
+					bookList[j] = bookList[j + 1];
 				}
 			}
 		}
@@ -540,7 +527,6 @@ public class LibrarySystem {
 		System.out.println("|| 0 ||  Back to Books Inventory Management  ||");
 		System.out.println("++===++======================================++");
 	}
-
 
 	// Capture a menu selection after invoke any menu method
 	public int captureMenuSelection(Scanner sc, int maxMenuSelection) {
@@ -667,12 +653,18 @@ public class LibrarySystem {
 		}
 	}
 
+	// Convert Date to Days
+	public int toDays(LocalDate localDate) {
+		return (localDate.getYear() * 365 + localDate.getMonthValue() * 30 + localDate.getDayOfMonth());
+	}
+
 	// Login method
 	public void login(String librarianID) {
 		currentLoggedUser = (Librarian) searchLibrarianByID(librarianID);
 	}
 
 	/*
+<<<<<<< HEAD
 	// HoloLib logo
 	public static void Logo() {
 		System.out.println("⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");

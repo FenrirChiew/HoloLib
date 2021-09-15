@@ -15,8 +15,6 @@ public class LibraryCard implements Payment {
 	private Book[] borrowedHistory = new Book[100];
 	private int borrowedHistoryCount = 0;
 	private static int totalCards = 0;
-	private static Book[] returnedBook = new Book[100];
-	private static int returnedBookCount = 0;
 
 	/********** Constructors **********/
 	public LibraryCard() {
@@ -24,11 +22,11 @@ public class LibraryCard implements Payment {
 	}
 
 	public LibraryCard(String pinNO, GregorianCalendar cardExpDate, double cardBalance) {
-		this.cardNO = String.format("LC%03d", totalCards + 1);
+		totalCards++;
+		this.cardNO = String.format("LC%03d", totalCards);
 		this.pinNO = pinNO;
 		this.cardExpDate = cardExpDate;
 		this.cardBalance = cardBalance;
-		totalCards++;
 	}
 
 	/********** Accessors & Mutators **********/
@@ -36,36 +34,16 @@ public class LibraryCard implements Payment {
 		return cardNO;
 	}
 
-	public void setCardNO(String cardNO) {
-		this.cardNO = cardNO;
-	}
-
-	public void setPinNO(String pinNO) {
-		this.pinNO = pinNO;
-	}
-
 	public double getCardBalance() {
 		return cardBalance;
-	}
-
-	public void setCardBalance(double cardBalance) {
-		this.cardBalance = cardBalance;
 	}
 
 	public GregorianCalendar getCardExpDate() {
 		return cardExpDate;
 	}
 
-	public void setCardExpDate(GregorianCalendar cardExpDate) {
-		this.cardExpDate = cardExpDate;
-	}
-
 	public Book[] getCurrentBorrowed() {
 		return currentBorrowed;
-	}
-
-	public void setCurrentBorrowed(Book[] currentBorrowed) {
-		this.currentBorrowed = currentBorrowed;
 	}
 
 	public int getCurrentBorrowedCount() {
@@ -76,24 +54,8 @@ public class LibraryCard implements Payment {
 		return borrowedHistory;
 	}
 
-	public void setBorrowedHistory(Book[] borrowedHistory) {
-		this.borrowedHistory = borrowedHistory;
-	}
-
 	public int getBorrowedHistoryCount() {
 		return borrowedHistoryCount;
-	}
-
-	public static int getTotalCards() {
-		return totalCards;
-	}
-
-	public static Book[] getReturnedBook() {
-		return returnedBook;
-	}
-
-	public static int getReturnedBookCount() {
-		return returnedBookCount;
 	}
 
 	/********** Methods **********/
@@ -133,9 +95,6 @@ public class LibraryCard implements Payment {
 		// move borrow record from currenBorrowed to borrowedHistory
 		borrowedHistory[borrowedHistoryCount] = currentBorrowed[index];
 		borrowedHistoryCount++;
-		// & returnedBook
-		returnedBook[returnedBookCount] = currentBorrowed[index];
-		returnedBookCount++;
 
 		// remove book details from currentBorrowed
 		for (int i = index; i < currentBorrowedCount; i++) {
@@ -179,12 +138,5 @@ public class LibraryCard implements Payment {
 		System.out.printf("  Payment Amount       : RM .2f", payment);
 		System.out.printf("  Library Card Balance : RM .2f", cardBalance);
 		System.out.println("===========================================");
-	}
-
-	@Override
-	// toString() method
-	public String toString() {
-		return "Library Card Number: " + cardNO + String.format("\nLibrary Card Balance: %.2f", cardBalance)
-				+ "\nCard Expired Date: " + cardExpDateToString();
 	}
 }

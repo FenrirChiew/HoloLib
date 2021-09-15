@@ -1,7 +1,7 @@
 package holoLib;
 
-import java.util.GregorianCalendar;
 import java.util.Scanner;
+import java.util.GregorianCalendar;
 
 public class holoLib {
 	public static void main(String[] args) {
@@ -484,7 +484,7 @@ public class holoLib {
 								System.out.print("\n");
 							} while (selection != 0);
 							break;
-						// 3. Reports
+						// 3. Report
 						case 3:
 							do {
 								cls();
@@ -503,6 +503,9 @@ public class holoLib {
 									// 2. Daily Book Return Report
 									case 2:
 										holoLib.displayDailyBookReturnedReport();
+										break;
+									// 3. Expired Membership Report
+									case 3:
 										break;
 								}
 								System.out.println("Press Enter To Continue...");
@@ -556,8 +559,6 @@ public class holoLib {
 		// Ending Screen
 		cls();
 		holoLib.endingScreen();
-		// sc.close();
-
 		sc.close();
 	}
 

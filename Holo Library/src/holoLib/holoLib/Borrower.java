@@ -77,12 +77,4 @@ public abstract class Borrower {
 			}
 		}
 	}
-
-	// toString() method
-	@Override
-	public String toString() {
-		return "Name: " + name + "\nIC Number: " + icNO + "\nGender: " + gender + "Date of Birth: " + dateOfBirth
-				+ "\nPhone Number: " + phoneNO;
-	}
-
 }

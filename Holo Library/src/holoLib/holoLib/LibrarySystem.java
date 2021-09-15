@@ -1,11 +1,11 @@
 package holoLib;
 
+import java.util.Scanner;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Scanner;
 
 public class LibrarySystem {
 	/********** Properties **********/
@@ -30,31 +30,12 @@ public class LibrarySystem {
 	}
 
 	/********** Accessors & Mutators **********/
-	public Borrower[] getBorrowerList() {
-		return borrowerList;
-	}
-
-	public void setBorrowerList(Borrower[] borrowerList) {
-		this.borrowerList = borrowerList;
-	}
-
-	public Book[] getBookList() {
-		return bookList;
-	}
-
-	public void setBookList(Book[] bookList) {
-		this.bookList = bookList;
-	}
-
 	public Librarian getCurrentLoggedUser() {
 		return currentLoggedUser;
 	}
 
-	public void setCurrentLoggedUser(Librarian currentLoggedUser) {
-		this.currentLoggedUser = currentLoggedUser;
-	}
-
 	/********** Methods **********/
+	/******************************Login Module******************************/
 	public static void logo() {
 		System.out.println("⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
 		System.out.println("⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣀⠠⠤⠤⠤⠤⠤⠤⠤⠤⠤⠐⠒⠒⢄⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
@@ -109,6 +90,7 @@ public class LibrarySystem {
 		System.out.println("             Thank you for using our system!");
 	}
 
+	/******************************Menu******************************/
 	// Display Main Menu
 	public void displayHomeMenu() {
 		System.out.println("++==============================++");
@@ -122,6 +104,7 @@ public class LibrarySystem {
 		System.out.println("++===++=========================++");
 	}
 
+	/******************************Membership Module******************************/
 	// Display Membership Menu
 	public void displayMembershipMenu() {
 		System.out.println("++================================++");
@@ -146,33 +129,56 @@ public class LibrarySystem {
 				new LibraryCard(pinNO, cardEXPDate, cardBalance));
 	}
 
-	public LibraryCard searchLibraryCardByCardNO(String cardNO) {
-		for (int i = 0; i < Borrower.getTotalBorrowers(); i++) {
-			if (borrowerList[i].libraryCard.getCardNO().matches(cardNO)) {
-				return borrowerList[i].libraryCard;
+	/******************************Utility Methods******************************/
+	// Capture a menu selection after invoke any menu method
+	public int captureMenuSelection(Scanner sc, int maxMenuSelection) {
+		boolean continueInput = true;
+		int selection = 0;
+
+		// Keep looping until:
+		// 1. Captured a proper menu selection (integer)
+		// 2. Menu selection is within the range
+		do {
+			try {
+				System.out.print("\nEnter your selection > ");
+				selection = sc.nextInt();
+
+				if (selection >= 0 && selection <= maxMenuSelection) {
+					continueInput = false;
+				}
+			} catch (Exception e) { // Activate when captured non-integer menu selection
+				sc.nextLine();
+				System.out.println("\n\tInvalid selection! Please try again...");
+				sc.nextLine();
 			}
-		}
-		System.out.println("\n\tLibrary Card Not Found!");
-		return null;
+		} while (continueInput);
+
+		sc.nextLine(); // Clear input buffer
+
+		return selection; // Return menu selection
 	}
 
-	public boolean validateLibraryCard(String cardNO, String pinNO) {
-		if (searchLibraryCardByCardNO(cardNO) != null) {
-			return searchLibraryCardByCardNO(cardNO).validatePinNO(pinNO);
-		}
+	// Capture a Y or N choice
+	public String captureYesNoChoice(Scanner sc, String message) {
+		boolean continueInput = true;
+		String choice = "";
 
-		return false;
-	}
+		// Keep looping until:
+		// 1. Captured a proper choice ("Y" / "N")
+		// 2. The choice is exact 1 character
+		do {
+			System.out.print("\n" + message + " (Y/N) > ");
+			choice = sc.nextLine();
 
-	public Borrower searchBorrowerByCardNO(String cardNO) {
-		for (int i = 0; i < Borrower.getTotalBorrowers(); i++) {
-			if (borrowerList[i].libraryCard.getCardNO().matches(cardNO)) {
-				return borrowerList[i];
+			if (!(choice.length() == 1 && choice.toUpperCase().matches("Y|N"))) {
+				System.out.println("\n\tInvalid choice! Please try again...");
+				sc.nextLine();
+			} else {
+				continueInput = false;
 			}
-		}
+		} while (continueInput);
 
-		System.out.println("\n\tBorrower Not Found!");
-		return null;
+		return choice.toUpperCase(); // Return uppercase choice
 	}
 
 	public double captureMoney(Scanner sc, String message) {
@@ -236,6 +242,113 @@ public class LibrarySystem {
 		return null;
 	}
 
+	public Borrower searchBorrowerByCardNO(String cardNO) {
+		for (int i = 0; i < Borrower.getTotalBorrowers(); i++) {
+			if (borrowerList[i].libraryCard.getCardNO().matches(cardNO)) {
+				return borrowerList[i];
+			}
+		}
+
+		System.out.println("\n\tBorrower Not Found!");
+		return null;
+	}
+
+	public LibraryCard searchLibraryCardByCardNO(String cardNO) {
+		for (int i = 0; i < Borrower.getTotalBorrowers(); i++) {
+			if (borrowerList[i].libraryCard.getCardNO().matches(cardNO)) {
+				return borrowerList[i].libraryCard;
+			}
+		}
+		System.out.println("\n\tLibrary Card Not Found!");
+		return null;
+	}
+
+	public boolean validateLibraryCard(String cardNO, String pinNO) {
+		if (searchLibraryCardByCardNO(cardNO) != null) {
+			return searchLibraryCardByCardNO(cardNO).validatePinNO(pinNO);
+		}
+
+		return false;
+	}
+
+	public boolean validateStringFormat(String type, String str, String regex) {
+		if (!str.matches(regex)) {
+			System.out.println("\n\tInvalid " + type + "! Please try again...\n");
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	public int[] toIntDate(String[] day_month_year) {
+		int[] d = new int[day_month_year.length];
+
+		for (int i = 0; i < day_month_year.length; i++) {
+			char[] c = day_month_year[i].toCharArray();
+
+			for (int j = c.length - 1; j >= 0; j--) {
+				d[i] += ((int) c[j] - 48) * (int) Math.pow(10, c.length - j - 1);
+			}
+		}
+
+		return d;
+	}
+
+	public boolean validateDate(String date) {
+		if (!validateStringFormat("Date Format", date, "[0-9]{2}/[0-9]{2}/[0-9]{4}")) {
+			return false;
+		} else {
+			String[] day_month_year = date.split("/");
+
+			if (toIntDate(day_month_year)[2] < 1800 || toIntDate(day_month_year)[2] > LocalDate.now().getYear()) {
+				System.out.println("\n\tInvalid Year! Please try again...");
+				return false;
+			}
+
+			switch (toIntDate(day_month_year)[1]) {
+				case 1, 3, 5, 7, 8, 10, 12:
+					if (toIntDate(day_month_year)[0] <= 0 || toIntDate(day_month_year)[0] > 31) {
+						System.out.println("\n\tInvalid Day! Please try again...");
+						return false;
+					}
+
+					break;
+				case 4, 6, 9, 11:
+					if (toIntDate(day_month_year)[0] <= 0 || toIntDate(day_month_year)[0] > 30) {
+						System.out.println("\n\tInvalid Day! Please try again...");
+						return false;
+					}
+
+					break;
+				case 2:
+					if (toIntDate(day_month_year)[2] % 4 == 0) {
+						if (toIntDate(day_month_year)[0] <= 0 || toIntDate(day_month_year)[0] > 29) {
+							System.out.println("\n\tInvalid Day! Please try again...");
+							return false;
+						}
+					} else {
+						if (toIntDate(day_month_year)[0] <= 0 || toIntDate(day_month_year)[0] > 28) {
+							System.out.println("\n\tInvalid Day! Please try again...");
+							return false;
+						}
+					}
+
+					break;
+				default:
+					System.out.println("\n\tInvalid Month! Please try again...");
+					return false;
+			}
+
+			return true;
+		}
+	}
+
+	// Convert Date to Days
+	public static int toDays(LocalDate localDate) {
+		return (localDate.getYear() * 365 + localDate.getMonthValue() * 30 + localDate.getDayOfMonth());
+	}
+
+	/******************************Book Borrowing Module******************************/
 	// Display Borrow Menu
 	public void displayBorrowMenu() {
 		System.out.println("++=========================++");
@@ -345,22 +458,21 @@ public class LibrarySystem {
 		System.out.println("\nTotal Book(s) Found: " + totalResult);
 	}
 
+	/******************************Reports Module******************************/
 	// Display Report Menu
 	public void displayReportMenu() {
-		System.out.println("++=================================++");
-		System.out.println("||             Reports             ||");
-		System.out.println("++===++============================++");
-		System.out.println("|| 1 ||  Daily Book Borrow Report  ||");
-		System.out.println("|| 2 ||  Daily Book Return Report  ||");
-		System.out.println("|| 3 ||  Expired Membership Report ||");
-		System.out.println("|| 0 ||  Back to Home              ||");
-		System.out.println("++===++============================++");
+		System.out.println("++==================================++");
+		System.out.println("||              Report              ||");
+		System.out.println("++===++=============================++");
+		System.out.println("|| 1 ||  Daily Book Borrow Report   ||");
+		System.out.println("|| 2 ||  Daily Book Return Report   ||");
+		System.out.println("|| 3 ||  Expired Membership Report  ||");
+		System.out.println("|| 0 ||  Back to Home               ||");
+		System.out.println("++===++=============================++");
 	}
 
 	public void displayDailyBookBorrowReport() {
-
 		int count = 0;
-
 		System.out.println("                        Daily Book Borrowed Report for " + LocalDate.now().getDayOfMonth()
 				+ "/" + LocalDate.now().getMonthValue() + "/" + LocalDate.now().getYear());
 		System.out.println(
@@ -384,16 +496,13 @@ public class LibrarySystem {
 				}
 			}
 		}
-
 		System.out.println(
 				"+========================================+===================+====================+================+");
 		System.out.println("Total count book borrowed: " + count);
-
 	}
 
 	public void displayDailyBookReturnedReport() {
 		int count = 0;
-
 		System.out.println("                        Daily Book Returned Report for " + LocalDate.now().getDayOfMonth()
 				+ "/" + LocalDate.now().getMonthValue() + "/" + LocalDate.now().getYear());
 		System.out.println(
@@ -417,7 +526,6 @@ public class LibrarySystem {
 				}
 			}
 		}
-
 		System.out.println(
 				"+========================================+===================+====================+================+");
 		System.out.println("Total count book returned: " + count);
@@ -457,6 +565,7 @@ public class LibrarySystem {
 				count);
 	}
 
+	/******************************Administrative Module******************************/
 	// Display login Records for Library Admin
 	public void displayLoginRecords() {
 		if (recordCount == 0) {
@@ -472,214 +581,4 @@ public class LibrarySystem {
 			System.out.println("+==========+=====================+======================+");
 		}
 	}
-
-	// Capture a menu selection after invoke any menu method
-	public int captureMenuSelection(Scanner sc, int maxMenuSelection) {
-		boolean continueInput = true;
-		int selection = 0;
-
-		// Keep looping until:
-		// 1. Captured a proper menu selection (integer)
-		// 2. Menu selection is within the range
-		do {
-			try {
-				System.out.print("\nEnter your selection > ");
-				selection = sc.nextInt();
-
-				if (selection >= 0 && selection <= maxMenuSelection) {
-					continueInput = false;
-				}
-			} catch (Exception e) { // Activate when captured non-integer menu selection
-				sc.nextLine();
-				System.out.println("\n\tInvalid selection! Please try again...");
-				sc.nextLine();
-			}
-		} while (continueInput);
-
-		sc.nextLine(); // Clear input buffer
-
-		return selection; // Return menu selection
-	}
-
-	// Capture a Y or N choice
-	public String captureYesNoChoice(Scanner sc, String message) {
-		boolean continueInput = true;
-		String choice = "";
-
-		// Keep looping until:
-		// 1. Captured a proper choice ("Y" / "N")
-		// 2. The choice is exact 1 character
-		do {
-			System.out.print("\n" + message + " (Y/N) > ");
-			choice = sc.nextLine();
-
-			if (!(choice.length() == 1 && choice.toUpperCase().matches("Y|N"))) {
-				System.out.println("\n\tInvalid choice! Please try again...");
-				sc.nextLine();
-			} else {
-				continueInput = false;
-			}
-		} while (continueInput);
-
-		return choice.toUpperCase(); // Return uppercase choice
-	}
-
-	public boolean validateStringFormat(String type, String str, String regex) {
-		if (!str.matches(regex)) {
-			System.out.println("\n\tInvalid " + type + "! Please try again...\n");
-			return false;
-		} else {
-			return true;
-		}
-	}
-
-	public int[] toIntDate(String[] day_month_year) {
-		int[] d = new int[day_month_year.length];
-
-		for (int i = 0; i < day_month_year.length; i++) {
-			char[] c = day_month_year[i].toCharArray();
-
-			for (int j = c.length - 1; j >= 0; j--) {
-				d[i] += ((int) c[j] - 48) * (int) Math.pow(10, c.length - j - 1);
-			}
-		}
-
-		return d;
-	}
-
-	public boolean validateDate(String date) {
-		if (!validateStringFormat("Date Format", date, "[0-9]{2}/[0-9]{2}/[0-9]{4}")) {
-			return false;
-		} else {
-			String[] day_month_year = date.split("/");
-
-			if (toIntDate(day_month_year)[2] < 1800 || toIntDate(day_month_year)[2] > LocalDate.now().getYear()) {
-				System.out.println("\n\tInvalid Year! Please try again...");
-				return false;
-			}
-
-			switch (toIntDate(day_month_year)[1]) {
-				case 1, 3, 5, 7, 8, 10, 12:
-					if (toIntDate(day_month_year)[0] <= 0 || toIntDate(day_month_year)[0] > 31) {
-						System.out.println("\n\tInvalid Day! Please try again...");
-						return false;
-					}
-
-					break;
-				case 4, 6, 9, 11:
-					if (toIntDate(day_month_year)[0] <= 0 || toIntDate(day_month_year)[0] > 30) {
-						System.out.println("\n\tInvalid Day! Please try again...");
-						return false;
-					}
-
-					break;
-				case 2:
-					if (toIntDate(day_month_year)[2] % 4 == 0) {
-						if (toIntDate(day_month_year)[0] <= 0 || toIntDate(day_month_year)[0] > 29) {
-							System.out.println("\n\tInvalid Day! Please try again...");
-							return false;
-						}
-					} else {
-						if (toIntDate(day_month_year)[0] <= 0 || toIntDate(day_month_year)[0] > 28) {
-							System.out.println("\n\tInvalid Day! Please try again...");
-							return false;
-						}
-					}
-
-					break;
-				default:
-					System.out.println("\n\tInvalid Month! Please try again...");
-					return false;
-			}
-
-			return true;
-		}
-	}
-
-	// Convert Date to Days
-	public static int toDays(LocalDate localDate) {
-		return (localDate.getYear() * 365 + localDate.getMonthValue() * 30 + localDate.getDayOfMonth());
-	}
-
-	/*
-	 * // HoloLib logo public static void Logo() { System.out.println(
-	 * "⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
-	 * System.out.println(
-	 * "⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣀⠠⠤⠤⠤⠤⠤⠤⠤⠤⠤⠐⠒⠒⢄⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
-	 * System.out.println(
-	 * "⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣀⡠⠤⠄⠒⠒⠂⠤⣀⠄⠄⡠⠒⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠒⢄⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
-	 * System.out.println(
-	 * "⠄⠄⠄⠄⠄⠄⠄⠄⢀⠠⠒⠉⠄⠄⠄⠄⠄⠄⠄⠄⠄⠑⠲⣅⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠒⢄⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
-	 * System.out.println(
-	 * "⠄⠄⠄⠄⠄⣀⠤⠊⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠳⣄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠒⢄⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
-	 * System.out.println(
-	 * "⠄⠄⠄⡴⢫⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠓⢄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠒⢄⡀⠄⠄⠄⠄⠄⠄⠄⠄");
-	 * System.out.println(
-	 * "⠄⠄⣰⠇⠄⠱⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠑⢄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠒⢄⡀⠄⠄⠄⠄⠄");
-	 * System.out.println(
-	 * "⠄⠄⠙⣷⡀⠄⠘⣄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠙⢦⡀⠄⠄⠄⠄⠄⠄⠄⠄⢀⣀⣤⣤⠤⠤⠴⠶⠒⠒⠒⠒⠒⠒⠒⢺⠂⠄⠄⠄⠄");
-	 * System.out.println(
-	 * "⠄⠄⠄⠘⢿⣄⠄⠈⢆⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠙⢦⡀⠄⠄⢀⡤⠖⠋⠉⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠘⣷⣦⣀⠄⠄");
-	 * System.out.println(
-	 * "⠄⠄⠄⠄⠈⢻⣆⠄⠄⠣⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣀⣀⡠⠤⠤⠤⠽⣦⣰⠋⠄⠄⠄⠄⠄⣀⣀⣀⣀⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣽⣿⣿⠃⠄");
-	 * System.out.println(
-	 * "⠄⠄⠄⠄⠄⠄⠹⣧⡀⠄⠱⡄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣠⠤⠒⠋⠉⠄⠄⠄⠄⠄⠄⢠⣾⣥⣤⣄⠄⣠⣶⣿⣿⣿⣿⡿⠿⠿⠿⠛⠛⠛⠛⠉⠉⠉⠉⠁⠄⠄⠄");
-	 * System.out.println(
-	 * "⠄⠄⠄⠄⠄⠄⠄⠙⣷⡄⠄⠘⢄⠄⠄⠄⠄⠄⠄⣀⠤⠒⠉⠄⠄⠄⠄⠄⠄⠄⣀⣀⣀⣀⣿⣿⣿⣿⡿⠟⠉⠉⠉⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
-	 * System.out.println(
-	 * "⠄⠄⠄⠄⠄⠄⠄⠄⠘⢿⣄⠄⠈⢢⠄⣀⡠⠔⠋⠁⠄⠄⠄⠄⣀⣤⣴⣾⣿⠿⠟⠛⠉⠙⠛⠋⠉⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
-	 * System.out.println(
-	 * "⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⢻⣦⠄⠄⡏⠄⠄⠄⠄⢀⣠⣴⣾⡿⠿⠛⠉⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
-	 * System.out.println(
-	 * "⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠻⣷⣀⡇⠄⣀⣤⣶⠿⠛⠉⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
-	 * System.out.println(
-	 * "⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠙⣿⡷⠟⠋⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
-	 * System.out.println(
-	 * "⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
-	 * System.out.println("\n");
-	 * System.out.println("⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⣿⣿⣿⠀");
-	 * System.out.println("⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⣿⠀⠀⠀⣿");
-	 * System.out.println("⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⣿⣿⣿⣿");
-	 * System.out.println("⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⣿⠀⠀⠀⣿");
-	 * System.out.println("⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⣿⣿⣿⠀");
-	 * System.out.println("\n");
-	 * System.out.println("                 Press Enter to start..."); }
-	 * 
-	 * public static void EndingScreen() { System.out.println(
-	 * "⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
-	 * System.out.println(
-	 * "⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣀⠠⠤⠤⠤⠤⠤⠤⠤⠤⠤⠐⠒⠒⢄⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
-	 * System.out.println(
-	 * "⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣀⡠⠤⠄⠒⠒⠂⠤⣀⠄⠄⡠⠒⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠒⢄⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
-	 * System.out.println(
-	 * "⠄⠄⠄⠄⠄⠄⠄⠄⢀⠠⠒⠉⠄⠄⠄⠄⠄⠄⠄⠄⠄⠑⠲⣅⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠒⢄⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
-	 * System.out.println(
-	 * "⠄⠄⠄⠄⠄⣀⠤⠊⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠳⣄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠒⢄⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
-	 * System.out.println(
-	 * "⠄⠄⠄⡴⢫⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠓⢄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠒⢄⡀⠄⠄⠄⠄⠄⠄⠄⠄");
-	 * System.out.println(
-	 * "⠄⠄⣰⠇⠄⠱⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠑⢄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠒⢄⡀⠄⠄⠄⠄⠄");
-	 * System.out.println(
-	 * "⠄⠄⠙⣷⡀⠄⠘⣄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠙⢦⡀⠄⠄⠄⠄⠄⠄⠄⠄⢀⣀⣤⣤⠤⠤⠴⠶⠒⠒⠒⠒⠒⠒⠒⢺⠂⠄⠄⠄⠄");
-	 * System.out.println(
-	 * "⠄⠄⠄⠘⢿⣄⠄⠈⢆⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠙⢦⡀⠄⠄⢀⡤⠖⠋⠉⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠘⣷⣦⣀⠄⠄");
-	 * System.out.println(
-	 * "⠄⠄⠄⠄⠈⢻⣆⠄⠄⠣⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣀⣀⡠⠤⠤⠤⠽⣦⣰⠋⠄⠄⠄⠄⠄⣀⣀⣀⣀⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣽⣿⣿⠃⠄");
-	 * System.out.println(
-	 * "⠄⠄⠄⠄⠄⠄⠹⣧⡀⠄⠱⡄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣠⠤⠒⠋⠉⠄⠄⠄⠄⠄⠄⢠⣾⣥⣤⣄⠄⣠⣶⣿⣿⣿⣿⡿⠿⠿⠿⠛⠛⠛⠛⠉⠉⠉⠉⠁⠄⠄⠄");
-	 * System.out.println(
-	 * "⠄⠄⠄⠄⠄⠄⠄⠙⣷⡄⠄⠘⢄⠄⠄⠄⠄⠄⠄⣀⠤⠒⠉⠄⠄⠄⠄⠄⠄⠄⣀⣀⣀⣀⣿⣿⣿⣿⡿⠟⠉⠉⠉⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
-	 * System.out.println(
-	 * "⠄⠄⠄⠄⠄⠄⠄⠄⠘⢿⣄⠄⠈⢢⠄⣀⡠⠔⠋⠁⠄⠄⠄⠄⣀⣤⣴⣾⣿⠿⠟⠛⠉⠙⠛⠋⠉⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
-	 * System.out.println(
-	 * "⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⢻⣦⠄⠄⡏⠄⠄⠄⠄⢀⣠⣴⣾⡿⠿⠛⠉⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
-	 * System.out.println(
-	 * "⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠻⣷⣀⡇⠄⣀⣤⣶⠿⠛⠉⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
-	 * System.out.println(
-	 * "⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠙⣿⡷⠟⠋⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
-	 * System.out.println(
-	 * "⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
-	 * System.out.
-	 * println("\n\n\n\n             Thank you for using our system!\n\n\n"); }
-	 */
 }

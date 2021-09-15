@@ -42,13 +42,8 @@ public class Book {
     }
 
     /********** Accessors & Mutators **********/
-
     public String getBookTitle() {
         return bookTitle;
-    }
-
-    public void setBookTitle(String bookTitle) {
-        this.bookTitle = bookTitle;
     }
 
     public String getBookID() {
@@ -59,32 +54,12 @@ public class Book {
         return bookAuthor;
     }
 
-    public void setBookAuthor(String bookAuthor) {
-        this.bookAuthor = bookAuthor;
-    }
-
     public String getBookPublisher() {
         return bookPublisher;
     }
 
-    public void setBookPublisher(String bookPublisher) {
-        this.bookPublisher = bookPublisher;
-    }
-
-    public GregorianCalendar getBookPublicationDate() {
-        return bookPublicationDate;
-    }
-
-    public void setBookPublicationDate(GregorianCalendar bookPublicationDate) {
-        this.bookPublicationDate = bookPublicationDate;
-    }
-
     public double getBookPrice() {
         return bookPrice;
-    }
-
-    public void setBookPrice(double bookPrice) {
-        this.bookPrice = bookPrice;
     }
 
     public boolean isBorrowed() {
@@ -119,10 +94,6 @@ public class Book {
         return totalBooks;
     }
 
-    public static double getPenaltyRate() {
-        return PENALTY_RATE;
-    }
-
     public static int getMaxGracePeriodInDay() {
         return MAX_GRACE_PERIOD_IN_DAY;
     }
@@ -155,12 +126,5 @@ public class Book {
 
     public double calPenalty(int dayBorrowed) {
         return PENALTY_RATE * (dayBorrowed - MAX_GRACE_PERIOD_IN_DAY);
-    }
-
-    @Override
-    public String toString() {
-        return "Book Title: " + bookTitle + "\nBook ID: " + bookID + "\nBook Author: " + bookAuthor
-                + "\nBook Publisher: " + bookPublisher + "\nBook Publication Date: " + publisherDateToString()
-                + "\nBook Price: " + bookPrice;
     }
 }

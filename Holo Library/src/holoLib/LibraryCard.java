@@ -140,6 +140,14 @@ public class LibraryCard {
 		currentBorrowedCount--;
 	}
 
+	public void displayCardDetails(){
+		System.out.println(" Library Card Details ");
+		System.out.println("=======================");
+		System.out.println("Library Card No           : " + cardNO);
+		System.out.printf("Library Card Balance      : RM %.2f ",cardBalance);
+		System.out.println("Library Card Expired Date : " + cardExpDateToString());
+	}
+
 	// toString() method
 	public String toString() {
 		return "Library Card Number: " + cardNO + String.format("\nLibrary Card Balance: %.2f", cardBalance)

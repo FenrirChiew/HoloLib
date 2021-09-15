@@ -207,14 +207,14 @@ public class LibrarySystem {
 		System.out.println("\nTotal Book(s) Found: " + bookList.length + "\n");
 	}
 
-    public void displayBorrowReport(String bookID) {
-        System.out.println("+------------------------------------------+");
-        System.out.println("|              Borrow Receipt              |");
-        System.out.println("+------------------------------------------+");
-        searchBookByID(bookID).displayBookDetails();
-        System.out.println("+------------------------------------------+");
+	public void displayBorrowReport(String bookID) {
+		System.out.println("+------------------------------------------+");
+		System.out.println("|              Borrow Receipt              |");
+		System.out.println("+------------------------------------------+");
+		searchBookByID(bookID).displayBookDetails();
+		System.out.println("+------------------------------------------+");
 
-    }
+	}
 
 	// Display Book Searching Menu
 	public void displayBookSearchingMenu() {
@@ -523,7 +523,6 @@ public class LibrarySystem {
 		System.out.println("++===++======================================++");
 	}
 
-
 	// Capture a menu selection after invoke any menu method
 	public int captureMenuSelection(Scanner sc, int maxMenuSelection) {
 		boolean continueInput = true;
@@ -654,7 +653,6 @@ public class LibrarySystem {
 		return (localDate.getYear() * 365 + localDate.getMonthValue() * 30 + localDate.getDayOfMonth());
 	}
 
-
 	// Login method
 	public void login(String librarianID) {
 		currentLoggedUser = (Librarian) searchLibrarianByID(librarianID);
@@ -662,7 +660,7 @@ public class LibrarySystem {
 
 	/*
 	// HoloLib logo
-	public void Logo() {
+	public static void Logo() {
 		System.out.println("⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
 		System.out.println("⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣀⠠⠤⠤⠤⠤⠤⠤⠤⠤⠤⠐⠒⠒⢄⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
 		System.out.println("⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣀⡠⠤⠄⠒⠒⠂⠤⣀⠄⠄⡠⠒⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠒⢄⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
@@ -689,5 +687,26 @@ public class LibrarySystem {
 		System.out.println("\n");
 		System.out.println("                 Press Enter to start...");
 	}
+
+	public static void EndingScreen() {
+        System.out.println("⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
+		System.out.println("⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣀⠠⠤⠤⠤⠤⠤⠤⠤⠤⠤⠐⠒⠒⢄⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
+		System.out.println("⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣀⡠⠤⠄⠒⠒⠂⠤⣀⠄⠄⡠⠒⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠒⢄⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
+		System.out.println("⠄⠄⠄⠄⠄⠄⠄⠄⢀⠠⠒⠉⠄⠄⠄⠄⠄⠄⠄⠄⠄⠑⠲⣅⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠒⢄⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
+		System.out.println("⠄⠄⠄⠄⠄⣀⠤⠊⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠳⣄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠒⢄⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
+		System.out.println("⠄⠄⠄⡴⢫⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠓⢄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠒⢄⡀⠄⠄⠄⠄⠄⠄⠄⠄");
+		System.out.println("⠄⠄⣰⠇⠄⠱⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠑⢄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠒⢄⡀⠄⠄⠄⠄⠄");
+		System.out.println("⠄⠄⠙⣷⡀⠄⠘⣄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠙⢦⡀⠄⠄⠄⠄⠄⠄⠄⠄⢀⣀⣤⣤⠤⠤⠴⠶⠒⠒⠒⠒⠒⠒⠒⢺⠂⠄⠄⠄⠄");
+		System.out.println("⠄⠄⠄⠘⢿⣄⠄⠈⢆⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠙⢦⡀⠄⠄⢀⡤⠖⠋⠉⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠘⣷⣦⣀⠄⠄");
+		System.out.println("⠄⠄⠄⠄⠈⢻⣆⠄⠄⠣⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣀⣀⡠⠤⠤⠤⠽⣦⣰⠋⠄⠄⠄⠄⠄⣀⣀⣀⣀⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣽⣿⣿⠃⠄");
+		System.out.println("⠄⠄⠄⠄⠄⠄⠹⣧⡀⠄⠱⡄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣠⠤⠒⠋⠉⠄⠄⠄⠄⠄⠄⢠⣾⣥⣤⣄⠄⣠⣶⣿⣿⣿⣿⡿⠿⠿⠿⠛⠛⠛⠛⠉⠉⠉⠉⠁⠄⠄⠄");
+		System.out.println("⠄⠄⠄⠄⠄⠄⠄⠙⣷⡄⠄⠘⢄⠄⠄⠄⠄⠄⠄⣀⠤⠒⠉⠄⠄⠄⠄⠄⠄⠄⣀⣀⣀⣀⣿⣿⣿⣿⡿⠟⠉⠉⠉⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
+		System.out.println("⠄⠄⠄⠄⠄⠄⠄⠄⠘⢿⣄⠄⠈⢢⠄⣀⡠⠔⠋⠁⠄⠄⠄⠄⣀⣤⣴⣾⣿⠿⠟⠛⠉⠙⠛⠋⠉⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
+		System.out.println("⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⢻⣦⠄⠄⡏⠄⠄⠄⠄⢀⣠⣴⣾⡿⠿⠛⠉⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
+		System.out.println("⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠻⣷⣀⡇⠄⣀⣤⣶⠿⠛⠉⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
+		System.out.println("⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠙⣿⡷⠟⠋⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
+		System.out.println("⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
+		System.out.println("\n\n\n\n             Thank you for using our system!\n\n\n");
+    }
 	*/
 }

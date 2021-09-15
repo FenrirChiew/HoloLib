@@ -221,13 +221,13 @@ public class LibrarySystem {
 		System.out.println("\nTotal Book(s) Found: " + bookList.length + "\n");
 	}
 
-	public void displayBorrowReport(String bookID) {
+	public void displayBorrowReceipt(String borrowerID, String bookID) {
 		System.out.println("+------------------------------------------+");
 		System.out.println("|              Borrow Receipt              |");
 		System.out.println("+------------------------------------------+");
 		searchBookByID(bookID).displayBookDetails();
 		System.out.println("+------------------------------------------+");
-
+		System.out.printf("Card Balance: RM %.2f\n", searchBorrowerByID(borrowerID).libraryCard.getCardBalance());
 	}
 
 	// Display Book Searching Menu
@@ -263,7 +263,6 @@ public class LibrarySystem {
 	public Book searchBookByID(String bookID) {
 		for (int i = 0; i < bookList.length; i++) {
 			if (bookList[i].getBookID().indexOf(bookID) != -1) {
-				// System.out.println("\nResult match with \"" + bookID + "\":");
 				return bookList[i];
 			}
 		}
@@ -664,7 +663,7 @@ public class LibrarySystem {
 	}
 
 	// Convert Date to Days
-	public int toDays(LocalDate localDate) {
+	public static int toDays(LocalDate localDate) {
 		return (localDate.getYear() * 365 + localDate.getMonthValue() * 30 + localDate.getDayOfMonth());
 	}
 

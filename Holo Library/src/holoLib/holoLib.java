@@ -154,7 +154,7 @@ public class holoLib {
 								// pay
 								double cash = 20.00;
 								holoLib.searchLibraryCardByCardNO(cardNO).cashOut(cash);
-								System.out.printf("Current Balance: RM .2f\n",
+								System.out.printf("Current Balance: RM %.2f\n",
 										holoLib.searchLibraryCardByCardNO(cardNO).getCardBalance());
 
 								// Display Receipt
@@ -185,7 +185,7 @@ public class holoLib {
 							if (holoLib.captureYesNoChoice(sc, "Confirm Reload").matches("Y")) {
 								holoLib.reloadCardBalance(cardNO, cash);
 								System.out.println("Reload Successfully!");
-								System.out.printf("Card Balance: RM .2f\n",
+								System.out.printf("Card Balance: RM %.2f\n",
 										holoLib.searchLibraryCardByCardNO(cardNO).getCardBalance());
 							} else {
 								System.out.println("Reload Canceled!");

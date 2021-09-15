@@ -66,17 +66,28 @@ public class Member extends Borrower {
 	public void borrowBook(String pinNO, Book book) {
 		if (!(libraryCard.validatePinNO(pinNO))) {
 			System.out.println("\n\tInvalid Pin Number!\n");
-		} else {
+		}
+		else {
+			// check have more than limit of borrow
 			if (libraryCard.getCurrentBorrowedCount() >= MAX_BORROW) {
 				System.out.printf("\n\tYou have reached the Borrow Limit (%d)!\n\n", MAX_BORROW);
-			} else {
-				book.setBorrowed(true);
-				book.setBorrowDate(LocalDate.now());
-				libraryCard.addCurrentBorrowed(book);
-				libraryCard.cashOut(book.getBorrowFees());
+			}
+			else {
+				// check is it enough card balance to pay
+				if(libraryCard.getCardBalance() > book.getBorrowFees()){
+					// pay
+					libraryCard.cashOut(book.getBorrowFees());
 
-				System.out.println("Borrow Success!");
-				System.out.printf("Card Balance: RM .2f\n", libraryCard.getCardBalance());
+					// add to Current Book
+					book.setBorrowed(true);
+					book.setBorrowDate(LocalDate.now());
+					libraryCard.addCurrentBorrowed(book);
+
+					System.out.println("Borrow Success!");
+				}
+				else{
+					System.out.println("Insufficient balance! Borrow failed!");
+				}
 			}
 		}
 	}

@@ -1,7 +1,8 @@
 package holoLib;
 
 public interface Payment {
-    double payPayment(double payment, double balance);
+    void payPayment(double payment);
+    void displayInvoice(Borrower borrower, double payment);
 }
 
 /*

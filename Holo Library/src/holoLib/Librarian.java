@@ -21,10 +21,10 @@ public class Librarian extends Borrower {
 	public Librarian(String name, String icNO, String gender, GregorianCalendar dateOfBirth, String phoneNO,
 			LibraryCard libraryCard, String password, String position) {
 		super(name, icNO, gender, dateOfBirth, phoneNO, libraryCard);
-		this.librarianID = String.format("LB%03d", totalLibrarians + 1);
+		totalLibrarians++;
+		this.librarianID = String.format("LB%03d", totalLibrarians);
 		this.password = password;
 		this.position = position;
-		totalLibrarians++;
 	}
 
 	/********** Accessors & Mutators **********/
@@ -101,17 +101,25 @@ public class Librarian extends Borrower {
 			else {
 				// check is it enough card balance to pay
 				if(libraryCard.getCardBalance() > book.getBorrowFees()) {
-					// pay
+					// pay (Librarian has discount)
 					libraryCard.cashOut(book.getBorrowFees() * BORROWING_RATE);
 
 					// add to Current Book
 					book.setBorrowed(true);
 					book.setBorrowDate(LocalDate.now());
 					libraryCard.addCurrentBorrowed(book);
-					System.out.println("Borrow Success!");
+					System.out.println("Successfully borrowed book!");
+
+					// display receipt
+					System.out.println("+------------------------------------------+");
+					System.out.println("|              Borrow Receipt              |");
+					System.out.println("+------------------------------------------+");
+					book.displayBookDetails();
+					System.out.println("+------------------------------------------+");
+					System.out.printf("Card Balance: RM %.2f\n", libraryCard.getCardBalance());
 				}
 				else{
-					System.out.println("Insufficient balance! Borrow failed!");
+					System.out.println("\n\tInsufficient card balance! Repeal book borrow action!");
 				}
 			}
 		}

@@ -153,7 +153,7 @@ public class Book {
         borrowFees = bookPrice * 0.1;
     }
 
-    public static double calPenalty(int dayBorrowed) {
+    public double calPenalty(int dayBorrowed) {
         return PENALTY_RATE * (dayBorrowed - MAX_GRACE_PERIOD_IN_DAY);
     }
 

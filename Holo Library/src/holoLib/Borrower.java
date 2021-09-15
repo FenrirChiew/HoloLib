@@ -1,8 +1,6 @@
 package holoLib;
 
-import java.time.Duration;
 import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public abstract class Borrower {
@@ -13,6 +11,7 @@ public abstract class Borrower {
 	protected GregorianCalendar dateOfBirth;
 	protected String phoneNO;
 	protected LibraryCard libraryCard;
+	private static int totalBorrowers = 0; 
 
 	/********** Constructors **********/
 	protected Borrower() {
@@ -27,9 +26,14 @@ public abstract class Borrower {
 		this.dateOfBirth = dateOfBirth;
 		this.phoneNO = phoneNO;
 		this.libraryCard = libraryCard;
+		totalBorrowers++;
 	}
 
 	/********** Methods **********/
+	public static int getTotalBorrowers() {
+		return totalBorrowers;
+	}
+
 	public abstract void displayBorrowerDetails();
 
 	public abstract void borrowBook(String pinNO, Book book);
@@ -39,25 +43,35 @@ public abstract class Borrower {
 
 		if (!(libraryCard.validatePinNO(pinNo))) {
 			System.out.println("\n\tInvalid Pin Number!\n");
-		} else {
+		} 
+		else {
 			for (int i = 0; i < libraryCard.getCurrentBorrowedCount(); i++) {
 				// find the book borrow record in current borrowed
 				if (libraryCard.getCurrentBorrowed()[i].getBookID().matches(book.getBookID())) {
 					daysBetween = LibrarySystem.toDays(LocalDate.now()) - LibrarySystem.toDays(libraryCard.getCurrentBorrowed()[i].getBorrowDate());
 
+					// if borrow more than Max Grace Period
 					if (daysBetween > Book.getMaxGracePeriodInDay()) {
 						System.out.println("Day Exceeded: " + (daysBetween - Book.getMaxGracePeriodInDay()));
-						System.out.printf("Penalty: RM %.2f\n", Book.calPenalty(daysBetween));
-						libraryCard.cashOut(Book.calPenalty(daysBetween));
+						System.out.printf("Penalty: RM %.2f\n", book.calPenalty(daysBetween));
+
+						// check is it enough card balance to pay
+						if(libraryCard.getCardBalance() > book.calPenalty(daysBetween)) {
+							libraryCard.cashOut(book.calPenalty(daysBetween));
+						}
+						else{
+							System.out.println("\n\tInsufficient card balance! Repeal book return action!!");
+						}
 					}
-					// remove the book record from current borrowed
+					// remove the book record
 					libraryCard.removeBorrow(i);
 					book.setBorrowed(false);
 					book.setReturnDate(LocalDate.now());
+
 					// remove the book record from current borrowed
 					libraryCard.removeBorrow(i);
 
-					System.out.println("Book Returned!");
+					System.out.println("Successfully returned book!");
 					System.out.printf("Card Balance: RM %.2f\n", libraryCard.getCardBalance());
 				}
 			}

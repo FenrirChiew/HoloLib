@@ -18,8 +18,8 @@ public class Member extends Borrower {
 	public Member(String name, String icNO, String gender, GregorianCalendar dateOfBirth, String phoneNO,
 			LibraryCard libraryCard) {
 		super(name, icNO, gender, dateOfBirth, phoneNO, libraryCard);
-		this.memberID = String.format("MB%03d", totalMembers + 1);
 		totalMembers++;
+		this.memberID = String.format("MB%03d", totalMembers);
 	}
 
 	/********** Accessors & Mutators **********/
@@ -83,10 +83,18 @@ public class Member extends Borrower {
 					book.setBorrowDate(LocalDate.now());
 					libraryCard.addCurrentBorrowed(book);
 
-					System.out.println("Borrow Success!");
+					System.out.println("Successfully borrowed book!");
+					
+					// display receipt
+					System.out.println("+------------------------------------------+");
+					System.out.println("|              Borrow Receipt              |");
+					System.out.println("+------------------------------------------+");
+					book.displayBookDetails();
+					System.out.println("+------------------------------------------+");
+					System.out.printf("Card Balance: RM %.2f\n", libraryCard.getCardBalance());
 				}
 				else{
-					System.out.println("Insufficient balance! Borrow failed!");
+					System.out.println("\n\tInsufficient card balance! Repeal book borrow action!");
 				}
 			}
 		}

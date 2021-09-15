@@ -1,9 +1,10 @@
 package holoLib;
 
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class LibraryCard {
+public class LibraryCard implements Payment {
 	/********** Properties **********/
 	private String cardNO;
 	private String pinNO;
@@ -19,13 +20,14 @@ public class LibraryCard {
 
 	/********** Constructors **********/
 	public LibraryCard() {
-		this("", null);
+		this("", null, 0.0);
 	}
 
-	public LibraryCard(String pinNO, GregorianCalendar cardExpDate) {
+	public LibraryCard(String pinNO, GregorianCalendar cardExpDate, double cardBalance) {
 		this.cardNO = String.format("LC%03d", totalCards + 1);
 		this.pinNO = pinNO;
 		this.cardExpDate = cardExpDate;
+		this.cardBalance = cardBalance;
 		totalCards++;
 	}
 
@@ -97,7 +99,7 @@ public class LibraryCard {
 	/********** Methods **********/
 	public boolean validatePinNO(String pinNO) {
 		if (!this.pinNO.matches(pinNO)) {
-			System.out.println("\n\tInvalid Pin Number! Please try again...");
+			// System.out.println("\n\tInvalid Pin Number! Please try again...");
 			return false;
 		}
 
@@ -118,8 +120,8 @@ public class LibraryCard {
 	}
 
 	public void renewCardExpDate() {
-		cardExpDate.set(cardExpDate.get(Calendar.DAY_OF_MONTH), cardExpDate.get(Calendar.MONTH),
-				cardExpDate.get(Calendar.YEAR) + 1);
+		cardExpDate.set(cardExpDate.get(Calendar.YEAR) + 1, cardExpDate.get(Calendar.MONTH),
+				cardExpDate.get(Calendar.DAY_OF_MONTH));
 	}
 
 	public void addCurrentBorrowed(Book book) {
@@ -127,27 +129,59 @@ public class LibraryCard {
 		currentBorrowedCount++;
 	}
 
-	public void removeBorrow(int index){
+	public void removeBorrow(int index) {
+		// move borrow record from currenBorrowed to borrowedHistory
 		borrowedHistory[borrowedHistoryCount] = currentBorrowed[index];
 		borrowedHistoryCount++;
+		// & returnedBook
 		returnedBook[returnedBookCount] = currentBorrowed[index];
 		returnedBookCount++;
 
 		// remove book details from currentBorrowed
-		for(int i = index; i < currentBorrowed.length; i++){
-			currentBorrowed[i] = currentBorrowed[i+1];
+		for (int i = index; i < currentBorrowedCount; i++) {
+			currentBorrowed[i] = currentBorrowed[i + 1];
 		}
 		currentBorrowedCount--;
 	}
 
-	public void displayCardDetails(){
-		System.out.println(" Library Card Details ");
-		System.out.println("=======================");
-		System.out.println("Library Card No           : " + cardNO);
-		System.out.printf("Library Card Balance      : RM %.2f ",cardBalance);
+	public void displayCardDetails() {
+		System.out.println("============================================");
+		System.out.println("            Library Card Details");
+		System.out.println("============================================");
+		System.out.println("Library Card Number       : " + cardNO);
+		System.out.printf("Library Card Balance      : RM %.2f \n", cardBalance);
 		System.out.println("Library Card Expired Date : " + cardExpDateToString());
+		System.out.println("============================================");
 	}
 
+	@Override
+	public void payPayment(double payment) {
+		cardBalance -= payment;
+	}
+
+	@Override
+	public void displayInvoice(Borrower borrower, double payment) {
+		LocalDateTime dt = LocalDateTime.now();
+		System.out.println("==============================++===========");
+		System.out.println("  Thank You,                  ||   HOLO    ");
+		System.out.println("  Here's Your Receipt         ||  LIBRARY  ");
+		System.out.println("==============================++===========");
+		System.out.println("  Invoice ID           : " + dt.getYear() + dt.getMonthValue() + dt.getYear() + dt.getHour()
+				+ dt.getMinute() + dt.getSecond());
+		System.out.println("  Borrower Name        : " + borrower.name);
+		System.out.printf("  Borrower ID          : ");
+		if (borrower instanceof Member) {
+			System.out.println(((Member) borrower).getMemberID());
+		} else if (borrower instanceof Member) {
+			System.out.println(((Librarian) borrower).getLibrarianID());
+		}
+		System.out.println("  Library Card Number  : " + cardNO);
+		System.out.printf("  Payment Amount       : RM .2f", payment);
+		System.out.printf("  Library Card Balance : RM .2f", cardBalance);
+		System.out.println("===========================================");
+	}
+
+	@Override
 	// toString() method
 	public String toString() {
 		return "Library Card Number: " + cardNO + String.format("\nLibrary Card Balance: %.2f", cardBalance)

@@ -6,7 +6,6 @@ import java.time.Year;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
-import java.time.Duration;
 
 public class LibrarySystem {
 	/********** Properties **********/
@@ -173,7 +172,7 @@ public class LibrarySystem {
 
 	// Display Borrow Menu
 	public void displayBorrowMenu() {
-		System.out.println("\n++=========================++");
+		System.out.println("++=========================++");
 		System.out.println("||     Book Borrowing      ||");
 		System.out.println("++=========================++");
 		System.out.println("|| 1 ||  Display Book      ||");
@@ -185,38 +184,41 @@ public class LibrarySystem {
 	}
 
 	public void displayBook() {
-		System.out.println("++======================++");
-		System.out.println("||     Display Book      ||");
+		System.out.println("\n++======================++");
+		System.out.println("||     Display Book     ||");
 		System.out.println(
-				"++====++==========================================++=========++=========================++==========================================++=======================++============++========++============++");
+				"++====++==========================================++=========++=========================++================================++=======================++============++========++============++");
 		System.out.println(
-				"|| NO ||                Book Title                || Book ID ||       Book Author       ||              Book Publisher              || Book Publication Date || Book Price || Status || Borrow Fee ||");
+				"|| NO ||                Book Title                || Book ID ||       Book Author       ||         Book Publisher         || Book Publication Date || Book Price || Status || Borrow Fee ||");
 		System.out.println(
-				"++====++==========================================++=========++=========================++==========================================++=======================++============++========||============++");
+				"++====++==========================================++=========++=========================++================================++=======================++============++========||============++");
 
 		for (int i = 0; i < bookList.length; i++) {
-			System.out.printf("|| %02d || %-40s || %-7s || %-23s || %-40s || %-21s || %-10.2f || %-6s || %-10.2f ||\n",
+			if(i > 0){
+				System.out.println("++----++------------------------------------------++---------++-------------------------++--------------------------------++-----------------------++------------++--------++------------++");
+			}
+			System.out.printf("|| %02d || %-40s || %-7s || %-23s || %-30s || %-21s || %-10.2f || %-6s || %-10.2f ||\n",
 					i + 1, bookList[i].getBookTitle(), bookList[i].getBookID(), bookList[i].getBookAuthor(),
 					bookList[i].getBookPublisher(), bookList[i].publisherDateToString(), bookList[i].getBookPrice(),
 					bookList[i].isBorrowed(), bookList[i].getBorrowFees());
-			System.out.println(
-					"++====++==========================================++=========++=========================++==========================================++=======================++============++========||============++");
 		}
-		System.out.println("\nTotal Book(s) Found: " + bookList.length + "\n\n");
+		System.out.println(
+				"++====++==========================================++=========++=========================++================================++=======================++============++========||============++");
+		System.out.println("\nTotal Book(s) Found: " + bookList.length + "\n");
 	}
 
-	public void displayBorrowReport(String bookID) {
-		System.out.println("+------------------------------------------+");
-		System.out.println("|              Borrow Receipt              |");
-		System.out.println("+------------------------------------------+");
-		searchBookByID(bookID).displayBookDetails();
-		System.out.println("+------------------------------------------+");
+    public void displayBorrowReport(String bookID) {
+        System.out.println("+------------------------------------------+");
+        System.out.println("|              Borrow Receipt              |");
+        System.out.println("+------------------------------------------+");
+        searchBookByID(bookID).displayBookDetails();
+        System.out.println("+------------------------------------------+");
 
-	}
+    }
 
 	// Display Book Searching Menu
 	public void displayBookSearchingMenu() {
-		System.out.println("\n++===============================++");
+		System.out.println("++===============================++");
 		System.out.println("||          Search Book          ||");
 		System.out.println("++===============================++");
 		System.out.println("|| Search By:                    ||");
@@ -301,14 +303,14 @@ public class LibrarySystem {
 
 		System.out.println("                        Daily Book Borrowed Report for " + LocalDate.now().getDayOfMonth()
 				+ "/" + LocalDate.now().getMonthValue() + "/" + LocalDate.now().getYear());
-		System.out.println("+===================================================================================+");
-		System.out.println("|        Book Name        |      Book ID      |    Borrower Name   |   Borrower ID  |  ");
+		System.out.println("+========================================+===================+====================+================+");
+		System.out.println("|               Book Title               |      Book ID      |    Borrower Name   |   Borrower ID  |  ");
 		for (int i = 0; i < member.length; i++) {
 			if (member[i].libraryCard.getCurrentBorrowed().length > 0) {
 				for (int j = 0; j < member[i].libraryCard.getCurrentBorrowed().length; j++) {
 					Book book = member[i].libraryCard.getCurrentBorrowed()[j];
 					if (book.getBorrowDate() == LocalDate.now()) {
-						System.out.printf("|%-25s|%-19s|%-20s|%-16s|", book.getBookTitle(), book.getBookID(),
+						System.out.printf("|%-40s|%-19s|%-20s|%-16s|", book.getBookTitle(), book.getBookID(),
 								member[i].name, member[i].getMemberID());
 						count++;
 					}
@@ -321,7 +323,7 @@ public class LibrarySystem {
 				for (int j = 0; j < librarian[i].libraryCard.getCurrentBorrowed().length; j++) {
 					Book book = librarian[i].libraryCard.getCurrentBorrowed()[j];
 					if (book.getBorrowDate() == LocalDate.now()) {
-						System.out.printf("|%-25s|%-19s|%-20s|%-16s|", book.getBookTitle(), book.getBookID(),
+						System.out.printf("| %-40s | %-19s | %-20s | %-16s |", book.getBookTitle(), book.getBookID(),
 								librarian[i].name, librarian[i].getLibrarianID());
 						count++;
 					}
@@ -329,7 +331,7 @@ public class LibrarySystem {
 			}
 
 		}
-		System.out.println("+===================================================================================+");
+		System.out.println("+========================================+===================+====================+================+");
 		System.out.println("Total count book borrowed: " + count);
 
 	}
@@ -339,14 +341,14 @@ public class LibrarySystem {
 
 		System.out.println("                        Daily Book Returned Report for " + LocalDate.now().getDayOfMonth()
 				+ "/" + LocalDate.now().getMonthValue() + "/" + LocalDate.now().getYear());
-		System.out.println("+===================================================================================+");
-		System.out.println("|        Book Name        |      Book ID      |    Borrower Name   |   Borrower ID  |  ");
+		System.out.println("+========================================+===================+====================+================+");
+		System.out.println("|               Book Title               |      Book ID      |    Borrower Name   |   Borrower ID  |  ");
 		for (int i = 0; i < member.length; i++) {
 			if (member[i].libraryCard.getBorrowedHistory().length > 0) {
 				for (int j = 0; j < member[i].libraryCard.getBorrowedHistory().length; j++) {
 					Book book = member[i].libraryCard.getBorrowedHistory()[j];
 					if (book.getReturnDate() == LocalDate.now()) {
-						System.out.printf("|%-25s|%-19s|%-20s|%-16s|", book.getBookTitle(), book.getBookID(),
+						System.out.printf("| %-40s | %-19s | %-20s | %-16s |", book.getBookTitle(), book.getBookID(),
 								member[i].name, member[i].getMemberID());
 						count++;
 					}
@@ -359,7 +361,7 @@ public class LibrarySystem {
 				for (int j = 0; j < librarian[i].libraryCard.getBorrowedHistory().length; j++) {
 					Book book = librarian[i].libraryCard.getBorrowedHistory()[j];
 					if (book.getReturnDate() == LocalDate.now()) {
-						System.out.printf("|%-25s|%-19s|%-20s|%-16s|", book.getBookTitle(), book.getBookID(),
+						System.out.printf("| %-40s | %-19s | %-20s | %-16s |", book.getBookTitle(), book.getBookID(),
 								librarian[i].name, librarian[i].getLibrarianID());
 						count++;
 					}
@@ -367,15 +369,8 @@ public class LibrarySystem {
 			}
 
 		}
-		System.out.println("+===================================================================================+");
-		System.out.println("Total count book retruned: " + count);
-
-		// searchbookbyid method return book
-		// return book method --> LibraryCard no, bookID (parameter)
-		// searchborrowerbyid return borrower
-		// searchborrawablebyid
-
-		// static arrayborrawable object --> variable returnedBook
+		System.out.println("+========================================+===================+====================+================+");
+		System.out.println("Total count book returned: " + count);
 	}
 
 	public void expiredMembershipReport(Member[] member, Librarian[] librarian) {
@@ -528,6 +523,7 @@ public class LibrarySystem {
 		System.out.println("++===++======================================++");
 	}
 
+
 	// Capture a menu selection after invoke any menu method
 	public int captureMenuSelection(Scanner sc, int maxMenuSelection) {
 		boolean continueInput = true;
@@ -658,53 +654,40 @@ public class LibrarySystem {
 		return (localDate.getYear() * 365 + localDate.getMonthValue() * 30 + localDate.getDayOfMonth());
 	}
 
+
 	// Login method
 	public void login(String librarianID) {
 		currentLoggedUser = (Librarian) searchLibrarianByID(librarianID);
 	}
 
 	/*
-	 * // HoloLib logo public void Logo() { System.out.println(
-	 * "⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
-	 * System.out.println(
-	 * "⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣀⠠⠤⠤⠤⠤⠤⠤⠤⠤⠤⠐⠒⠒⢄⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
-	 * System.out.println(
-	 * "⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣀⡠⠤⠄⠒⠒⠂⠤⣀⠄⠄⡠⠒⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠒⢄⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
-	 * System.out.println(
-	 * "⠄⠄⠄⠄⠄⠄⠄⠄⢀⠠⠒⠉⠄⠄⠄⠄⠄⠄⠄⠄⠄⠑⠲⣅⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠒⢄⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
-	 * System.out.println(
-	 * "⠄⠄⠄⠄⠄⣀⠤⠊⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠳⣄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠒⢄⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
-	 * System.out.println(
-	 * "⠄⠄⠄⡴⢫⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠓⢄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠒⢄⡀⠄⠄⠄⠄⠄⠄⠄⠄");
-	 * System.out.println(
-	 * "⠄⠄⣰⠇⠄⠱⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠑⢄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠒⢄⡀⠄⠄⠄⠄⠄");
-	 * System.out.println(
-	 * "⠄⠄⠙⣷⡀⠄⠘⣄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠙⢦⡀⠄⠄⠄⠄⠄⠄⠄⠄⢀⣀⣤⣤⠤⠤⠴⠶⠒⠒⠒⠒⠒⠒⠒⢺⠂⠄⠄⠄⠄");
-	 * System.out.println(
-	 * "⠄⠄⠄⠘⢿⣄⠄⠈⢆⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠙⢦⡀⠄⠄⢀⡤⠖⠋⠉⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠘⣷⣦⣀⠄⠄");
-	 * System.out.println(
-	 * "⠄⠄⠄⠄⠈⢻⣆⠄⠄⠣⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣀⣀⡠⠤⠤⠤⠽⣦⣰⠋⠄⠄⠄⠄⠄⣀⣀⣀⣀⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣽⣿⣿⠃⠄");
-	 * System.out.println(
-	 * "⠄⠄⠄⠄⠄⠄⠹⣧⡀⠄⠱⡄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣠⠤⠒⠋⠉⠄⠄⠄⠄⠄⠄⢠⣾⣥⣤⣄⠄⣠⣶⣿⣿⣿⣿⡿⠿⠿⠿⠛⠛⠛⠛⠉⠉⠉⠉⠁⠄⠄⠄");
-	 * System.out.println(
-	 * "⠄⠄⠄⠄⠄⠄⠄⠙⣷⡄⠄⠘⢄⠄⠄⠄⠄⠄⠄⣀⠤⠒⠉⠄⠄⠄⠄⠄⠄⠄⣀⣀⣀⣀⣿⣿⣿⣿⡿⠟⠉⠉⠉⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
-	 * System.out.println(
-	 * "⠄⠄⠄⠄⠄⠄⠄⠄⠘⢿⣄⠄⠈⢢⠄⣀⡠⠔⠋⠁⠄⠄⠄⠄⣀⣤⣴⣾⣿⠿⠟⠛⠉⠙⠛⠋⠉⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
-	 * System.out.println(
-	 * "⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⢻⣦⠄⠄⡏⠄⠄⠄⠄⢀⣠⣴⣾⡿⠿⠛⠉⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
-	 * System.out.println(
-	 * "⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠻⣷⣀⡇⠄⣀⣤⣶⠿⠛⠉⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
-	 * System.out.println(
-	 * "⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠙⣿⡷⠟⠋⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
-	 * System.out.println(
-	 * "⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
-	 * System.out.println("\n");
-	 * System.out.println("⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⣿⣿⣿⠀");
-	 * System.out.println("⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⣿⠀⠀⠀⣿");
-	 * System.out.println("⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⣿⣿⣿⣿");
-	 * System.out.println("⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⣿⠀⠀⠀⣿");
-	 * System.out.println("⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⣿⣿⣿⠀");
-	 * System.out.println("\n");
-	 * System.out.println("                 Press Enter to start..."); }
-	 */
+	// HoloLib logo
+	public void Logo() {
+		System.out.println("⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
+		System.out.println("⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣀⠠⠤⠤⠤⠤⠤⠤⠤⠤⠤⠐⠒⠒⢄⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
+		System.out.println("⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣀⡠⠤⠄⠒⠒⠂⠤⣀⠄⠄⡠⠒⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠒⢄⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
+		System.out.println("⠄⠄⠄⠄⠄⠄⠄⠄⢀⠠⠒⠉⠄⠄⠄⠄⠄⠄⠄⠄⠄⠑⠲⣅⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠒⢄⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
+		System.out.println("⠄⠄⠄⠄⠄⣀⠤⠊⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠳⣄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠒⢄⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
+		System.out.println("⠄⠄⠄⡴⢫⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠓⢄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠒⢄⡀⠄⠄⠄⠄⠄⠄⠄⠄");
+		System.out.println("⠄⠄⣰⠇⠄⠱⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠑⢄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠒⢄⡀⠄⠄⠄⠄⠄");
+		System.out.println("⠄⠄⠙⣷⡀⠄⠘⣄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠙⢦⡀⠄⠄⠄⠄⠄⠄⠄⠄⢀⣀⣤⣤⠤⠤⠴⠶⠒⠒⠒⠒⠒⠒⠒⢺⠂⠄⠄⠄⠄");
+		System.out.println("⠄⠄⠄⠘⢿⣄⠄⠈⢆⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠙⢦⡀⠄⠄⢀⡤⠖⠋⠉⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠘⣷⣦⣀⠄⠄");
+		System.out.println("⠄⠄⠄⠄⠈⢻⣆⠄⠄⠣⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣀⣀⡠⠤⠤⠤⠽⣦⣰⠋⠄⠄⠄⠄⠄⣀⣀⣀⣀⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣽⣿⣿⠃⠄");
+		System.out.println("⠄⠄⠄⠄⠄⠄⠹⣧⡀⠄⠱⡄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣠⠤⠒⠋⠉⠄⠄⠄⠄⠄⠄⢠⣾⣥⣤⣄⠄⣠⣶⣿⣿⣿⣿⡿⠿⠿⠿⠛⠛⠛⠛⠉⠉⠉⠉⠁⠄⠄⠄");
+		System.out.println("⠄⠄⠄⠄⠄⠄⠄⠙⣷⡄⠄⠘⢄⠄⠄⠄⠄⠄⠄⣀⠤⠒⠉⠄⠄⠄⠄⠄⠄⠄⣀⣀⣀⣀⣿⣿⣿⣿⡿⠟⠉⠉⠉⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
+		System.out.println("⠄⠄⠄⠄⠄⠄⠄⠄⠘⢿⣄⠄⠈⢢⠄⣀⡠⠔⠋⠁⠄⠄⠄⠄⣀⣤⣴⣾⣿⠿⠟⠛⠉⠙⠛⠋⠉⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
+		System.out.println("⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⢻⣦⠄⠄⡏⠄⠄⠄⠄⢀⣠⣴⣾⡿⠿⠛⠉⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
+		System.out.println("⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠻⣷⣀⡇⠄⣀⣤⣶⠿⠛⠉⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
+		System.out.println("⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠙⣿⡷⠟⠋⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
+		System.out.println("⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
+		System.out.println("\n");
+		System.out.println("⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⣿⣿⣿⠀");
+		System.out.println("⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⣿⠀⠀⠀⣿");
+		System.out.println("⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⣿⣿⣿⣿");
+		System.out.println("⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⣿⠀⠀⠀⣿");
+		System.out.println("⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⣿⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⣿⣿⣿⣿⠀⠀⣿⣿⣿⣿⠀");
+		System.out.println("\n");
+		System.out.println("                 Press Enter to start...");
+	}
+	*/
 }

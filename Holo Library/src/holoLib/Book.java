@@ -31,7 +31,7 @@ public class Book {
     public Book(String bookTitle, String bookAuthor, String bookPublisher, GregorianCalendar bookPublicationDate,
             double bookPrice) {
         this.bookTitle = bookTitle;
-        bookID = String.format("BK%03d", totalBooks);
+        bookID = String.format("BK%03d", totalBooks + 1);
         this.bookAuthor = bookAuthor;
         this.bookPublisher = bookPublisher;
         this.bookPublicationDate = bookPublicationDate;

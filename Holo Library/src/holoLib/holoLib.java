@@ -33,7 +33,7 @@ public class holoLib {
 		memberList[3] = new Member("Branch Horn", "888888-88-8888", "Female", new GregorianCalendar(2004, 4, 30),
 				"888-8888888", new LibraryCard("080808", new GregorianCalendar(2022, 1, 1)));
 
-		Book[] book = new Book[100];
+		// Book[] bookList = new Book[100];
 		Book[] bookList = {
 				new Book("Effective Java", "Joshua Bloch", "Addison-Wesley Professional", new GregorianCalendar(2017, 12, 27), 185.88),
 				new Book("HTML and CSS: Design and Build Websites", "Jon Duckett", "John Wiley&Sonc Inc", new GregorianCalendar(2011, 11, 18), 124.02),

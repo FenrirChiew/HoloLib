@@ -26,10 +26,14 @@ public class Member extends Borrower {
 		return memberID;
 	}
 
+	public static int getTotalMembers() {
+		return totalMembers;
+	}
+
 	/********** Methods **********/
 	@Override
 	public void displayBorrowerDetails() {
-		System.out.println("========================");
+		System.out.println("\n========================");
 		System.out.println("Library Borrower Details");
 		System.out.println("========================");
 		System.out.println("Name           : " + name);

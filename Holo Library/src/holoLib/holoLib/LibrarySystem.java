@@ -219,7 +219,7 @@ public class LibrarySystem {
 	}
 
 	public Borrower searchLibrarianByID(String librarianID) {
-		for (int i = 0; i < Librarian.getBorrowingRate(); i++) {
+		for (int i = 0; i < Borrower.getTotalBorrowers(); i++) {
 			if (borrowerList[i] instanceof Librarian) {
 				if (((Librarian) borrowerList[i]).getLibrarianID().matches(librarianID)) {
 					return borrowerList[i];
@@ -476,13 +476,19 @@ public class LibrarySystem {
 		System.out.println("                        Daily Book Borrowed Report for " + LocalDate.now().getDayOfMonth()
 				+ "/" + LocalDate.now().getMonthValue() + "/" + LocalDate.now().getYear());
 		System.out.println(
-				"+========================================+===================+====================+================+");
+				"+==========================================+=====================+======================+==================+");
 		System.out.println(
-				"|               Book Title               |      Book ID      |    Borrower Name   |   Borrower ID  |  ");
+				"|                Book Title                |       Book ID       |     Borrower Name    |    Borrower ID   |  ");
+		System.out.println(
+				"+==========================================+=====================+======================+==================+");
 		for (int i = 0; i < Borrower.getTotalBorrowers(); i++) {
 			if (borrowerList[i].libraryCard.getCurrentBorrowedCount() > 0) {
 				for (int j = 0; j < borrowerList[i].libraryCard.getCurrentBorrowedCount(); j++) {
-					if (borrowerList[i].libraryCard.getCurrentBorrowed()[j].getBorrowDate() == LocalDate.now()) {
+					if (toDays(borrowerList[i].libraryCard.getCurrentBorrowed()[j].getBorrowDate()) == toDays(LocalDate.now())) {
+						if(i > 0){
+							System.out.println(
+									"+------------------------------------------+---------------------+-----------------------+-----------------+");
+						}
 						System.out.printf("| %-40s | %-19s | %-20s |",
 								borrowerList[i].libraryCard.getCurrentBorrowed()[j].getBookTitle(),
 								borrowerList[i].libraryCard.getCurrentBorrowed()[j].getBookID(), borrowerList[i].name);
@@ -497,7 +503,7 @@ public class LibrarySystem {
 			}
 		}
 		System.out.println(
-				"+========================================+===================+====================+================+");
+				"+==========================================+=====================+======================+==================+");
 		System.out.println("Total count book borrowed: " + count);
 	}
 
@@ -506,13 +512,21 @@ public class LibrarySystem {
 		System.out.println("                        Daily Book Returned Report for " + LocalDate.now().getDayOfMonth()
 				+ "/" + LocalDate.now().getMonthValue() + "/" + LocalDate.now().getYear());
 		System.out.println(
-				"+========================================+===================+====================+================+");
+				"+==========================================+=====================+======================+==================+");
 		System.out.println(
-				"|               Book Title               |      Book ID      |    Borrower Name   |   Borrower ID  |  ");
+				"|                 Book Title               |       Book ID       |     Borrower Name    |    Borrower ID   |  ");
+		System.out.println(
+				"+==========================================+=====================+======================+==================+");
+
 		for (int i = 0; i < Borrower.getTotalBorrowers(); i++) {
-			if (borrowerList[i].libraryCard.getBorrowedHistory().length > 0) {
+
+			if (borrowerList[i].libraryCard.getBorrowedHistoryCount() > 0) {
 				for (int j = 0; j < borrowerList[i].libraryCard.getBorrowedHistoryCount(); j++) {
-					if (borrowerList[i].libraryCard.getCurrentBorrowed()[j].getReturnDate() == LocalDate.now()) {
+					if (toDays(borrowerList[i].libraryCard.getBorrowedHistory()[j].getReturnDate()) == toDays(LocalDate.now())) {
+						if(i > 0){
+							System.out.println(
+									"+-----------------------------------------+---------------------+---------------------+------------------+");
+						}
 						System.out.printf("| %-40s | %-19s | %-20s |",
 								borrowerList[i].libraryCard.getBorrowedHistory()[j].getBookTitle(),
 								borrowerList[i].libraryCard.getBorrowedHistory()[j].getBookID(), borrowerList[i].name);
@@ -527,11 +541,11 @@ public class LibrarySystem {
 			}
 		}
 		System.out.println(
-				"+========================================+===================+====================+================+");
+				"+==========================================+=====================+======================+==================+");
 		System.out.println("Total count book returned: " + count);
 	}
 
-	public void expiredMembershipReport() {
+	public void displayExpiredMembershipReport() {
 		int count = 0;
 		System.out.println(
 				"                               Library Card Expired Report                                   ");

@@ -32,9 +32,9 @@ public class holoLib {
 		Book[] bookList = new Book[100];
 
 		bookList[0] = new Book("Effective Java", "Joshua Bloch", "Addison-Wesley Professional",
-				new GregorianCalendar(2017, 12, 27), 185.88);
+				new GregorianCalendar(2017, 11, 27), 185.88);
 		bookList[1] = new Book("HTML and CSS: Design and Build Websites", "Jon Duckett", "John Wiley&Sonc Inc",
-				new GregorianCalendar(2011, 11, 18), 124.02);
+				new GregorianCalendar(2011, 10, 18), 124.02);
 		bookList[2] = new Book("I Had That Same Dream Again", "Yoru Sumino", "Seven Seas Entertainment,LLC",
 				new GregorianCalendar(2020, 7, 7), 58.02);
 		bookList[3] = new Book("Your Name", "Makoto Shinkai", "Little,Brown&Company",
@@ -44,16 +44,17 @@ public class holoLib {
 
 		LibrarySystem holoLib = new LibrarySystem(borrowerList, bookList);
 		boolean isLogin = false;
-		int selection;
+		int selection1;
+		int selection2;
 
 		do {
 			cls();
 			// Welcome Screen
 			holoLib.welcomeScreen();
-			selection = holoLib.captureMenuSelection(sc, 1);
+			selection1 = holoLib.captureMenuSelection(sc, 1);
 			cls();
 
-			switch (selection) {
+			switch (selection1) {
 				// 0. Terminate
 				case 0:
 					break;
@@ -64,6 +65,10 @@ public class holoLib {
 
 					String librarianID;
 					do {
+						// for(int i = 0; i < Borrower.getTotalBorrowers(); i++){
+						// System.out.println("Borrower ID: "+
+						// ((Librarian)borrowerList[i]).getLibrarianID());
+						// }
 						System.out.print("Librarian ID: ");
 						librarianID = sc.nextLine();
 					} while (!holoLib.validateStringFormat("Librarian ID", librarianID, "LB[0-9]{3}"));
@@ -98,10 +103,10 @@ public class holoLib {
 				cls();
 				do {
 					holoLib.displayHomeMenu();
-					selection = holoLib.captureMenuSelection(sc, 4);
+					selection1 = holoLib.captureMenuSelection(sc, 4);
 					cls();
 
-					switch (selection) {
+					switch (selection1) {
 						// 0. Logout
 						case 0:
 							isLogin = false;
@@ -112,10 +117,10 @@ public class holoLib {
 							do {
 								cls();
 								holoLib.displayMembershipMenu();
-								selection = holoLib.captureMenuSelection(sc, 4);
+								selection2 = holoLib.captureMenuSelection(sc, 4);
 								cls();
 
-								switch (selection) {
+								switch (selection2) {
 									// 0. Back to Home
 									case 0:
 										break;
@@ -125,6 +130,10 @@ public class holoLib {
 											cls();
 											String name;
 											do {
+												System.out.println("\n========================");
+												System.out.println("   Register Membership  ");
+												System.out.println("========================");
+
 												System.out.print("Name: ");
 												name = sc.nextLine();
 											} while (!holoLib.validateStringFormat("Name", name,
@@ -174,6 +183,10 @@ public class holoLib {
 									// 2. Card Renewal
 									case 2:
 										do {
+											System.out.println("\n========================");
+											System.out.println("       Card Renewal     ");
+											System.out.println("========================");
+
 											String cardNO;
 											do {
 												System.out.print("Library Card Number: ");
@@ -196,8 +209,6 @@ public class holoLib {
 															.getCardBalance() >= cash) {
 														holoLib.searchLibraryCardByCardNO(cardNO).cashOut(cash);
 														holoLib.searchLibraryCardByCardNO(cardNO).renewCardExpDate();
-														holoLib.searchBorrowerByCardNO(cardNO).libraryCard
-																.displayCardDetails();
 														System.out.println("Renewal Successfully!");
 														holoLib.searchLibraryCardByCardNO(cardNO).displayInvoice(
 																holoLib.searchBorrowerByCardNO(cardNO), cash);
@@ -214,6 +225,10 @@ public class holoLib {
 									// 3. Reload Card Balance
 									case 3:
 										do {
+											System.out.println("\n========================");
+											System.out.println("   Reload Card Balance  ");
+											System.out.println("========================");
+
 											String cardNO;
 											do {
 												System.out.print("Library Card Number: ");
@@ -244,6 +259,10 @@ public class holoLib {
 									// 4. Search Borrower
 									case 4:
 										do {
+											System.out.println("\n========================");
+											System.out.println("     Search Borrower    ");
+											System.out.println("========================");
+
 											String borrowerID;
 											do {
 												System.out.print("Member/Librarian ID: ");
@@ -261,7 +280,7 @@ public class holoLib {
 												.matches("Y"));
 										break;
 								}
-							} while (selection != 0);
+							} while (selection2 != 0);
 							break;
 						// 2. Book Borrowing
 						case 2:
@@ -269,10 +288,10 @@ public class holoLib {
 							do {
 								cls();
 								holoLib.displayBorrowMenu();
-								selection = holoLib.captureMenuSelection(sc, 4);
+								selection2 = holoLib.captureMenuSelection(sc, 4);
 								cls();
 
-								switch (selection) {
+								switch (selection2) {
 									// 0. Back to Home
 									case 0:
 										break;
@@ -336,18 +355,13 @@ public class holoLib {
 													holoLib.searchBookByPublisher(publisher);
 													break;
 											}
-											System.out.print("\n\tPress Enter to continue...");
-											sc.nextLine();
-											System.out.print("\n");
 										} while (searchSelection != 0 && holoLib
-												.captureYesNoChoice(sc, "Continue search book?").matches("Y"));
-										System.out.print("\n\tBack to Book Borrowing Menu. Press Enter to continue...");
-										sc.nextLine();
-										System.out.print("\n");
+												.captureYesNoChoice(sc, "Continue search book [N - Back to Book Borrowing Menu]?").matches("Y"));
 										break;
 									// 3. Borrow Book
 									case 3:
 										do {
+											cls();
 											// Get Borrower ID
 											String borrowerID;
 											do {
@@ -398,101 +412,105 @@ public class holoLib {
 													} else {
 														System.out.println("\n\tBook \"" + bookID
 																+ "\" is borrowed, can't continue borrow book action!");
+						
 													}
 												} else {
 													System.out.println("\n\tBook Not Found!");
 												}
 											}
+											System.out.print("\n\tPress Enter to continue...");
+											sc.nextLine();
+											System.out.print("\n");
 										} while (holoLib.captureYesNoChoice(sc, "Another Borrow?").matches("Y"));
 										break;
 									// 4. Return Book
 									case 4:
-										// Get Borrower ID
-										String borrowerID;
-										do {
-											System.out.print("Member/Librarian ID: ");
-											borrowerID = sc.nextLine();
-										} while (!holoLib.validateStringFormat("Member/Librarian ID", borrowerID,
-												"LB[0-9]{3}|MB[0-9]{3}"));
+										do{
+											cls();
+											// Get Borrower ID
+											String borrowerID;
+											do {
+												System.out.print("Member/Librarian ID: ");
+												borrowerID = sc.nextLine();
+											} while (!holoLib.validateStringFormat("Member/Librarian ID", borrowerID,
+													"LB[0-9]{3}|MB[0-9]{3}"));
 
-										if (holoLib.searchBorrowerByID(borrowerID) != null) {
-											// Display Borrower Details found
-											holoLib.searchBorrowerByID(borrowerID).displayBorrowerDetails(); // have
-																												// show
-																												// current
-																												// borrow
+											if (holoLib.searchBorrowerByID(borrowerID) != null) {
+												// Display Borrower Details found (have show current borrow)
+												holoLib.searchBorrowerByID(borrowerID).displayBorrowerDetails();
 
-											// Check currentBorrow
-											if (holoLib.searchBorrowerByID(borrowerID).libraryCard
-													.getCurrentBorrowedCount() == 0) {
-												System.out.println("\n\tCurrent Borrow of " + borrowerID
-														+ " is N/A can't continue return book action!");
-											} else {
-												// Get Book ID
-												String bookID;
-												boolean isCurrentBorrow = false;
+												// Check currentBorrow
+												if (holoLib.searchBorrowerByID(borrowerID).libraryCard
+														.getCurrentBorrowedCount() == 0) {
+													System.out.println("\n\tCurrent Borrow of " + borrowerID
+															+ " is N/A can't continue return book action!");
+												} else {
+													// Get Book ID
+													String bookID;
+													boolean isCurrentBorrow = false;
 
-												do {
-													System.out.print("Book ID: ");
-													bookID = sc.nextLine();
-												} while (!holoLib.validateStringFormat("Book ID", bookID,
-														"BK[0-9]{3}"));
+													do {
+														System.out.print("Book ID: ");
+														bookID = sc.nextLine();
+													} while (!holoLib.validateStringFormat("Book ID", bookID,
+															"BK[0-9]{3}"));
 
-												// searchBookByID()
-												if (holoLib.searchBookByID(bookID) != null) {
-													// check book is borrowed by this Member/Librarian
-													for (int i = 0; i < holoLib
-															.searchBorrowerByID(borrowerID).libraryCard
-																	.getCurrentBorrowedCount(); i++) {
-														if (bookID.compareTo(
-																holoLib.searchBorrowerByID(borrowerID).libraryCard
-																		.getCurrentBorrowed()[i].getBookID()) == 0) {
-															isCurrentBorrow = true;
+													// searchBookByID()
+													if (holoLib.searchBookByID(bookID) != null) {
+														// check book is borrowed by this Member/Librarian
+														for (int i = 0; i < holoLib
+																.searchBorrowerByID(borrowerID).libraryCard
+																		.getCurrentBorrowedCount(); i++) {
+															if (bookID.compareTo(
+																	holoLib.searchBorrowerByID(borrowerID).libraryCard
+																			.getCurrentBorrowed()[i].getBookID()) == 0) {
+																isCurrentBorrow = true;
+															}
 														}
-													}
 
-													// book cannot found in current borrow
-													if (isCurrentBorrow == false) {
-														System.out.println("\n\tBook " + bookID
-																+ " is not borrowed, can't continue return book action!");
-													}
-													// book found in current borrowed, can return
-													else {
-														// Display Book Details found
-														holoLib.searchBookByID(bookID).displayBookDetails();
+														// book cannot found in current borrow
+														if (isCurrentBorrow == false) {
+															System.out.println("\n\tBook " + bookID
+																	+ " is not borrowed, can't continue return book action!");
+														}
+														// book found in current borrowed, can return
+														else {
+															// Display Book Details found
+															holoLib.searchBookByID(bookID).displayBookDetails();
 
-														if (holoLib.captureYesNoChoice(sc, "Return Book " + bookID)
-																.matches("Y")) {
-															String pinNo;
-															System.out.print("Pin Number: ");
-															pinNo = sc.nextLine();
+															if (holoLib.captureYesNoChoice(sc, "Return Book " + bookID)
+																	.matches("Y")) {
+																String pinNo;
+																System.out.print("Pin Number: ");
+																pinNo = sc.nextLine();
 
-															// check PIN, check balance, pay penalty fee(if any) and
-															// return
-															holoLib.searchBorrowerByID(borrowerID).returnBook(pinNo,
-																	holoLib.searchBookByID(bookID));
-														} else {
-															System.out.println("\n\tRepeal book return action!");
+																// check PIN, check balance, pay penalty fee(if any) and
+																// return
+																holoLib.searchBorrowerByID(borrowerID).returnBook(pinNo,
+																		holoLib.searchBookByID(bookID));
+															} else {
+																System.out.println("\n\tRepeal book return action!");
+															}
 														}
 													}
 												}
 											}
-										}
+										}while(holoLib.captureYesNoChoice(sc, "Another Return?").matches("Y"));
 								}
-								System.out.print("\n\tPress Enter to continue...");
+								System.out.print("\n\tPress Enter To Continue...");
 								sc.nextLine();
-								System.out.print("\n");
-							} while (selection != 0);
+								cls();
+							} while (selection2 != 0);
 							break;
 						// 3. Report
 						case 3:
 							do {
 								cls();
 								holoLib.displayReportMenu();
-								selection = holoLib.captureMenuSelection(sc, 2);
+								selection2 = holoLib.captureMenuSelection(sc, 3);
 								cls();
 
-								switch (selection) {
+								switch (selection2) {
 									// 0. Back to Home
 									case 0:
 										break;
@@ -506,12 +524,13 @@ public class holoLib {
 										break;
 									// 3. Expired Membership Report
 									case 3:
+										holoLib.displayExpiredMembershipReport();
 										break;
 								}
-								System.out.println("Press Enter To Continue...");
+								System.out.println("\n\tPress Enter To Continue...");
 								sc.nextLine();
 								cls();
-							} while (selection != 0);
+							} while (selection2 != 0);
 							break;
 						// 4. Login Records
 						case 4:
@@ -539,17 +558,15 @@ public class holoLib {
 											System.out.println("\n\tWrong Password! Access Denied...");
 										} else {
 											holoLib.displayLoginRecords();
+											sc.nextLine();	
 										}
 									}
+									cls();
 								}
-								System.out.println("\n\tWrong Password! Access Denied...");
-								sc.nextLine();
-								cls();
 							} while (holoLib.getCurrentLoggedUser().isAdmin() && !confirmPassword.matches("0"));
 							break;
 					}
-				} while (selection != 0);
-
+				} while (selection1 != 0);
 				System.out.println("\n\tBack To Home. Press Enter To Continue...");
 				sc.nextLine();
 				cls();

@@ -104,7 +104,7 @@ public class LibraryCard implements Payment {
 	}
 
 	public void displayCardDetails() {
-		System.out.println("============================================");
+		System.out.println("\n============================================");
 		System.out.println("            Library Card Details");
 		System.out.println("============================================");
 		System.out.println("Library Card Number       : " + cardNO);
@@ -121,7 +121,7 @@ public class LibraryCard implements Payment {
 	@Override
 	public void displayInvoice(Borrower borrower, double payment) {
 		LocalDateTime dt = LocalDateTime.now();
-		System.out.println("==============================++===========");
+		System.out.println("\n==============================++===========");
 		System.out.println("  Thank You,                  ||   HOLO    ");
 		System.out.println("  Here's Your Receipt         ||  LIBRARY  ");
 		System.out.println("==============================++===========");
@@ -131,12 +131,13 @@ public class LibraryCard implements Payment {
 		System.out.printf("  Borrower ID          : ");
 		if (borrower instanceof Member) {
 			System.out.println(((Member) borrower).getMemberID());
-		} else if (borrower instanceof Member) {
+		} else if (borrower instanceof Librarian) {
 			System.out.println(((Librarian) borrower).getLibrarianID());
 		}
 		System.out.println("  Library Card Number  : " + cardNO);
-		System.out.printf("  Payment Amount       : RM .2f", payment);
-		System.out.printf("  Library Card Balance : RM .2f", cardBalance);
+		System.out.printf("  Payment Amount       : RM %.2f\n", payment);
+		System.out.printf("  Card Balance         : RM %.2f\n", cardBalance);
+		System.out.println("  Card Expired Date    : " + cardExpDateToString());
 		System.out.println("===========================================");
 	}
 }

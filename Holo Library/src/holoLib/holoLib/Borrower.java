@@ -63,13 +63,11 @@ public abstract class Borrower {
 							System.out.println("\n\tInsufficient card balance! Repeal book return action!!");
 						}
 					}
-					// remove the book record
-					libraryCard.removeBorrow(i);
-					book.setBorrowed(false);
-					book.setReturnDate(LocalDate.now());
 
 					// remove the book record from current borrowed
 					libraryCard.removeBorrow(i);
+					book.setBorrowed(false);
+					book.setReturnDate(LocalDate.now());
 
 					System.out.println("Successfully returned book!");
 					System.out.printf("Card Balance: RM %.2f\n", libraryCard.getCardBalance());

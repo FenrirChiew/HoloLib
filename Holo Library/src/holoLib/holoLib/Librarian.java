@@ -95,6 +95,7 @@ public class Librarian extends Borrower {
 					System.out.println("+------------------------------------------+");
 					book.displayBookDetails();
 					System.out.println("+------------------------------------------+");
+					System.out.println("As you are librarian, ");
 					System.out.printf("Card Balance: RM %.2f\n", libraryCard.getCardBalance());
 				}
 				else{

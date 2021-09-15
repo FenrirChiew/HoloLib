@@ -128,6 +128,22 @@ public class LibrarySystem {
 		return false;
 	}
 
+	public Borrower searchMemberByCardNo(String cardNo){
+		
+		for(int i = 0; i < Member.getTotalMembers(); i++){
+			if(memberList[i].libraryCard.getCardNO().matches(cardNo)){
+				return memberList[i];
+
+			}
+		}
+		for(int i =0; i < Librarian.getTotalLibrarians(); i++){
+			if(librarianList[i].libraryCard.getCardNO().matches(cardNo)){
+				return librarianList[i];
+			}
+		}		
+		return null;
+	}
+
 	public void renewCardExpDate(String cardNO) {
 		searchLibraryCardByCardNO(cardNO).renewCardExpDate();
 	}
@@ -152,8 +168,6 @@ public class LibrarySystem {
 		} while (continueInput);
 
 		sc.nextLine();
-
-		sc.close();
 
 		return cash;
 	}

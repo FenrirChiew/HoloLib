@@ -263,7 +263,7 @@ public class LibrarySystem {
 	public Book searchBookByID(String bookID) {
 		for (int i = 0; i < bookList.length; i++) {
 			if (bookList[i].getBookID().indexOf(bookID) != -1) {
-				System.out.println("\nResult match with \"" + bookID + "\":");
+				// System.out.println("\nResult match with \"" + bookID + "\":");
 				return bookList[i];
 			}
 		}
@@ -320,8 +320,8 @@ public class LibrarySystem {
 		System.out.println("+========================================+===================+====================+================+");
 		System.out.println("|               Book Title               |      Book ID      |    Borrower Name   |   Borrower ID  |  ");
 		for (int i = 0; i < member.length; i++) {
-			if (member[i].libraryCard.getCurrentBorrowed().length > 0) {
-				for (int j = 0; j < member[i].libraryCard.getCurrentBorrowed().length; j++) {
+			if (member[i].libraryCard.getCurrentBorrowedCount() > 0) {
+				for (int j = 0; j < member[i].libraryCard.getCurrentBorrowedCount(); j++) {
 					Book book = member[i].libraryCard.getCurrentBorrowed()[j];
 					if (book.getBorrowDate() == LocalDate.now()) {
 						System.out.printf("|%-40s|%-19s|%-20s|%-16s|", book.getBookTitle(), book.getBookID(),
@@ -333,8 +333,8 @@ public class LibrarySystem {
 		}
 
 		for (int i = 0; i < librarian.length; i++) {
-			if (librarian[i].libraryCard.getCurrentBorrowed().length > 0) {
-				for (int j = 0; j < librarian[i].libraryCard.getCurrentBorrowed().length; j++) {
+			if (librarian[i].libraryCard.getCurrentBorrowedCount() > 0) {
+				for (int j = 0; j < librarian[i].libraryCard.getCurrentBorrowedCount(); j++) {
 					Book book = librarian[i].libraryCard.getCurrentBorrowed()[j];
 					if (book.getBorrowDate() == LocalDate.now()) {
 						System.out.printf("| %-40s | %-19s | %-20s | %-16s |", book.getBookTitle(), book.getBookID(),
@@ -360,7 +360,7 @@ public class LibrarySystem {
 		System.out.println("|               Book Title               |      Book ID      |    Borrower Name   |   Borrower ID  |  ");
 		for (int i = 0; i < member.length; i++) {
 			if (member[i].libraryCard.getBorrowedHistory().length > 0) {
-				for (int j = 0; j < member[i].libraryCard.getBorrowedHistory().length; j++) {
+				for (int j = 0; j < member[i].libraryCard.getBorrowedHistoryCount(); j++) {
 					Book book = member[i].libraryCard.getBorrowedHistory()[j];
 					if (book.getReturnDate() == LocalDate.now()) {
 						System.out.printf("| %-40s | %-19s | %-20s | %-16s |", book.getBookTitle(), book.getBookID(),
@@ -372,8 +372,8 @@ public class LibrarySystem {
 		}
 
 		for (int i = 0; i < librarian.length; i++) {
-			if (librarian[i].libraryCard.getBorrowedHistory().length > 0) {
-				for (int j = 0; j < librarian[i].libraryCard.getBorrowedHistory().length; j++) {
+			if (librarian[i].libraryCard.getBorrowedHistoryCount() > 0) {
+				for (int j = 0; j < librarian[i].libraryCard.getBorrowedHistoryCount(); j++) {
 					Book book = librarian[i].libraryCard.getBorrowedHistory()[j];
 					if (book.getReturnDate() == LocalDate.now()) {
 						System.out.printf("| %-40s | %-19s | %-20s | %-16s |", book.getBookTitle(), book.getBookID(),

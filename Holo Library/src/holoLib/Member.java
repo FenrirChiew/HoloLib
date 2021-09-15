@@ -38,26 +38,28 @@ public class Member extends Borrower {
 	/********** Methods **********/
 	@Override
 	public void displayBorrowerDetails() {
+		System.out.println("========================");
 		System.out.println("Library Borrower Details");
 		System.out.println("========================");
 		System.out.println("Name           : " + name);
 		System.out.println("Member ID      : " + memberID);
 		System.out.println("Card Number    : " + libraryCard.getCardNO());
-		System.out.printf("Card Balance   : %.2f\n" + libraryCard.getCardBalance());
+		System.out.printf("Card Balance   : %.2f\n", libraryCard.getCardBalance());
 		System.out.print("Current Borrow : ");
 
-		if (libraryCard.getCurrentBorrowed().length == 0) {
+		if (libraryCard.getCurrentBorrowedCount() == 0) {
 			System.out.println("N/A");
 		} else {
-			for (int i = 0; i < libraryCard.getCurrentBorrowed().length; i++) {
+			for (int i = 0; i < libraryCard.getCurrentBorrowedCount(); i++) {
 				System.out.printf("\n                 %d. %s (%s)", i + 1,
 						libraryCard.getCurrentBorrowed()[i].getBookTitle(),
 						libraryCard.getCurrentBorrowed()[i].getBookID());
 			}
 
 			System.out.printf("\n                 (Total Borrow = %d units)\n",
-					libraryCard.getCurrentBorrowed().length);
+					libraryCard.getCurrentBorrowedCount());
 		}
+		System.out.println("========================");
 	}
 
 	@Override
@@ -65,7 +67,7 @@ public class Member extends Borrower {
 		if (!(libraryCard.validatePinNO(pinNO))) {
 			System.out.println("\n\tInvalid Pin Number!\n");
 		} else {
-			if (libraryCard.getCurrentBorrowed().length >= MAX_BORROW) {
+			if (libraryCard.getCurrentBorrowedCount() >= MAX_BORROW) {
 				System.out.printf("\n\tYou have reached the Borrow Limit (%d)!\n\n", MAX_BORROW);
 			} else {
 				book.setBorrowed(true);

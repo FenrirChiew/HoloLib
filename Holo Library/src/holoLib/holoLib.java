@@ -82,52 +82,52 @@ public class holoLib {
 					break;
 				// 1. Membership Registration
 				case 1:
-					do {
-						cls();
-						String name;
-						do {
-							System.out.print("Name: ");
-							name = sc.nextLine();
-						} while (!holoLib.validateStringFormat("Name", name, "([A-Z][A-Za-z]* *)+"));
+                    do {
+                        cls();
+                        String name;
+                        do {
+                            System.out.print("Name: ");
+                            name = sc.nextLine();
+                        } while (!holoLib.validateStringFormat("Name", name, "([A-Z][A-Za-z]* *)+"));
 
-						String icNO;
-						do {
-							System.out.print("IC Number: ");
-							icNO = sc.nextLine();
-						} while (!holoLib.validateStringFormat("IC Number", icNO, "[0-9]{6}-[0-9]{2}-[0-9]{4}"));
+                        String icNO;
+                        do {
+                            System.out.print("IC Number (XXXXXX-XX-XXXX): ");
+                            icNO = sc.nextLine();
+                        } while (!holoLib.validateStringFormat("IC Number", icNO, "[0-9]{6}-[0-9]{2}-[0-9]{4}"));
 
-						String gender;
-						do {
-							System.out.print("Gender: ");
-							gender = sc.nextLine();
-						} while (!holoLib.validateStringFormat("Gender", gender, "Male|Female"));
+                        String gender;
+                        do {
+                            System.out.print("Gender (Male/Female): ");
+                            gender = sc.nextLine();
+                        } while (!holoLib.validateStringFormat("Gender", gender, "Male|Female"));
 
-						String dob;
-						do {
-							System.out.print("Date of Birth (DD/MM/YYYY): ");
-							dob = sc.nextLine();
-						} while (!holoLib.validateDate(dob));
+                        String dob;
+                        do {
+                            System.out.print("Date of Birth (DD/MM/YYYY): ");
+                            dob = sc.nextLine();
+                        } while (!holoLib.validateDate(dob));
 
-						String phoneNO;
-						do {
-							System.out.print("Phone Number (XXX-XXXXXXX): ");
-							phoneNO = sc.nextLine();
-						} while (!holoLib.validateStringFormat("Phone Number", phoneNO, "[0-9]{3}-[0-9]{7,8}"));
+                        String phoneNO;
+                        do {
+                            System.out.print("Phone Number (XXX-XXXXXXX): ");
+                            phoneNO = sc.nextLine();
+                        } while (!holoLib.validateStringFormat("Phone Number", phoneNO, "[0-9]{3}-[0-9]{7,8}"));
 
-						String pinNO;
-						do {
-							System.out.print("Pin Number for Library Card: ");
-							pinNO = sc.nextLine();
-						} while (!holoLib.validateStringFormat("Pin Number", pinNO, "[0-9]{6}"));
+                        String pinNO;
+                        do {
+                            System.out.print("Pin Number for Library Card: ");
+                            pinNO = sc.nextLine();
+                        } while (!holoLib.validateStringFormat("Pin Number", pinNO, "[0-9]{6}"));
 
-						if (holoLib.captureYesNoChoice(sc, "Confirm Registration").matches("Y")) {
-							holoLib.registerMembership(name, icNO, gender, dob, phoneNO, pinNO);
-							System.out.println("Registration Successfully!");
-						} else {
-							System.out.println("Registration Canceled!");
-						}
-					} while (holoLib.captureYesNoChoice(sc, "Another Registration").matches("Y"));
-					break;
+                        if (holoLib.captureYesNoChoice(sc, "Confirm Registration").matches("Y")) {
+                            holoLib.registerMembership(name, icNO, gender, dob, phoneNO, pinNO);
+                            System.out.println("Registration Successfully!");
+                        } else {
+                            System.out.println("Registration Canceled!");
+                        }
+                    } while (holoLib.captureYesNoChoice(sc, "Another Registration").matches("Y"));
+                    break;
 				// 2. Card Renewal
 				case 2:
 					do {

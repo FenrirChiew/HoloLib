@@ -81,7 +81,7 @@ public class Librarian extends Borrower {
 				// check is it enough card balance to pay
 				if(libraryCard.getCardBalance() > book.getBorrowFees()) {
 					// pay (Librarian has discount)
-					libraryCard.cashOut(book.getBorrowFees() * BORROWING_RATE);
+					libraryCard.payPayment(book.getBorrowFees() * BORROWING_RATE);
 
 					// add to Current Book
 					book.setBorrowed(true);

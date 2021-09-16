@@ -33,9 +33,9 @@ public class Member extends Borrower {
 	/********** Methods **********/
 	@Override
 	public void displayBorrowerDetails() {
-		System.out.println("\n========================");
-		System.out.println("Library Borrower Details");
-		System.out.println("========================");
+		System.out.println("\n=======================");
+		System.out.println("Member Borrower Details");
+		System.out.println("=======================");
 		System.out.println("Name           : " + name);
 		System.out.println("Member ID      : " + memberID);
 		System.out.println("Card Number    : " + libraryCard.getCardNO());
@@ -54,7 +54,7 @@ public class Member extends Borrower {
 			System.out.printf("\n                 (Total Borrow = %d units)\n",
 					libraryCard.getCurrentBorrowedCount());
 		}
-		System.out.println("========================");
+		System.out.println("=======================");
 	}
 
 	@Override
@@ -71,7 +71,7 @@ public class Member extends Borrower {
 				// check is it enough card balance to pay
 				if(libraryCard.getCardBalance() > book.getBorrowFees()){
 					// pay
-					libraryCard.cashOut(book.getBorrowFees());
+					libraryCard.payPayment(book.getBorrowFees());
 
 					// add to Current Book
 					book.setBorrowed(true);

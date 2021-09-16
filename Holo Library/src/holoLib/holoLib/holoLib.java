@@ -256,6 +256,8 @@ public class holoLib {
 												} else {
 													System.out.println("Reload Cancelled!");
 												}
+											} else {
+												System.out.println("\n\tWrong Pin Number!");
 											}
 										} while (holoLib.captureYesNoChoice(sc, "Another Reload").matches("Y"));
 										break;

@@ -301,6 +301,9 @@ public class holoLib {
 										break;
 									// 1. Display book
 									case 1:
+										System.out.println("\n==================");
+										System.out.println("   Display Book   ");
+										System.out.println("==================");
 										// display all book
 										holoLib.displayBook();
 										break;
@@ -319,6 +322,9 @@ public class holoLib {
 													break;
 												// 2.1 Search Book by Book Title
 												case 1:
+													System.out.println("\n==========================");
+													System.out.println("   Search Book By Title   ");
+													System.out.println("==========================");
 													String title;
 													System.out.print("Book Title: ");
 													title = sc.nextLine();
@@ -327,6 +333,9 @@ public class holoLib {
 													break;
 												// 2.2 Search Book by Book ID
 												case 2:
+													System.out.println("\n========================");
+													System.out.println("   Search Book By ID   ");
+													System.out.println("========================");
 													String id;
 													do {
 														System.out.print("Book ID: ");
@@ -344,6 +353,9 @@ public class holoLib {
 													break;
 												// 2.3 Search Book by Book Author
 												case 3:
+													System.out.println("\n===========================");
+													System.out.println("   Search Book By Author   ");
+													System.out.println("===========================");
 													String author;
 													System.out.print("Book Author: ");
 													author = sc.nextLine();
@@ -352,6 +364,9 @@ public class holoLib {
 													break;
 												// 2.4 Search Book by Book Publisher
 												case 4:
+													System.out.println("\n==============================");
+													System.out.println("   Search Book By Publisher   ");
+													System.out.println("==============================");
 													String publisher;
 													System.out.print("Book Publisher: ");
 													publisher = sc.nextLine();
@@ -368,6 +383,9 @@ public class holoLib {
 									case 3:
 										do {
 											cls();
+											System.out.println("\n==================");
+											System.out.println("   Borrow Book   ");
+											System.out.println("==================");
 											// Get Borrower ID
 											String borrowerID;
 											do {
@@ -433,6 +451,9 @@ public class holoLib {
 									case 4:
 										do {
 											cls();
+											System.out.println("\n==================");
+											System.out.println("   Return Book   ");
+											System.out.println("==================");
 											// Get Borrower ID
 											String borrowerID;
 											do {

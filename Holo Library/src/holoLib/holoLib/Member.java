@@ -26,10 +26,6 @@ public class Member extends Borrower {
 		return memberID;
 	}
 
-	public static int getTotalMembers() {
-		return totalMembers;
-	}
-
 	/********** Methods **********/
 	@Override
 	public void displayBorrowerDetails() {

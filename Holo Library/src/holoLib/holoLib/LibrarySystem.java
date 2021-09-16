@@ -368,8 +368,6 @@ public class LibrarySystem {
 	}
 
 	public void displayBook() {
-		System.out.println("\n++======================++");
-		System.out.println("||     Display Book     ||");
 		System.out.println(
 				"++====++==========================================++=========++=========================++================================++=======================++============++========++============++");
 		System.out.println(

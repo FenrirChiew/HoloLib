@@ -47,6 +47,7 @@ public class Librarian extends Borrower {
 		System.out.println("========================");
 		System.out.println("Name           : " + name);
 		System.out.println("Librarian ID   : " + librarianID);
+		System.out.println("Position       : " + position);
 		System.out.println("Card Number    : " + libraryCard.getCardNO());
 		System.out.printf("Card Balance   : %.2f\n", libraryCard.getCardBalance());
 		System.out.printf("Borrowing Rate : %.2f\n", BORROWING_RATE);

@@ -581,7 +581,7 @@ public class LibrarySystem {
 		}
 		System.out.println(
 				"+===============+=====================+==============+==================+===================+");
-		System.out.printf("Total member had expired membership :                                  %d(person(s))\n",
+		System.out.printf("Total borrower had expired membership :                                  %d(person(s))\n",
 				count);
 	}
 

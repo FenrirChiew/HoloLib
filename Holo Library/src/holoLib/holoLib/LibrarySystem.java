@@ -147,11 +147,12 @@ public class LibrarySystem {
 
 				if (selection >= 0 && selection <= maxMenuSelection) {
 					continueInput = false;
+				} else {
+					System.out.println("\n\tInvalid selection! Please try again...");
 				}
 			} catch (Exception e) { // Activate when captured non-integer menu selection
 				sc.nextLine();
 				System.out.println("\n\tInvalid selection! Please try again...");
-				sc.nextLine();
 			}
 		} while (continueInput);
 
@@ -194,11 +195,12 @@ public class LibrarySystem {
 
 				if (cash > 0.0) {
 					continueInput = false;
+				} else {
+					System.out.println("\n\tInvalid " + message + "! Please try again...\n");
 				}
 			} catch (Exception e) {
 				sc.nextLine();
 				System.out.println("\n\tInvalid " + message + "! Please try again...\n");
-				sc.nextLine();
 			}
 		} while (continueInput);
 

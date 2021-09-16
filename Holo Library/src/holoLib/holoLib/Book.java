@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class Book {
+public class Book implements Penalty {
     /********** Properties **********/
     private String bookTitle;
     private String bookID;

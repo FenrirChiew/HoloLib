@@ -11,7 +11,7 @@ public abstract class Borrower {
 	protected GregorianCalendar dateOfBirth;
 	protected String phoneNO;
 	protected LibraryCard libraryCard;
-	private static int totalBorrowers = 0; 
+	private static int totalBorrowers = 0;
 
 	/********** Constructors **********/
 	protected Borrower() {
@@ -29,26 +29,23 @@ public abstract class Borrower {
 		totalBorrowers++;
 	}
 
-	/********** Methods **********/
+	/********** Accessors & Mutators **********/
 	public static int getTotalBorrowers() {
 		return totalBorrowers;
 	}
 
-	public abstract void displayBorrowerDetails();
-
-	public abstract void borrowBook(String pinNO, Book book);
-
+	/********** Methods **********/
 	public void returnBook(String pinNo, Book book) {
 		int daysBetween = 0;
 
 		if (!(libraryCard.validatePinNO(pinNo))) {
 			System.out.println("\n\tInvalid Pin Number!\n");
-		} 
-		else {
+		} else {
 			for (int i = 0; i < libraryCard.getCurrentBorrowedCount(); i++) {
 				// find the book borrow record in current borrowed
 				if (libraryCard.getCurrentBorrowed()[i].getBookID().matches(book.getBookID())) {
-					daysBetween = LibrarySystem.toDays(LocalDate.now()) - LibrarySystem.toDays(libraryCard.getCurrentBorrowed()[i].getBorrowDate());
+					daysBetween = LibrarySystem.toDays(LocalDate.now())
+							- LibrarySystem.toDays(libraryCard.getCurrentBorrowed()[i].getBorrowDate());
 
 					// if borrow more than Max Grace Period
 					if (daysBetween > Book.getMaxGracePeriodInDay()) {
@@ -56,10 +53,9 @@ public abstract class Borrower {
 						System.out.printf("Penalty: RM %.2f\n", book.calPenalty(daysBetween));
 
 						// check is it enough card balance to pay
-						if(libraryCard.getCardBalance() > book.calPenalty(daysBetween)) {
-							libraryCard.cashOut(book.calPenalty(daysBetween));
-						}
-						else{
+						if (libraryCard.getCardBalance() > book.calPenalty(daysBetween)) {
+							libraryCard.payPayment(book.calPenalty(daysBetween));
+						} else {
 							System.out.println("\n\tInsufficient card balance! Repeal book return action!!");
 						}
 					}
@@ -75,4 +71,8 @@ public abstract class Borrower {
 			}
 		}
 	}
+
+	public abstract void displayBorrowerDetails();
+
+	public abstract void borrowBook(String pinNO, Book book);
 }

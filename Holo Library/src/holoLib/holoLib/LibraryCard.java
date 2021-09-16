@@ -72,10 +72,6 @@ public class LibraryCard implements Payment {
 		cardBalance += cash;
 	}
 
-	public void cashOut(double cash) {
-		cardBalance -= cash;
-	}
-
 	public String cardExpDateToString() {
 		return String.format("%02d", cardExpDate.get(Calendar.DAY_OF_MONTH)) + "/"
 				+ String.format("%02d", cardExpDate.get(Calendar.MONTH)) + "/" + cardExpDate.get(Calendar.YEAR);

@@ -61,8 +61,7 @@ public class Librarian extends Borrower {
 						libraryCard.getCurrentBorrowed()[i].getBookID());
 			}
 
-			System.out.printf("\n                 (Total Borrow = %d units)\n",
-					libraryCard.getCurrentBorrowedCount());
+			System.out.printf("\n                 (Total Borrow = %d units)\n", libraryCard.getCurrentBorrowedCount());
 		}
 		System.out.println("========================");
 	}
@@ -71,15 +70,13 @@ public class Librarian extends Borrower {
 	public void borrowBook(String pinNO, Book book) {
 		if (!(libraryCard.validatePinNO(pinNO))) {
 			System.out.println("\n\tInvalid Pin Number!\n");
-		}
-		else {
+		} else {
 			// check have more than limit of borrow
 			if (libraryCard.getCurrentBorrowedCount() >= MAX_BORROW) {
 				System.out.printf("\n\tYou have reached the Borrow Limit (%d)!\n\n", MAX_BORROW);
-			}
-			else {
+			} else {
 				// check is it enough card balance to pay
-				if(libraryCard.getCardBalance() > book.getBorrowFees()) {
+				if (libraryCard.getCardBalance() > book.getBorrowFees()) {
 					// pay (Librarian has discount)
 					libraryCard.payPayment(book.getBorrowFees() * BORROWING_RATE);
 
@@ -97,8 +94,7 @@ public class Librarian extends Borrower {
 					System.out.println("+----------------------------------------------+");
 					System.out.println("As you are librarian, 20% discount on borrowing fees!");
 					System.out.printf("Card Balance: RM %.2f\n", libraryCard.getCardBalance());
-				}
-				else{
+				} else {
 					System.out.println("\n\tInsufficient card balance! Repeal book borrow action!");
 				}
 			}

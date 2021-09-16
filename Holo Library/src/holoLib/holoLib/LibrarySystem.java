@@ -175,7 +175,6 @@ public class LibrarySystem {
 
 			if (!(choice.length() == 1 && choice.toUpperCase().matches("Y|N"))) {
 				System.out.println("\n\tInvalid choice! Please try again...");
-				sc.nextLine();
 			} else {
 				continueInput = false;
 			}

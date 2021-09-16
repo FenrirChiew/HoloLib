@@ -522,9 +522,9 @@ public class holoLib {
 									case 2:
 										holoLib.displayDailyBookReturnedReport();
 										break;
-									// 3. Expired Membership Report
+									// 3. Expired Borrowwer Report
 									case 3:
-										holoLib.displayExpiredMembershipReport();
+										holoLib.displayExpiredBorrowerReport();
 										break;
 								}
 								System.out.println("\n\tPress Enter To Continue...");

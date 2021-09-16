@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class LibrarySystem {
+public class LibrarySystem implements SearchBorrower, SearchLibraryCard, SearchBook{
 	/********** Properties **********/
 	private Borrower[] borrowerList;
 	private Book[] bookList;
@@ -208,6 +208,7 @@ public class LibrarySystem {
 		return cash;
 	}
 
+	@Override
 	public Borrower searchMemberByID(String memberID) {
 		for (int i = 0; i < Borrower.getTotalBorrowers(); i++) {
 			if (borrowerList[i] instanceof Member) {
@@ -221,6 +222,7 @@ public class LibrarySystem {
 		return null;
 	}
 
+	@Override
 	public Borrower searchLibrarianByID(String librarianID) {
 		for (int i = 0; i < Borrower.getTotalBorrowers(); i++) {
 			if (borrowerList[i] instanceof Librarian) {
@@ -234,6 +236,7 @@ public class LibrarySystem {
 		return null;
 	}
 
+	@Override
 	public Borrower searchBorrowerByID(String borrowerID) {
 		if (borrowerID.matches("MB[0-9]{3}")) {
 			return searchMemberByID(borrowerID);
@@ -245,6 +248,7 @@ public class LibrarySystem {
 		return null;
 	}
 
+	@Override
 	public Borrower searchBorrowerByCardNO(String cardNO) {
 		for (int i = 0; i < Borrower.getTotalBorrowers(); i++) {
 			if (borrowerList[i].libraryCard.getCardNO().matches(cardNO)) {
@@ -256,6 +260,7 @@ public class LibrarySystem {
 		return null;
 	}
 
+	@Override
 	public LibraryCard searchLibraryCardByCardNO(String cardNO) {
 		for (int i = 0; i < Borrower.getTotalBorrowers(); i++) {
 			if (borrowerList[i].libraryCard.getCardNO().matches(cardNO)) {
@@ -407,6 +412,7 @@ public class LibrarySystem {
 		System.out.println("++===++==========================++");
 	}
 
+	@Override
 	public void searchBookByTitle(String bookTitle) {
 		int totalResult = 0;
 
@@ -422,6 +428,7 @@ public class LibrarySystem {
 		System.out.println("\nTotal Book(s) Found: " + totalResult);
 	}
 
+	@Override
 	public Book searchBookByID(String bookID) {
 		for (int i = 0; i < Book.getTotalBooks(); i++) {
 			if (bookList[i].getBookID().indexOf(bookID) != -1) {
@@ -433,6 +440,7 @@ public class LibrarySystem {
 		return null;
 	}
 
+	@Override
 	public void searchBookByAuthor(String bookAuthor) {
 		int totalResult = 0;
 
@@ -448,6 +456,7 @@ public class LibrarySystem {
 		System.out.println("\nTotal Book(s) Found: " + totalResult);
 	}
 
+	@Override
 	public void searchBookByPublisher(String bookPublisher) {
 		int totalResult = 0;
 

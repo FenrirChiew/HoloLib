@@ -539,7 +539,7 @@ public class LibrarySystem implements SearchBorrower, SearchLibraryCard, SearchB
 							LocalDate.now())) {
 						if (count > 0) {
 							System.out.println(
-									"+-----------------------------------------+---------------------+---------------------+------------------+");
+									"+------------------------------------------+---------------------+----------------------+------------------+");
 						}
 						System.out.printf("| %-40s | %-19s | %-20s |",
 								borrowerList[i].libraryCard.getBorrowedHistory()[j].getBookTitle(),

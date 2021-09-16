@@ -81,11 +81,11 @@ public class Member extends Borrower {
 					System.out.println("Successfully borrowed book!");
 					
 					// display receipt
-					System.out.println("+------------------------------------------+");
-					System.out.println("|              Borrow Receipt              |");
-					System.out.println("+------------------------------------------+");
+					System.out.println("+----------------------------------------------+");
+					System.out.println("|                Borrow Receipt                |");
+					System.out.println("+----------------------------------------------+");
 					book.displayBookDetails();
-					System.out.println("+------------------------------------------+");
+					System.out.println("+----------------------------------------------+");
 					System.out.printf("Card Balance: RM %.2f\n", libraryCard.getCardBalance());
 				}
 				else{

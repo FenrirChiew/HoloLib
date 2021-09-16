@@ -490,7 +490,7 @@ public class LibrarySystem {
 				for (int j = 0; j < borrowerList[i].libraryCard.getCurrentBorrowedCount(); j++) {
 					if (toDays(borrowerList[i].libraryCard.getCurrentBorrowed()[j].getBorrowDate()) == toDays(
 							LocalDate.now())) {
-						if (i > 0) {
+						if (count > 0) {
 							System.out.println(
 									"+------------------------------------------+---------------------+-----------------------+-----------------+");
 						}
@@ -529,7 +529,7 @@ public class LibrarySystem {
 				for (int j = 0; j < borrowerList[i].libraryCard.getBorrowedHistoryCount(); j++) {
 					if (toDays(borrowerList[i].libraryCard.getBorrowedHistory()[j].getReturnDate()) == toDays(
 							LocalDate.now())) {
-						if (i > 0) {
+						if (count > 0) {
 							System.out.println(
 									"+-----------------------------------------+---------------------+---------------------+------------------+");
 						}

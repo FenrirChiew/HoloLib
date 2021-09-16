@@ -254,7 +254,7 @@ public class holoLib {
 													holoLib.searchLibraryCardByCardNO(cardNO).displayInvoice(
 															holoLib.searchBorrowerByCardNO(cardNO), cash);
 												} else {
-													System.out.println("Reload Canceled!");
+													System.out.println("Reload Cancelled!");
 												}
 											}
 										} while (holoLib.captureYesNoChoice(sc, "Another Reload").matches("Y"));

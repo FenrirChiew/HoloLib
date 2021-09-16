@@ -42,7 +42,7 @@ public class Librarian extends Borrower {
 	/********** Methods **********/
 	@Override
 	public void displayBorrowerDetails() {
-		System.out.println("========================");
+		System.out.println("\n========================");
 		System.out.println("Library Borrower Details");
 		System.out.println("========================");
 		System.out.println("Name           : " + name);

@@ -47,26 +47,39 @@ public abstract class Borrower {
 					daysBetween = LibrarySystem.toDays(LocalDate.now())
 							- LibrarySystem.toDays(libraryCard.getCurrentBorrowed()[i].getBorrowDate());
 
-					// if borrow more than Max Grace Period
+					// if borrow days more than Max Grace Period
 					if (daysBetween > Book.getMaxGracePeriodInDay()) {
 						System.out.println("Day Exceeded: " + (daysBetween - Book.getMaxGracePeriodInDay()));
 						System.out.printf("Penalty: RM %.2f\n", book.calPenalty(daysBetween));
 
-						// check is it enough card balance to pay
+						// check is it enough card balance to
+						// pay and return
 						if (libraryCard.getCardBalance() > book.calPenalty(daysBetween)) {
 							libraryCard.payPayment(book.calPenalty(daysBetween));
-						} else {
+
+							// remove the book record from current borrowed
+							libraryCard.removeBorrow(i);
+							book.setBorrowed(false);
+							book.setReturnDate(LocalDate.now());
+
+							System.out.println("Successfully returned book!");
+							System.out.printf("Card Balance: RM %.2f\n", libraryCard.getCardBalance());
+
+						}
+
+						// cannot return
+						else {
 							System.out.println("\n\tInsufficient card balance! Repeal book return action!!");
 						}
 					}
-
-					// remove the book record from current borrowed
-					libraryCard.removeBorrow(i);
-					book.setBorrowed(false);
-					book.setReturnDate(LocalDate.now());
-
-					System.out.println("Successfully returned book!");
-					System.out.printf("Card Balance: RM %.2f\n", libraryCard.getCardBalance());
+					// if borrow days less than Max Grace Period
+					else{
+						// remove the book record from current borrowed
+						libraryCard.removeBorrow(i);
+						book.setBorrowed(false);
+						book.setReturnDate(LocalDate.now());
+						System.out.println("Successfully returned book!");
+					}
 				}
 			}
 		}

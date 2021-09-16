@@ -282,6 +282,9 @@ public class holoLib {
 												.matches("Y"));
 										break;
 								}
+								System.out.print("\n\tPress Enter To Continue...");
+								sc.nextLine();
+								cls();
 							} while (selection2 != 0);
 							break;
 						// 2. Book Borrowing
@@ -551,7 +554,7 @@ public class holoLib {
 										holoLib.displayExpiredBorrowerReport();
 										break;
 								}
-								System.out.println("\n\tPress Enter To Continue...");
+								System.out.print("\n\tPress Enter To Continue...");
 								sc.nextLine();
 								cls();
 							} while (selection2 != 0);

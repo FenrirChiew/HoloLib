@@ -218,7 +218,7 @@ public class holoLib {
 																"Insufficient Balance. Please Reload The Card.");
 													}
 												} else {
-													System.out.println("Renewal Canceled!");
+													System.out.println("Renewal Cancelled!");
 												}
 											} else {
 												System.out.println("\tYou had key in invalid password");

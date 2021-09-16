@@ -278,9 +278,6 @@ public class holoLib {
 											if (holoLib.searchBorrowerByID(borrowerID) != null) {
 												holoLib.searchBorrowerByID(borrowerID).displayBorrowerDetails();
 											}
-											/*
-											 * else { System.out.println("Borrower Not Found!"); }
-											 */
 										} while (holoLib.captureYesNoChoice(sc, "Search Another Borrower")
 												.matches("Y"));
 										break;

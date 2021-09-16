@@ -220,8 +220,7 @@ public class holoLib {
 												} else {
 													System.out.println("Renewal Canceled!");
 												}
-											}
-											else{
+											} else {
 												System.out.println("\tYou had key in invalid password");
 											}
 										} while (holoLib.captureYesNoChoice(sc, "Another Reload").matches("Y"));

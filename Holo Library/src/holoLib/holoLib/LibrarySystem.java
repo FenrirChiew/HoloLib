@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class LibrarySystem implements SearchBorrower, SearchLibraryCard, SearchBook{
+public class LibrarySystem implements SearchBorrower, SearchLibraryCard, SearchBook {
 	/********** Properties **********/
 	private Borrower[] borrowerList;
 	private Book[] bookList;

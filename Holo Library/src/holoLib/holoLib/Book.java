@@ -124,6 +124,7 @@ public class Book implements Penalty {
         borrowFees = bookPrice * 0.1;
     }
 
+    @Override
     public double calPenalty(int dayBorrowed) {
         return PENALTY_RATE * (dayBorrowed - MAX_GRACE_PERIOD_IN_DAY);
     }

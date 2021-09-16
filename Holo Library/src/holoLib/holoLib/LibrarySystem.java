@@ -470,7 +470,7 @@ public class LibrarySystem {
 		System.out.println("++===++=============================++");
 		System.out.println("|| 1 ||  Daily Book Borrow Report   ||");
 		System.out.println("|| 2 ||  Daily Book Return Report   ||");
-		System.out.println("|| 3 ||  Expired Membership Report  ||");
+		System.out.println("|| 3 ||  Expired Borrower Report    ||");
 		System.out.println("|| 0 ||  Back to Home               ||");
 		System.out.println("++===++=============================++");
 	}
@@ -551,7 +551,7 @@ public class LibrarySystem {
 		System.out.println("Total count book returned: " + count);
 	}
 
-	public void displayExpiredMembershipReport() {
+	public void displayExpiredBorrowerReport() {
 		int count = 0;
 		System.out.println(
 				"                               Library Card Expired Report                                   ");

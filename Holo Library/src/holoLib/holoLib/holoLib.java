@@ -437,8 +437,6 @@ public class holoLib {
 																+ "\" is borrowed, can't continue borrow book action!");
 
 													}
-												} else {
-													System.out.println("\n\tBook Not Found!");
 												}
 											}
 											System.out.print("\n\tPress Enter to continue...");

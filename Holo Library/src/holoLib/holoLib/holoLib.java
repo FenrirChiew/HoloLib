@@ -1,6 +1,9 @@
 package holoLib;
 
 import java.util.Scanner;
+
+import javax.lang.model.util.ElementScanner14;
+
 import java.util.GregorianCalendar;
 
 public class holoLib {
@@ -219,6 +222,9 @@ public class holoLib {
 												} else {
 													System.out.println("Renewal Canceled!");
 												}
+											}
+											else{
+												System.out.println("\tYou had key in invalid password");
 											}
 										} while (holoLib.captureYesNoChoice(sc, "Another Reload").matches("Y"));
 										break;

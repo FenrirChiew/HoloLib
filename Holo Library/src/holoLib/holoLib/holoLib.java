@@ -588,8 +588,8 @@ public class holoLib {
 											sc.nextLine();
 										}
 									}
-									cls();
 								}
+								cls();
 							} while (holoLib.getCurrentLoggedUser().isAdmin() && !confirmPassword.matches("0"));
 							break;
 					}

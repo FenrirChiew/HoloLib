@@ -177,7 +177,7 @@ public class holoLib {
 														cash);
 												System.out.println("Registration Successfully!");
 											} else {
-												System.out.println("Registration Canceled!");
+												System.out.println("Registration Cancelled!");
 											}
 										} while (holoLib.captureYesNoChoice(sc, "Another Registration").matches("Y"));
 										break;

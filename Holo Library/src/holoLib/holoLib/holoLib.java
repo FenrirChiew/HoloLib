@@ -594,7 +594,7 @@ public class holoLib {
 							break;
 					}
 				} while (selection1 != 0);
-				System.out.println("\n\tYou had been Logged Out. Press Enter To Continue...");
+				System.out.print("\n\tYou had been Logged Out. Press Enter To Continue...");
 				sc.nextLine();
 				cls();
 			}

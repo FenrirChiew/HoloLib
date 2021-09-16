@@ -207,7 +207,7 @@ public class holoLib {
 													double cash = 20.00;
 													if (holoLib.searchBorrowerByCardNO(cardNO).libraryCard
 															.getCardBalance() >= cash) {
-														holoLib.searchLibraryCardByCardNO(cardNO).cashOut(cash);
+														holoLib.searchLibraryCardByCardNO(cardNO).payPayment(cash);
 														holoLib.searchLibraryCardByCardNO(cardNO).renewCardExpDate();
 														System.out.println("Renewal Successfully!");
 														holoLib.searchLibraryCardByCardNO(cardNO).displayInvoice(
@@ -356,7 +356,9 @@ public class holoLib {
 													break;
 											}
 										} while (searchSelection != 0 && holoLib
-												.captureYesNoChoice(sc, "Continue search book [N - Back to Book Borrowing Menu]?").matches("Y"));
+												.captureYesNoChoice(sc,
+														"Continue search book [N - Back to Book Borrowing Menu]?")
+												.matches("Y"));
 										break;
 									// 3. Borrow Book
 									case 3:
@@ -412,7 +414,7 @@ public class holoLib {
 													} else {
 														System.out.println("\n\tBook \"" + bookID
 																+ "\" is borrowed, can't continue borrow book action!");
-						
+
 													}
 												} else {
 													System.out.println("\n\tBook Not Found!");
@@ -425,7 +427,7 @@ public class holoLib {
 										break;
 									// 4. Return Book
 									case 4:
-										do{
+										do {
 											cls();
 											// Get Borrower ID
 											String borrowerID;
@@ -463,7 +465,8 @@ public class holoLib {
 																		.getCurrentBorrowedCount(); i++) {
 															if (bookID.compareTo(
 																	holoLib.searchBorrowerByID(borrowerID).libraryCard
-																			.getCurrentBorrowed()[i].getBookID()) == 0) {
+																			.getCurrentBorrowed()[i]
+																					.getBookID()) == 0) {
 																isCurrentBorrow = true;
 															}
 														}
@@ -495,7 +498,7 @@ public class holoLib {
 													}
 												}
 											}
-										}while(holoLib.captureYesNoChoice(sc, "Another Return?").matches("Y"));
+										} while (holoLib.captureYesNoChoice(sc, "Another Return?").matches("Y"));
 								}
 								System.out.print("\n\tPress Enter To Continue...");
 								sc.nextLine();
@@ -558,7 +561,7 @@ public class holoLib {
 											System.out.println("\n\tWrong Password! Access Denied...");
 										} else {
 											holoLib.displayLoginRecords();
-											sc.nextLine();	
+											sc.nextLine();
 										}
 									}
 									cls();

@@ -35,7 +35,7 @@ public class LibrarySystem {
 	}
 
 	/********** Methods **********/
-	/******************************Login Module******************************/
+	/****************************** Login Module ******************************/
 	public static void logo() {
 		System.out.println("⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
 		System.out.println("⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣀⠠⠤⠤⠤⠤⠤⠤⠤⠤⠤⠐⠒⠒⢄⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄");
@@ -90,7 +90,7 @@ public class LibrarySystem {
 		System.out.println("             Thank you for using our system!");
 	}
 
-	/******************************Menu******************************/
+	/****************************** Menu ******************************/
 	// Display Main Menu
 	public void displayHomeMenu() {
 		System.out.println("++==============================++");
@@ -104,7 +104,9 @@ public class LibrarySystem {
 		System.out.println("++===++=========================++");
 	}
 
-	/******************************Membership Module******************************/
+	/******************************
+	 * Membership Module
+	 ******************************/
 	// Display Membership Menu
 	public void displayMembershipMenu() {
 		System.out.println("++================================++");
@@ -129,7 +131,7 @@ public class LibrarySystem {
 				new LibraryCard(pinNO, cardEXPDate, cardBalance));
 	}
 
-	/******************************Utility Methods******************************/
+	/****************************** Utility Methods ******************************/
 	// Capture a menu selection after invoke any menu method
 	public int captureMenuSelection(Scanner sc, int maxMenuSelection) {
 		boolean continueInput = true;
@@ -348,7 +350,9 @@ public class LibrarySystem {
 		return (localDate.getYear() * 365 + localDate.getMonthValue() * 30 + localDate.getDayOfMonth());
 	}
 
-	/******************************Book Borrowing Module******************************/
+	/******************************
+	 * Book Borrowing Module
+	 ******************************/
 	// Display Borrow Menu
 	public void displayBorrowMenu() {
 		System.out.println("++=========================++");
@@ -458,7 +462,7 @@ public class LibrarySystem {
 		System.out.println("\nTotal Book(s) Found: " + totalResult);
 	}
 
-	/******************************Reports Module******************************/
+	/****************************** Reports Module ******************************/
 	// Display Report Menu
 	public void displayReportMenu() {
 		System.out.println("++==================================++");
@@ -484,8 +488,9 @@ public class LibrarySystem {
 		for (int i = 0; i < Borrower.getTotalBorrowers(); i++) {
 			if (borrowerList[i].libraryCard.getCurrentBorrowedCount() > 0) {
 				for (int j = 0; j < borrowerList[i].libraryCard.getCurrentBorrowedCount(); j++) {
-					if (toDays(borrowerList[i].libraryCard.getCurrentBorrowed()[j].getBorrowDate()) == toDays(LocalDate.now())) {
-						if(i > 0){
+					if (toDays(borrowerList[i].libraryCard.getCurrentBorrowed()[j].getBorrowDate()) == toDays(
+							LocalDate.now())) {
+						if (i > 0) {
 							System.out.println(
 									"+------------------------------------------+---------------------+-----------------------+-----------------+");
 						}
@@ -522,8 +527,9 @@ public class LibrarySystem {
 
 			if (borrowerList[i].libraryCard.getBorrowedHistoryCount() > 0) {
 				for (int j = 0; j < borrowerList[i].libraryCard.getBorrowedHistoryCount(); j++) {
-					if (toDays(borrowerList[i].libraryCard.getBorrowedHistory()[j].getReturnDate()) == toDays(LocalDate.now())) {
-						if(i > 0){
+					if (toDays(borrowerList[i].libraryCard.getBorrowedHistory()[j].getReturnDate()) == toDays(
+							LocalDate.now())) {
+						if (i > 0) {
 							System.out.println(
 									"+-----------------------------------------+---------------------+---------------------+------------------+");
 						}
@@ -579,7 +585,9 @@ public class LibrarySystem {
 				count);
 	}
 
-	/******************************Administrative Module******************************/
+	/******************************
+	 * Administrative Module
+	 ******************************/
 	// Display login Records for Library Admin
 	public void displayLoginRecords() {
 		if (recordCount == 0) {

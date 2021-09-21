@@ -1,5 +1,6 @@
 package holoLib;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -78,7 +79,7 @@ public class LibraryCard implements Payment {
 	}
 
 	public void renewCardExpDate() {
-		cardExpDate.set(cardExpDate.get(Calendar.YEAR) + 1, cardExpDate.get(Calendar.MONTH),
+		cardExpDate.set(LocalDate.now().getYear() + 1, cardExpDate.get(Calendar.MONTH),
 				cardExpDate.get(Calendar.DAY_OF_MONTH));
 	}
 

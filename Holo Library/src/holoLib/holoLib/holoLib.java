@@ -20,9 +20,9 @@ public class holoLib {
 				new LibraryCard("030303", new GregorianCalendar(2022, 5, 1), 10.00), "admin3", "General Staff");
 		borrowerList[3] = new Librarian("Memei", "444444-44-4444", "Female", new GregorianCalendar(2004, 4, 4),
 				"444-4444444", new LibraryCard("040404", new GregorianCalendar(2019, 10, 1), 5.00), "admin4",
-				"Librarian Admin");
+				"Library Admin");
 		borrowerList[4] = new Member("LaoSu", "555555-55-5555", "Female", new GregorianCalendar(2001, 1, 31),
-				"555-5555555", new LibraryCard("050505", new GregorianCalendar(2018, 10, 1), 10.00));
+				"555-5555555", new LibraryCard("050505", new GregorianCalendar(2018, 10, 1), 30.00));
 		borrowerList[5] = new Member("FEET", "666666-66-6666", "Female", new GregorianCalendar(2002, 2, 28),
 				"666-6666666", new LibraryCard("060606", new GregorianCalendar(2009, 2, 1), 11.11));
 		borrowerList[6] = new Member("Kawaiiope Morison", "777777-77-7777", "Male", new GregorianCalendar(2003, 3, 31),
@@ -569,6 +569,7 @@ public class holoLib {
 
 								if (!holoLib.getCurrentLoggedUser().isAdmin()) {
 									System.out.println("\n\tYou are not a Library Admin! Access Denied...");
+									sc.nextLine();
 								} else {
 									System.out.println(
 											"Librarian ID: " + holoLib.getCurrentLoggedUser().getLibrarianID());
